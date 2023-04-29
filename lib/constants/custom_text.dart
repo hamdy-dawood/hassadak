@@ -10,6 +10,7 @@ class CustomText extends StatelessWidget {
     required this.fontSize,
     this.textDecoration = TextDecoration.none,
     this.textAlign = TextAlign.start,
+    this.maxLines = 2,
   }) : super(key: key);
   final String text;
   final Color color;
@@ -17,12 +18,15 @@ class CustomText extends StatelessWidget {
   final double fontSize;
   final TextDecoration textDecoration;
   final TextAlign textAlign;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
       style: GoogleFonts.almarai(
         textStyle: TextStyle(
           color: color,

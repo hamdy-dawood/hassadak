@@ -41,6 +41,8 @@ class ProfileView extends StatelessWidget {
                             return ContainerShimmer(
                               height: 100.h,
                               width: 0.8.sw,
+                              margin: EdgeInsets.all(12.h),
+                              padding: EdgeInsets.all(12.h),
                             );
                           }),
                     ),

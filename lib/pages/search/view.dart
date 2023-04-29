@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/product_item.dart';
+import 'package:hassadak/pages/home/components/product_item.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
@@ -69,7 +69,7 @@ class SearchView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 25.h),
+                            padding: EdgeInsets.symmetric(vertical: 15.h),
                             child: Container(
                               height: 45.h,
                               decoration: BoxDecoration(
@@ -273,6 +273,7 @@ class SearchView extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10.w,
+                                    crossAxisSpacing: 10.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount: 20,
@@ -280,6 +281,8 @@ class SearchView extends StatelessWidget {
                                 return ContainerShimmer(
                                   height: 200.h,
                                   width: 0.5.sw,
+                                  margin: EdgeInsets.all(0.h),
+                                  padding: EdgeInsets.all(0.h),
                                 );
                               },
                             ),

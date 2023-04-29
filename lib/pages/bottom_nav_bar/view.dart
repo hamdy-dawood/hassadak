@@ -12,17 +12,17 @@ import 'bottom_bar_item.dart';
 import 'cubit.dart';
 
 class NavBarView extends StatelessWidget {
-  const NavBarView({Key? key}) : super(key: key);
+  NavBarView({Key? key}) : super(key: key);
 
+  List screens = const [
+    HomeView(),
+    FavouriteView(),
+    CompanyView(),
+    AboutView(),
+    // ProfileView(),
+  ];
   @override
   Widget build(BuildContext context) {
-    List screens = const [
-      HomeView(),
-      FavouriteView(),
-      CompanyView(),
-      AboutView(),
-      // ProfileView(),
-    ];
     return BlocProvider(
       create: (context) => NavBarCubit(),
       child: Builder(builder: (context) {
