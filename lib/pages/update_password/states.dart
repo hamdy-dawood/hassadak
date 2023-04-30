@@ -12,6 +12,7 @@ class UpdatePasswordFailureState extends UpdatePasswordStates {
   UpdatePasswordFailureState({required this.msg});
 }
 
+class CurrentPassVisibilityState extends UpdatePasswordStates {}
 
 class UpdatePasswordVisibilityState extends UpdatePasswordStates {}
 

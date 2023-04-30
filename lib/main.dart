@@ -17,7 +17,7 @@ import 'pages/splash/view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  // CacheHelper.clear();
+// CacheHelper.clear();
   runApp(const MyApp());
 }
 

@@ -52,7 +52,7 @@ class SearchView extends StatelessWidget {
             ),
           ),
           body: RefreshIndicator(
-            backgroundColor: ColorManager.mainColor,
+            backgroundColor: ColorManager.secMainColor,
             color: Colors.white,
             onRefresh: () async {
               await Future.delayed(const Duration(seconds: 1));

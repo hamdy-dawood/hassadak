@@ -14,9 +14,11 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
   final dio = Dio();
   final formKey = GlobalKey<FormState>();
 
+  final currentPasswordController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  bool currentPass = true;
   bool securePass = true;
   bool secureConfPass = true;
 
@@ -28,6 +30,7 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
         final response = await dio.patch(
           UrlsStrings.updatePassUrl,
           data: {
+            "passwordCurrent": currentPasswordController.text,
             "password": passwordController.text,
             "passwordConfirm": confirmPasswordController.text,
           },
@@ -46,6 +49,11 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
         print("$e");
       }
     }
+  }
+
+  currentPassVisibility() {
+    currentPass = !currentPass;
+    emit(CurrentPassVisibilityState());
   }
 
   passwordVisibility() {

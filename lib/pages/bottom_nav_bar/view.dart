@@ -20,8 +20,7 @@ class NavBarView extends StatelessWidget {
     HomeView(),
     FavouriteView(),
     CompanyView(),
-    NewPasswordView(),
-    // AboutView(),
+    AboutView(),
     // ProfileView(),
   ];
   @override

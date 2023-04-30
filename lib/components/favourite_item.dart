@@ -19,9 +19,12 @@ class FavouriteItem extends StatelessWidget {
     required this.userImage,
     required this.price,
     required this.oldPrice,
+    required this.deleteTap, required this.deleteFunTap,
   }) : super(key: key);
 
   final String offer, image, title, userName, userImage, price, oldPrice;
+  final VoidCallback deleteTap;
+  final VoidCallback deleteFunTap;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,9 @@ class FavouriteItem extends StatelessWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
-            onPressed: ((context) {}),
+            onPressed: (_) {
+              deleteFunTap;
+            },
             backgroundColor: ColorManager.white,
             foregroundColor: ColorManager.red,
             icon: Icons.cancel,
@@ -54,12 +59,23 @@ class FavouriteItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText(
-                      text:
-                      title,
-                      color: ColorManager.mainColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.sp,
+                    Row(
+                      children: [
+                        CustomText(
+                          text: title,
+                          color: ColorManager.mainColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                        ),
+                        IconButton(
+                          onPressed: deleteTap,
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 25.sp,
+                          ),
+                        )
+                      ],
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -67,14 +83,13 @@ class FavouriteItem extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 15.r,
-                            backgroundImage:
-                                 NetworkImage(userImage),
+                            backgroundImage: AssetImage(userImage),
                           ),
                           SizedBox(
                             width: 5.w,
                           ),
                           CustomText(
-                            text:userName,
+                            text: userName,
                             color: ColorManager.mainColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 15.sp,
@@ -87,26 +102,30 @@ class FavouriteItem extends StatelessWidget {
                             borderRadius: 25.r,
                             wSize: 90.w,
                             hSize: 30.h,
-                            fontSize: 15.sp,
+                            fontSize: 12.sp,
                           ),
                         ],
                       ),
                     ),
                     Row(
                       children: [
-                        CustomText(
-                          text: "$price دينار",
-                          color: ColorManager.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.sp,
+                        Expanded(
+                          child: CustomText(
+                            text: "$price دينار",
+                            color: ColorManager.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                          ),
                         ),
                         const Spacer(),
-                        CustomText(
-                          text: "$oldPrice دينار",
-                          color: ColorManager.navGrey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          textDecoration: TextDecoration.lineThrough,
+                        Expanded(
+                          child: CustomText(
+                            text: "$oldPrice دينار",
+                            color: ColorManager.navGrey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                            textDecoration: TextDecoration.lineThrough,
+                          ),
                         ),
                       ],
                     ),
@@ -118,16 +137,15 @@ class FavouriteItem extends StatelessWidget {
                 child: SizedBox(
                   height: 100.h,
                   width: 70.h,
-                  child:CachedNetworkImage(
+                  child: CachedNetworkImage(
                     fit: BoxFit.fill,
                     imageUrl: image.replaceAll(
                         "https://mobizil.com/oppo-f3-specs/",
                         UrlsStrings.noImageUrl),
-                    placeholder: (context, url) =>
-                        JumpingDotsProgressIndicator(
-                          fontSize: 50.h,
-                          color: ColorManager.secMainColor,
-                        ),
+                    placeholder: (context, url) => JumpingDotsProgressIndicator(
+                      fontSize: 50.h,
+                      color: ColorManager.secMainColor,
+                    ),
                     errorWidget: (context, url, error) => Center(
                       child: Image.network(UrlsStrings.noImageUrl),
                     ),

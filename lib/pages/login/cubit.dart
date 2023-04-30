@@ -23,24 +23,43 @@ class LoginCubit extends Cubit<LoginStates> {
     if (formKey.currentState!.validate()) {
       emit(LoginLoadingState());
       try {
-        final response = await Dio().post(UrlsStrings.loginUrl, data: {
+        final emailResponse =
+            await Dio().post(UrlsStrings.emailLoginUrl, data: {
           "email": controllers.emailController.text,
           "password": controllers.passwordController.text,
         });
-        if (response.data["status"] == "success" &&
-            response.statusCode == 200) {
-          loginResponse = LoginResponse.fromJson(response.data);
+        if (emailResponse.data["status"] == "success" &&
+            emailResponse.statusCode == 200) {
+          loginResponse = LoginResponse.fromJson(emailResponse.data);
           print(loginResponse!.data.user.email);
-          CacheHelper.saveToken("${response.data["token"]}");
-          // CacheHelper.saveEmail(emailController.text);
-          // CacheHelper.savePass(passwordController.text);
+          CacheHelper.saveToken("${emailResponse.data["token"]}");
           emit(LoginSuccessState());
         } else {
-          emit(LoginFailureState(msg: response.data["status"]));
+          emit(LoginFailureState(msg: emailResponse.data["status"]));
         }
       } on DioError catch (e) {
         emit(LoginFailureState(msg: "$e"));
       }
+
+      // try {
+      //   final phoneResponse =
+      //       await Dio().post(UrlsStrings.phoneLoginUrl, data: {
+      //     "telephone": controllers.emailController.text,
+      //     "password": controllers.passwordController.text,
+      //   });
+      //   if (phoneResponse.data["status"] == "success" &&
+      //       phoneResponse.statusCode == 200) {
+      //     loginResponse = LoginResponse.fromJson(phoneResponse.data);
+      //     print(loginResponse!.data.user.email);
+      //     CacheHelper.saveToken("${phoneResponse.data["token"]}");
+      //     emit(LoginSuccessState());
+      //   } else {
+      //     emit(LoginFailureState(msg: phoneResponse.data["status"]));
+      //   }
+      // } on DioError catch (e) {
+      //   emit(LoginFailureState(msg: "$e"));
+      // }
+
     }
   }
 

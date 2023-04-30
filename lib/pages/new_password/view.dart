@@ -57,44 +57,6 @@ class NewPasswordView extends StatelessWidget {
                     BlocBuilder<NewPasswordCubit, NewPasswordStates>(
                       builder: (context, state) {
                         return CustomTextFormField(
-                          controller: cubit.currentPasswordController,
-                          hint: 'كلمة المرور الحالية',
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(8.0.w),
-                            child: SvgIcon(
-                              icon: "assets/icons/lock.svg",
-                              color: ColorManager.grey,
-                              height: 10.h,
-                            ),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.currentPassVisibility();
-                            },
-                            icon: Icon(
-                              cubit.currentPass
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                            ),
-                            color: ColorManager.navGrey,
-                          ),
-                          obscureText: cubit.currentPass,
-                          isLastInput: false,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل كلمة المرور !';
-                            }
-                            return null;
-                          },
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 0.02.sh,
-                    ),
-                    BlocBuilder<NewPasswordCubit, NewPasswordStates>(
-                      builder: (context, state) {
-                        return CustomTextFormField(
                           controller: cubit.passwordController,
                           hint: 'كلمة المرور ',
                           prefixIcon: Padding(
@@ -158,7 +120,7 @@ class NewPasswordView extends StatelessWidget {
                           isLastInput: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'من فضلك ادخل تأكيد كلمة المرور !';
+                              return 'من فضلك ادخل نفس كلمة المرور !';
                             } else if (value != cubit.passwordController.text) {
                               return 'كلمة المرور ليست مطابقة !';
                             }

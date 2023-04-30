@@ -4,9 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/back_with_logo.dart';
 import 'package:hassadak/components/custom_elevated.dart';
+import 'package:hassadak/components/custom_form_field.dart';
+import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/bottom_nav_bar/view.dart';
+import 'package:hassadak/pages/new_password/view.dart';
 import 'package:hassadak/pages/otp/states.dart';
 import 'package:hassadak/pages/update_password/view.dart';
 import 'package:pinput/pinput.dart';
@@ -108,13 +112,92 @@ class OtpScreen extends StatelessWidget {
                       },
                     ),
                   ),
+                  BlocBuilder<OtpCubit, OtpStates>(
+                    builder: (context, state) {
+                      return CustomTextFormField(
+                        controller: cubit.passwordController,
+                        hint: 'كلمة المرور ',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(8.0.w),
+                          child: SvgIcon(
+                            icon: "assets/icons/lock.svg",
+                            color: ColorManager.grey,
+                            height: 10.h,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            cubit.passwordVisibility();
+                          },
+                          icon: Icon(
+                            cubit.securePass
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                          ),
+                          color: ColorManager.navGrey,
+                        ),
+                        obscureText: cubit.securePass,
+                        isLastInput: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'من فضلك ادخل كلمة المرور !';
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 0.02.sh,
+                  ),
+                  BlocBuilder<OtpCubit, OtpStates>(
+                    builder: (context, state) {
+                      return CustomTextFormField(
+                        controller: cubit.confirmPasswordController,
+                        hint: 'تأكيد كلمة المرور',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(8.0.w),
+                          child: SvgIcon(
+                            icon: "assets/icons/lock.svg",
+                            color: ColorManager.grey,
+                            height: 10.h,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            cubit.confPasswordVisibility();
+                          },
+                          icon: Icon(
+                            cubit.secureConfPass
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                          ),
+                          color: ColorManager.grey,
+                        ),
+                        obscureText: cubit.secureConfPass,
+                        isLastInput: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'من فضلك ادخل نفس كلمة المرور !';
+                          } else if (value != cubit.passwordController.text) {
+                            return 'كلمة المرور ليست مطابقة !';
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 0.03.sh,
+                  ),
                   BlocConsumer<OtpCubit, OtpStates>(
                     listener: (context, state) {
                       if (state is OtpFailureState) {
                         showMessage(message: state.msg);
                       } else if (state is OtpSuccessState) {
-                        navigateTo(page: const UpdatePasswordView());
+                        navigateTo(page:  NavBarView());
                         print(cubit.otpController.text);
+                        print(cubit.passwordController);
                       }
                     },
                     builder: (context, state) {

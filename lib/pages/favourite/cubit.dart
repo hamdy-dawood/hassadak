@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
+import 'package:hassadak/core/cache_helper.dart';
 
 import 'model.dart';
 
@@ -26,7 +27,7 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
     emit(AllFavouritesLoadingStates());
 
     try {
-      dio.options.headers['Authorization'] = 'Bearer ${UrlsStrings.token}';
+      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response =await dio.get(UrlsStrings.allFavouritesUrl);
 
       if (response.data["status"] == "success" && response.statusCode == 200) {
