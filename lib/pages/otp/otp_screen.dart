@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/back_with_logo.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/otp_form.dart';
-import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/new_password/view.dart';
+import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key, required this.email});
+  OtpScreen({super.key, required this.email});
 
   final String email;
+  final otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,80 +23,96 @@ class OtpScreen extends StatelessWidget {
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 0.05.sh,
+          child: ListView(
+            children: [
+              const BackWithLogo(),
+              Align(
+                alignment: Alignment.center,
+                child: CustomText(
+                  text: "التحقق من الرمز",
+                  color: ColorManager.secMainColor,
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SvgIcon(
-                      icon: "assets/icons/logo.svg",
-                      color: ColorManager.green,
-                      height: 50.h,
-                    ),
-                    SizedBox(
-                      width: 0.25.sw,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(12.w),
-                        child: SvgIcon(
-                          icon: "assets/icons/back.svg",
-                          color: ColorManager.black,
-                          height: 18.h,
-                        ),
+              ),
+              SizedBox(
+                height: 0.02.sh,
+              ),
+              CustomText(
+                text: "أرسل الرمز الذي ارسلناه الى ",
+                color: ColorManager.grey,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.normal,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 0.01.sh,
+              ),
+              CustomText(
+                text: email,
+                color: ColorManager.grey,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.normal,
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 0.08.sh,
+                ),
+                child: Pinput(
+                  length: 6,
+                  controller: otpController,
+                  defaultPinTheme: PinTheme(
+                    height: 50.h,
+                    width: 50.h,
+                    textStyle: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        color: ColorManager.black,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 0.05.sh,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomText(
-                    text: "التحقق من الرمز",
-                    color: ColorManager.secMainColor,
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.bold,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: ColorManager.navGrey),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 0.02.sh,
-                ),
-                CustomText(
-                  text: "أرسل الرمز الذي ارسلناه الى $email",
-                  color: ColorManager.grey,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.normal,
-                  textAlign: TextAlign.center,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 0.03.sh,
+                  errorPinTheme: PinTheme(
+                    height: 50.h,
+                    width: 50.h,
+                    textStyle: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        color: ColorManager.black,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: ColorManager.red),
+                    ),
                   ),
-                  child: const OtpForm(),
-                ),
-                CustomElevated(
-                  text: "تأكيد",
-                  press: () {
-                    navigateTo(page: const NewPasswordView());
+                  validator: (otp) {
+                    if ((otp != otpController.text)) {
+                      return "من فضلك تحقق من الرمز";
+                    }
+                    return null;
                   },
-                  hSize: 50.h,
-                  wSize: double.infinity,
-                  btnColor: ColorManager.secMainColor,
-                  borderRadius: 20.r,
-                  fontSize: 18.sp,
-                )
-              ],
-            ),
+                ),
+              ),
+              CustomElevated(
+                text: "تأكيد",
+                press: () {
+                  print(otpController.text);
+                  // navigateTo(page: const NewPasswordView());
+                },
+                hSize: 50.h,
+                wSize: double.infinity,
+                btnColor: ColorManager.secMainColor,
+                borderRadius: 20.r,
+                fontSize: 18.sp,
+              )
+            ],
           ),
         ),
       ),

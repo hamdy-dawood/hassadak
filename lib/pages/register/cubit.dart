@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
 
+import 'controllers.dart';
 import 'states.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -12,34 +13,29 @@ class RegisterCubit extends Cubit<RegisterStates> {
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   final formKey = GlobalKey<FormState>();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final userNameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
   bool securePass = true;
   bool secureConfPass = true;
+
+  final controllers = RegisterControllers();
 
   Future<void> register() async {
     emit(RegisterLoadingState());
     if (formKey.currentState!.validate()) {
       try {
         final response = await Dio().post(UrlsStrings.registerUrl, data: {
-          "firstName": firstNameController.text,
-          "lastName": lastNameController.text,
-          "email": emailController.text,
-          "username": userNameController.text,
-          "telephone": phoneController.text,
-          "password": passwordController.text,
-          "passwordConfirm": confirmPasswordController.text,
+          "firstName": controllers.firstNameController.text,
+          "lastName": controllers.lastNameController.text,
+          "email": controllers.emailController.text,
+          "username": controllers.userNameController.text,
+          "telephone": controllers.phoneController.text,
+          "password": controllers.passwordController.text,
+          "passwordConfirm": controllers.confirmPasswordController.text,
         });
         if (response.data["status"] == "success" &&
-            response.statusCode == 200) {
+            response.statusCode == 201) {
           CacheHelper.saveToken("${response.data["token"]}");
-          // CacheHelper.saveEmail(emailController.text);
-          // CacheHelper.savePass(passwordController.text);
+          // CacheHelper.saveEmail(controllers.emailController.text);
+          // CacheHelper.savePass(controllers.passwordController.text);
           emit(RegisterSuccessState());
         } else {
           emit(RegisterFailureState(msg: response.data["status"]));
@@ -58,5 +54,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
   confPasswordVisibility() {
     secureConfPass = !secureConfPass;
     emit(ConfPasswordVisibilityState());
+  }
+
+  @override
+  Future<void> close() {
+    controllers.dispose();
+    return super.close();
   }
 }

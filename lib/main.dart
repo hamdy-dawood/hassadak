@@ -5,17 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/cache_helper.dart';
 import 'core/snack_and_navigate.dart';
+
 import 'pages/home/all_products/cubit.dart';
 import 'pages/home/categories/cubit.dart';
 import 'pages/home/offers/cubit.dart';
-import 'pages/login/cubit.dart';
-import 'pages/register/cubit.dart';
+
+import 'pages/new_password/view.dart';
 import 'pages/splash/view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-// CacheHelper.clear();
+  CacheHelper.clear();
   runApp(const MyApp());
 }
 
@@ -30,8 +31,6 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider( create: (context) => LoginCubit()),
-            BlocProvider( create: (context) => RegisterCubit()),
             BlocProvider(create: (context) => AllProductsCubit()),
             BlocProvider(create: (context) => AllOffersCubit()),
             BlocProvider(create: (context) => AllCategoriesCubit()),
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const SplashView(),
+      child: const NewPasswordView(),
     );
   }
 }

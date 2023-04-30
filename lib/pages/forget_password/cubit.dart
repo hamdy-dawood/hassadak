@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hassadak/constants/strings.dart';
 
 import 'states.dart';
 
@@ -13,7 +15,20 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates> {
 
   Future<void> sendEmail() async {
     if (formKey.currentState!.validate()) {
-      emit(ForgetPasswordSuccessState());
+      emit(ForgetPasswordLoadingState());
+      try {
+        final response = await Dio().post(UrlsStrings.forgetPassUrl, data: {
+          "email": emailController.text,
+        });
+        if (response.data["status"] == "success" &&
+            response.statusCode == 200) {
+          emit(ForgetPasswordSuccessState(msg: response.data["message"]));
+        } else {
+          emit(ForgetPasswordFailureState(msg: response.data["message"]));
+        }
+      } on DioError catch (e) {
+        emit(ForgetPasswordFailureState(msg: "$e"));
+      }
     }
   }
 }

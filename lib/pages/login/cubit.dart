@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
 
+import 'controller.dart';
 import 'model.dart';
 import 'states.dart';
 
@@ -13,18 +14,18 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   bool isObscure = true;
   LoginResponse? loginResponse;
+
+  final controllers = LoginControllers();
 
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
       emit(LoginLoadingState());
       try {
         final response = await Dio().post(UrlsStrings.loginUrl, data: {
-          "email": emailController.text,
-          "password": passwordController.text,
+          "email": controllers.emailController.text,
+          "password": controllers.passwordController.text,
         });
         if (response.data["status"] == "success" &&
             response.statusCode == 200) {
@@ -46,5 +47,11 @@ class LoginCubit extends Cubit<LoginStates> {
   changeVisibility() {
     isObscure = !isObscure;
     emit(ChanceVisibilityState());
+  }
+
+  @override
+  Future<void> close() {
+    controllers.dispose();
+    return super.close();
   }
 }

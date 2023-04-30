@@ -12,6 +12,8 @@ class NewPasswordFailureState extends NewPasswordStates {
   NewPasswordFailureState({required this.msg});
 }
 
+class CurrentPassVisibilityState extends NewPasswordStates {}
+
 class NewPasswordVisibilityState extends NewPasswordStates {}
 
 class NewConfPasswordVisibilityState extends NewPasswordStates {}
