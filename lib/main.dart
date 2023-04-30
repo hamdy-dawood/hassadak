@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 
 import 'core/cache_helper.dart';
 import 'core/snack_and_navigate.dart';
@@ -16,7 +17,7 @@ import 'pages/splash/view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  CacheHelper.clear();
+  // CacheHelper.clear();
   runApp(const MyApp());
 }
 
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const NewPasswordView(),
+      child: const SplashView(),
     );
   }
 }

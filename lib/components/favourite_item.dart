@@ -1,13 +1,27 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
+import 'package:hassadak/constants/strings.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import 'custom_elevated.dart';
 
 class FavouriteItem extends StatelessWidget {
-  const FavouriteItem({Key? key}) : super(key: key);
+  const FavouriteItem({
+    Key? key,
+    required this.offer,
+    required this.image,
+    required this.title,
+    required this.userName,
+    required this.userImage,
+    required this.price,
+    required this.oldPrice,
+  }) : super(key: key);
+
+  final String offer, image, title, userName, userImage, price, oldPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +56,7 @@ class FavouriteItem extends StatelessWidget {
                   children: [
                     CustomText(
                       text:
-                          "مبيد لمبادا تركيز 10% للذبابة الببضاء وذبابة الفاكهة",
+                      title,
                       color: ColorManager.mainColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16.sp,
@@ -54,20 +68,20 @@ class FavouriteItem extends StatelessWidget {
                           CircleAvatar(
                             radius: 15.r,
                             backgroundImage:
-                                const AssetImage("assets/images/user.png"),
+                                 NetworkImage(userImage),
                           ),
                           SizedBox(
                             width: 5.w,
                           ),
                           CustomText(
-                            text: "محمد احمد",
+                            text:userName,
                             color: ColorManager.mainColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 15.sp,
                           ),
                           const Spacer(),
                           CustomElevated(
-                            text: "خصم 20%",
+                            text: offer,
                             btnColor: ColorManager.green,
                             press: () {},
                             borderRadius: 25.r,
@@ -81,14 +95,14 @@ class FavouriteItem extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                          text: "${666} دينار",
+                          text: "$price دينار",
                           color: ColorManager.green,
                           fontWeight: FontWeight.bold,
                           fontSize: 20.sp,
                         ),
                         const Spacer(),
                         CustomText(
-                          text: "${599} دينار",
+                          text: "$oldPrice دينار",
                           color: ColorManager.navGrey,
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
@@ -104,7 +118,20 @@ class FavouriteItem extends StatelessWidget {
                 child: SizedBox(
                   height: 100.h,
                   width: 70.h,
-                  child: Image.asset("assets/images/fav_product.png"),
+                  child:CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: image.replaceAll(
+                        "https://mobizil.com/oppo-f3-specs/",
+                        UrlsStrings.noImageUrl),
+                    placeholder: (context, url) =>
+                        JumpingDotsProgressIndicator(
+                          fontSize: 50.h,
+                          color: ColorManager.secMainColor,
+                        ),
+                    errorWidget: (context, url, error) => Center(
+                      child: Image.network(UrlsStrings.noImageUrl),
+                    ),
+                  ),
                 ),
               )
             ],
