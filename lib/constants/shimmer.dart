@@ -9,10 +9,10 @@ class ContainerShimmer extends StatelessWidget {
     required this.width,
     required this.margin,
     required this.padding,
-     this.radius = 12,
+    this.radius = 12,
   }) : super(key: key);
 
-  final double height, width,radius;
+  final double height, width, radius;
   final EdgeInsets margin, padding;
 
   @override

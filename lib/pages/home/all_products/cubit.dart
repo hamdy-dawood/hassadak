@@ -19,6 +19,7 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
   static AllProductsCubit get(context) => BlocProvider.of(context);
 
   AllProductsResponse? allProducts;
+  bool isLoved = false;
 
   Future<void> getAllProducts({String? id = ""}) async {
     _allProductsController.add(AllProductsLoadingStates());
@@ -35,5 +36,9 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
     } on DioError catch (e) {
       emit(AllProductsFailedStates(msg: "$e"));
     }
+  }
+  changeFavourite() {
+    isLoved = !isLoved;
+    emit(ChangeFavouriteStates());
   }
 }

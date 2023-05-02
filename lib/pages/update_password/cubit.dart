@@ -26,7 +26,8 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
     if (formKey.currentState!.validate()) {
       emit(UpdatePasswordLoadingState());
       try {
-        dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+        dio.options.headers['Authorization'] =
+            'Bearer ${CacheHelper.getToken()}';
         final response = await dio.patch(
           UrlsStrings.updatePassUrl,
           data: {
@@ -39,7 +40,9 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
         if (response.data["status"] == "success" &&
             response.statusCode == 200) {
           emit(UpdatePasswordSuccessState());
-
+          currentPasswordController.clear();
+          passwordController.clear();
+          confirmPasswordController.clear();
         } else {
           emit(UpdatePasswordFailureState(msg: response.data["message"]));
           print(response.data["message"]);

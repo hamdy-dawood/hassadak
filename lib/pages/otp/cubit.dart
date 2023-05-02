@@ -38,7 +38,7 @@ class OtpCubit extends Cubit<OtpStates> {
         emit(OtpFailureState(msg: response.data["message"]));
         print(response.data["message"]);
       }
-    }on DioError catch (e) {
+    } on DioError catch (e) {
       String errorMessage;
       switch (e.type) {
         case DioErrorType.connectionTimeout:
@@ -64,6 +64,7 @@ class OtpCubit extends Cubit<OtpStates> {
       emit(OtpFailureState(msg: errorMessage));
     }
   }
+
   passwordVisibility() {
     securePass = !securePass;
     emit(NewPasswordVisibilityState());
@@ -73,5 +74,4 @@ class OtpCubit extends Cubit<OtpStates> {
     secureConfPass = !secureConfPass;
     emit(NewConfPasswordVisibilityState());
   }
-
 }

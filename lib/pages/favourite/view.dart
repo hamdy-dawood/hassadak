@@ -5,6 +5,8 @@ import 'package:hassadak/components/favourite_item.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/details/view.dart';
 
 import 'cubit.dart';
 import 'delete_fav/cubit.dart';
@@ -70,28 +72,45 @@ class FavouriteView extends StatelessWidget {
                         );
                       },
                       itemBuilder: (context, index) {
-                        return FavouriteItem(
-                          offer: 'خصم 20%',
-                          title: favCubit.allFavourites!.products[index].name,
-                          image:
-                              favCubit.allFavourites!.products[index].productUrl,
-                          userName: 'محمد احمد',
-                          userImage: 'assets/images/user.png',
-                          price:
-                              "${favCubit.allFavourites!.products[index].price}",
-                          oldPrice:
-                              "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
-
-                          deleteTap: (){
-                            deleteFavCubit.deleteFav(
-                                id: favCubit.allFavourites!.products[index].id);
-                            favCubit.getAllFavourites();
+                        return InkWell(
+                          onTap: () {
+                            navigateTo(
+                              page: DetailsView(
+                                image: favCubit
+                                    .allFavourites!.products[index].productUrl,
+                                name: favCubit
+                                    .allFavourites!.products[index].name,
+                                desc: favCubit
+                                    .allFavourites!.products[index].desc,
+                                price:
+                                    "${favCubit.allFavourites!.products[index].price}",
+                                oldPrice:
+                                    "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
+                                rating: (favCubit.allFavourites!.products[index]
+                                        .ratingsAverage)
+                                    .toInt(),
+                              ),
+                            );
                           },
-                          deleteFunTap: (){
-                            // deleteFavCubit.deleteFav(
-                            //     id: favCubit.allFavourites!.products[index].id);
-                            // favCubit.getAllFavourites();
-                          },
+                          child: FavouriteItem(
+                            offer: 'خصم 20%',
+                            title: favCubit.allFavourites!.products[index].name,
+                            image: favCubit
+                                .allFavourites!.products[index].productUrl,
+                            userName: 'محمد احمد',
+                            userImage: 'assets/images/user.png',
+                            price:
+                                "${favCubit.allFavourites!.products[index].price}",
+                            oldPrice:
+                                "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
+                            deleteTap: (context) async {
+                              deleteFavCubit.deleteFav(
+                                  id: favCubit
+                                      .allFavourites!.products[index].id);
+                              await Future.delayed(const Duration(seconds: 1));
+                              favCubit.getAllFavourites();
+                            },
+                          ),
                         );
                       },
                     );

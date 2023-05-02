@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
-import 'package:hassadak/core/cache_helper.dart';
 
 import 'states.dart';
 
@@ -23,7 +22,6 @@ class NewPasswordCubit extends Cubit<NewPasswordStates> {
     if (formKey.currentState!.validate()) {
       emit(NewPasswordLoadingState());
       try {
-
         final response = await dio.patch(
           "${UrlsStrings.otpUrl}/${555555}",
           data: {
@@ -45,7 +43,6 @@ class NewPasswordCubit extends Cubit<NewPasswordStates> {
       }
     }
   }
-
 
   passwordVisibility() {
     securePass = !securePass;

@@ -13,3 +13,5 @@ class AllProductsFailedStates extends AllProductsStates {
 
   AllProductsFailedStates({required this.msg});
 }
+
+class ChangeFavouriteStates extends AllProductsStates {}

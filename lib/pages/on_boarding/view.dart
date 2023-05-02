@@ -49,6 +49,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       page: const LoginView(),
                       withHistory: false,
                     );
+                    CacheHelper.saveIfNotFirstTime();
                   },
                   hSize: 20.h,
                   wSize: 90.w,

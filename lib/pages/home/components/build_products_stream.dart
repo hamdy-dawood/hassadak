@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hassadak/pages/home/components/product_item.dart';
+import 'package:hassadak/components/svg_icons.dart';
+import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
+import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
+import 'package:hassadak/pages/home/components/product_item.dart';
 
 class BuildProductsStream extends StatelessWidget {
-  const BuildProductsStream({Key? key, required this.allProductsCubit})
+  const BuildProductsStream(
+      {Key? key, required this.allProductsCubit, required this.addFavCubit})
       : super(key: key);
   final AllProductsCubit allProductsCubit;
+  final AddFavCubit addFavCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,6 @@ class BuildProductsStream extends StatelessWidget {
                 padding: EdgeInsets.all(0.h),
               );
             },
-
           );
         } else if (state is AllProductsFailedStates) {
           return Text(state.msg);
@@ -62,21 +67,39 @@ class BuildProductsStream extends StatelessWidget {
                     ),
                   );
                 },
-                child: ProductItem(
-                  offer: 'خصم 20%',
-                  image:
-                      allProductsCubit.allProducts!.data.doc[index].productUrl,
-                  title: allProductsCubit.allProducts!.data.doc[index].name,
-                  userName: 'محمد احمد',
-                  userImage: 'assets/images/user.png',
-                  price:
-                      "${allProductsCubit.allProducts!.data.doc[index].price}",
-                  oldPrice:
-                      "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
+                child: BlocBuilder<AddFavCubit, AddFavStates>(
+                  builder: (context, state) {
+                    return ProductItem(
+                      favIcon: SvgIcon(
+                        icon: allProductsCubit.isLoved
+                            ? "assets/icons/fill_heart.svg"
+                            : "assets/icons/heart.svg",
+                        color: allProductsCubit.isLoved
+                            ? ColorManager.red
+                            : ColorManager.white,
+                        height: 18.h,
+                      ),
+                      favTap: () {
+                        addFavCubit.addFav(
+                            id: allProductsCubit
+                                .allProducts!.data.doc[index].id);
+                        allProductsCubit.changeFavourite();
+                      },
+                      offer: 'خصم 20%',
+                      image: allProductsCubit
+                          .allProducts!.data.doc[index].productUrl,
+                      title: allProductsCubit.allProducts!.data.doc[index].name,
+                      userName: 'محمد احمد',
+                      userImage: 'assets/images/user.png',
+                      price:
+                          "${allProductsCubit.allProducts!.data.doc[index].price}",
+                      oldPrice:
+                          "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
+                    );
+                  },
                 ),
               );
             },
-
           );
         }
       },

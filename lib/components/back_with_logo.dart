@@ -10,7 +10,7 @@ class BackWithLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top: 10.h,bottom: 20.h),
+      padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

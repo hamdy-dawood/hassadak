@@ -10,9 +10,7 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/bottom_nav_bar/view.dart';
-import 'package:hassadak/pages/new_password/view.dart';
 import 'package:hassadak/pages/otp/states.dart';
-import 'package:hassadak/pages/update_password/view.dart';
 import 'package:pinput/pinput.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
@@ -195,7 +193,7 @@ class OtpScreen extends StatelessWidget {
                       if (state is OtpFailureState) {
                         showMessage(message: state.msg);
                       } else if (state is OtpSuccessState) {
-                        navigateTo(page:  NavBarView());
+                        navigateTo(page: NavBarView());
                         print(cubit.otpController.text);
                         print(cubit.passwordController);
                       }

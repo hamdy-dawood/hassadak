@@ -7,8 +7,7 @@ import 'package:hassadak/pages/bottom_nav_bar/states.dart';
 import 'package:hassadak/pages/company/view.dart';
 import 'package:hassadak/pages/favourite/view.dart';
 import 'package:hassadak/pages/home/view.dart';
-import 'package:hassadak/pages/new_password/view.dart';
-import 'package:hassadak/pages/update_password/view.dart';
+import 'package:hassadak/pages/profile/view.dart';
 
 import 'bottom_bar_item.dart';
 import 'cubit.dart';
@@ -20,9 +19,10 @@ class NavBarView extends StatelessWidget {
     HomeView(),
     FavouriteView(),
     CompanyView(),
-    AboutView(),
-    // ProfileView(),
+    ProfileView(),
+    // AboutView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

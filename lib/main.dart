@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 
 import 'core/cache_helper.dart';
 import 'core/snack_and_navigate.dart';
-
+import 'pages/favourite/add_fav/cubit.dart';
 import 'pages/home/all_products/cubit.dart';
 import 'pages/home/categories/cubit.dart';
 import 'pages/home/offers/cubit.dart';
-
-import 'pages/new_password/view.dart';
 import 'pages/splash/view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-// CacheHelper.clear();
+ // CacheHelper.clear();
   runApp(const MyApp());
 }
 
@@ -35,6 +32,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => AllProductsCubit()),
             BlocProvider(create: (context) => AllOffersCubit()),
             BlocProvider(create: (context) => AllCategoriesCubit()),
+            BlocProvider(create: (context) => AddFavCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

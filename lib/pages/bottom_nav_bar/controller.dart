@@ -6,7 +6,7 @@ class NavBarController {
     'assets/icons/home.svg',
     'assets/icons/heart.svg',
     'assets/icons/company.svg',
-    'assets/icons/about.svg',
+    'assets/icons/user.svg',
   ];
 
   //list of navigation bar labels
@@ -14,6 +14,6 @@ class NavBarController {
     'الرئيسية',
     'المفضلة',
     'الشركات',
-    'عن التطبيق',
+    'البروفايل',
   ];
 }

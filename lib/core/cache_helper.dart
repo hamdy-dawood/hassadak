@@ -23,21 +23,34 @@ class CacheHelper {
     return prefs.getString("token") ?? "";
   }
 
-  static Future<bool> saveEmail(String email) async {
-    return await prefs.setString("email", email);
+  static Future<bool> removeToken() {
+    return prefs.remove("token");
   }
 
-  static String getEmail() {
-    return prefs.getString("email") ?? "";
+
+  static Future<bool> saveId(String id) async {
+    return await prefs.setString("id", id);
   }
 
-  static Future<bool> savePass(String pass) async {
-    return await prefs.setString("pass", pass);
+  static String getId() {
+    return prefs.getString("id") ?? "";
   }
 
-  static String getPass() {
-    return prefs.getString("pass") ?? "";
-  }
+  // static Future<bool> saveEmail(String email) async {
+  //   return await prefs.setString("email", email);
+  // }
+  //
+  // static String getEmail() {
+  //   return prefs.getString("email") ?? "";
+  // }
+  //
+  // static Future<bool> savePass(String pass) async {
+  //   return await prefs.setString("pass", pass);
+  // }
+  //
+  // static String getPass() {
+  //   return prefs.getString("pass") ?? "";
+  // }
 
   static Future<bool> clear() {
     return prefs.clear();

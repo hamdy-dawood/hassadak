@@ -18,10 +18,11 @@ class ProductItem extends StatelessWidget {
     required this.userName,
     required this.userImage,
     required this.price,
-    required this.oldPrice,
+    required this.oldPrice, required this.favTap, required this.favIcon,
   }) : super(key: key);
   final String offer, image, title, userName, userImage, price, oldPrice;
-
+  final VoidCallback favTap;
+  final Widget favIcon;
   @override
   Widget build(BuildContext context) {
     return ClipRect(
@@ -82,15 +83,11 @@ class ProductItem extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(5.w),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: favTap,
                         child: CircleAvatar(
                           radius: 20.r,
                           backgroundColor: ColorManager.navGrey,
-                          child: SvgIcon(
-                            icon: 'assets/icons/heart.svg',
-                            color: ColorManager.white,
-                            height: 18.h,
-                          ),
+                          child: favIcon,
                         ),
                       ),
                     ),

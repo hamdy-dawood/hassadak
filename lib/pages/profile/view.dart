@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/pages/login/cubit.dart';
-import 'package:hassadak/pages/login/states.dart';
+import 'package:hassadak/core/cache_helper.dart';
+import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/login/view.dart';
+import 'package:hassadak/pages/update_password/view.dart';
+
+import 'components/build_container_shadow.dart';
+import 'personal_data/view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -14,70 +16,57 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      body: BlocProvider(
-        create: (context) => LoginCubit(),
-        child: Builder(builder: (context) {
-          final cubit = LoginCubit.get(context);
-          cubit.login();
-          cubit.loginResponse;
-          return SizedBox(
-            width: 1.sw,
-            height: 1.sh,
-            child: BlocBuilder<LoginCubit, LoginStates>(
-              builder: (context, state) {
-                if (state is LoginLoadingState) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: SizedBox(
-                      height: 120.h,
-                      child: ListView.separated(
-                          itemCount: 2,
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) => SizedBox(
-                                width: 10.w,
-                              ),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return ContainerShimmer(
-                              height: 100.h,
-                              width: 0.8.sw,
-                              margin: EdgeInsets.all(12.h),
-                              padding: EdgeInsets.all(12.h),
-                            );
-                          }),
-                    ),
-                  );
-                } else if (state is LoginFailureState) {
-                  return Text(state.msg);
-                } else {
-                  return ListView(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: ColorManager.mainColor,
-                      ),
-                      CustomText(
-                        text: "${cubit.loginResponse!.data.user.email}",
-                        color: ColorManager.red,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      CustomText(
-                        text: "${cubit.loginResponse!.data.user.telephone}",
-                        color: ColorManager.red,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-          );
-        }),
+      body: SizedBox(
+        width: 1.sw,
+        height: 1.sh,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 0.05.sh,
+              ),
+              ContainerWithShadow(
+                onTap: () {
+                  navigateTo(page: const PersonalDataView());
+                },
+                image: "assets/icons/user.svg",
+                title: "المعلومات الشخصية ",
+                color: ColorManager.secMainColor,
+              ),
+              ContainerWithShadow(
+                onTap: () {
+                  navigateTo(page: const UpdatePasswordView());
+                },
+                image: "assets/icons/setting.svg",
+                title: "الاعدادات",
+                color: ColorManager.secMainColor,
+              ),
+              ContainerWithShadow(
+                onTap: () {},
+                image: "assets/icons/help.svg",
+                title: "مركز المساعدة",
+                color: ColorManager.secMainColor,
+              ),
+              ContainerWithShadow(
+                onTap: () {},
+                image: "assets/icons/about.svg",
+                title: "عن التطبيق",
+                color: ColorManager.secMainColor,
+              ),
+              ContainerWithShadow(
+                onTap: () {
+                  navigateTo(page: const LoginView(), withHistory: false);
+                  CacheHelper.removeToken();
+                },
+                image: "assets/icons/logout.svg",
+                title: "تسجيل الخروج",
+                color: ColorManager.red,
+                arrow: false,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

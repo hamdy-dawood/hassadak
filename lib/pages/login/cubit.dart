@@ -19,7 +19,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   final controllers = LoginControllers();
 
-  Future<void> login() async {
+  Future<void> emailLogin() async {
     if (formKey.currentState!.validate()) {
       emit(LoginLoadingState());
       try {
@@ -31,8 +31,10 @@ class LoginCubit extends Cubit<LoginStates> {
         if (emailResponse.data["status"] == "success" &&
             emailResponse.statusCode == 200) {
           loginResponse = LoginResponse.fromJson(emailResponse.data);
-          print(loginResponse!.data.user.email);
           CacheHelper.saveToken("${emailResponse.data["token"]}");
+          CacheHelper.saveId(loginResponse!.data.user.id);
+          print(loginResponse!.data.user.email);
+          print(loginResponse!.data.user.id);
           emit(LoginSuccessState());
         } else {
           emit(LoginFailureState(msg: emailResponse.data["status"]));
@@ -40,26 +42,33 @@ class LoginCubit extends Cubit<LoginStates> {
       } on DioError catch (e) {
         emit(LoginFailureState(msg: "$e"));
       }
+    }
+  }
 
-      // try {
-      //   final phoneResponse =
-      //       await Dio().post(UrlsStrings.phoneLoginUrl, data: {
-      //     "telephone": controllers.emailController.text,
-      //     "password": controllers.passwordController.text,
-      //   });
-      //   if (phoneResponse.data["status"] == "success" &&
-      //       phoneResponse.statusCode == 200) {
-      //     loginResponse = LoginResponse.fromJson(phoneResponse.data);
-      //     print(loginResponse!.data.user.email);
-      //     CacheHelper.saveToken("${phoneResponse.data["token"]}");
-      //     emit(LoginSuccessState());
-      //   } else {
-      //     emit(LoginFailureState(msg: phoneResponse.data["status"]));
-      //   }
-      // } on DioError catch (e) {
-      //   emit(LoginFailureState(msg: "$e"));
-      // }
+  Future<void> phoneLogin() async {
+    if (formKey.currentState!.validate()) {
+      emit(LoginLoadingState());
+      try {
+        final phoneResponse =
+            await Dio().post(UrlsStrings.phoneLoginUrl, data: {
+          "telephone": controllers.phoneController.text,
+          "password": controllers.passwordController.text,
+        });
+        if (phoneResponse.data["status"] == "success" &&
+            phoneResponse.statusCode == 200) {
+          loginResponse = LoginResponse.fromJson(phoneResponse.data);
 
+          CacheHelper.saveToken("${phoneResponse.data["token"]}");
+          CacheHelper.saveId(loginResponse!.data.user.id);
+          print(loginResponse!.data.user.telephone);
+          print(loginResponse!.data.user.id);
+          emit(LoginSuccessState());
+        } else {
+          emit(LoginFailureState(msg: phoneResponse.data["status"]));
+        }
+      } on DioError catch (e) {
+        emit(LoginFailureState(msg: "$e"));
+      }
     }
   }
 

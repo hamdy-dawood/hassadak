@@ -70,6 +70,7 @@ class AboutView extends StatelessWidget {
                     child: SvgIcon(
                       icon: "assets/icons/whatsapp.svg",
                       height: 50.h,
+                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -80,6 +81,7 @@ class AboutView extends StatelessWidget {
                     child: SvgIcon(
                       icon: "assets/icons/twitter.svg",
                       height: 50.h,
+                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -90,6 +92,7 @@ class AboutView extends StatelessWidget {
                     child: SvgIcon(
                       icon: "assets/icons/instagram.svg",
                       height: 50.h,
+                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -100,6 +103,7 @@ class AboutView extends StatelessWidget {
                     child: SvgIcon(
                       icon: "assets/icons/facebook.svg",
                       height: 50.h,
+                      color: ColorManager.black,
                     ),
                   ),
                 ],

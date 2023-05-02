@@ -140,6 +140,7 @@ class DetailsView extends StatelessWidget {
                         child: SvgIcon(
                           icon: "assets/icons/fill_star.svg",
                           height: 20.h,
+                          color: ColorManager.mainColor,
                         ),
                       ),
                     ),

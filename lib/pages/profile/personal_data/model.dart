@@ -1,35 +1,32 @@
-class ProfileResponse {
-  ProfileResponse({
+class PersonalDataResp {
+  PersonalDataResp({
     required this.status,
-    required this.token,
     required this.data,
   });
 
   late final String status;
-  late final String token;
   late final Data data;
 
-  ProfileResponse.fromJson(Map<String, dynamic> json) {
+  PersonalDataResp.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    token = json['token'];
     data = Data.fromJson(json['data']);
   }
 }
 
 class Data {
   Data({
-    required this.user,
+    required this.doc,
   });
 
-  late final User user;
+  late final Doc doc;
 
   Data.fromJson(Map<String, dynamic> json) {
-    user = User.fromJson(json['user']);
+    doc = Doc.fromJson(json['doc']);
   }
 }
 
-class User {
-  User({
+class Doc {
+  Doc({
     required this.id,
     required this.firstName,
     required this.lastName,
@@ -42,6 +39,8 @@ class User {
     required this.createdAt,
     required this.updatedAt,
     required this.V,
+    required this.passwordChangedAt,
+    required this.passwordResetTokenOTP,
   });
 
   late final String id;
@@ -55,9 +54,11 @@ class User {
   late final List<dynamic> favouriteCompany;
   late final String createdAt;
   late final String updatedAt;
-  late final num V;
+  late final int V;
+  late final String passwordChangedAt;
+  late final String passwordResetTokenOTP;
 
-  User.fromJson(Map<String, dynamic> json) {
+  Doc.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     firstName = json['firstName'];
     lastName = json['lastName'];
@@ -71,5 +72,7 @@ class User {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     V = json['__v'];
+    passwordChangedAt = json['passwordChangedAt'];
+    passwordResetTokenOTP = json['passwordResetTokenOTP'];
   }
 }

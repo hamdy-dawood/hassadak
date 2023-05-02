@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/pages/home/components/product_item.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
@@ -11,6 +10,7 @@ import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
+import 'package:hassadak/pages/home/components/product_item.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -32,18 +32,16 @@ class SearchView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: ColorManager.white,
             elevation: 0.0,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  size: 22.sp,
-                  color: ColorManager.black,
-                ),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: SvgIcon(
+                icon: "assets/icons/arrow.svg",
+                height: 18.h,
+                color: ColorManager.black,
               ),
-            ],
+            ),
             title: CustomText(
               text: "البحث",
               color: ColorManager.mainColor,
@@ -273,7 +271,7 @@ class SearchView extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10.w,
-                                    crossAxisSpacing: 10.w,
+                                crossAxisSpacing: 10.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount: 20,
@@ -324,6 +322,12 @@ class SearchView extends StatelessWidget {
                                     );
                                   },
                                   child: ProductItem(
+                                    favIcon: SvgIcon(
+                                      icon: 'assets/icons/heart.svg',
+                                      color: ColorManager.white,
+                                      height: 18.h,
+                                    ),
+                                    favTap: () {},
                                     offer: 'خصم 20%',
                                     image: allProductsCubit.allProducts!.data
                                         .doc[index].productUrl,

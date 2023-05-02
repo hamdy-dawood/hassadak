@@ -19,12 +19,12 @@ class FavouriteItem extends StatelessWidget {
     required this.userImage,
     required this.price,
     required this.oldPrice,
-    required this.deleteTap, required this.deleteFunTap,
+    required this.deleteTap,
   }) : super(key: key);
 
   final String offer, image, title, userName, userImage, price, oldPrice;
-  final VoidCallback deleteTap;
-  final VoidCallback deleteFunTap;
+
+  final SlidableActionCallback deleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,7 @@ class FavouriteItem extends StatelessWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
-            onPressed: (_) {
-              deleteFunTap;
-            },
+            onPressed: deleteTap,
             backgroundColor: ColorManager.white,
             foregroundColor: ColorManager.red,
             icon: Icons.cancel,
@@ -59,23 +57,11 @@ class FavouriteItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        CustomText(
-                          text: title,
-                          color: ColorManager.mainColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                        ),
-                        IconButton(
-                          onPressed: deleteTap,
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 25.sp,
-                          ),
-                        )
-                      ],
+                    CustomText(
+                      text: title,
+                      color: ColorManager.mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.h),

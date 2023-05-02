@@ -5,6 +5,8 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/components/tap_search.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
+import 'package:hassadak/pages/favourite/cubit.dart';
 import 'package:hassadak/pages/home/offers/cubit.dart';
 
 import 'all_products/cubit.dart';
@@ -45,6 +47,7 @@ class _HomeViewState extends State<HomeView>
       final allProductsCubit = AllProductsCubit.get(context);
       final offersCubit = AllOffersCubit.get(context);
       final categoriesCubit = AllCategoriesCubit.get(context);
+      final addFavCubit = AddFavCubit.get(context);
       offersCubit.getAllOffers();
       categoriesCubit.getAllCategories();
 
@@ -138,12 +141,6 @@ class _HomeViewState extends State<HomeView>
                   ),
                 ),
               ),
-              // BuildTabsWithCategoriesStream(
-              //   currentIndex: _currentIndex,
-              //   tabController: tabController,
-              //   categoriesCubit: categoriesCubit,
-              //   allProductsCubit: allProductsCubit,
-              // ),
               SizedBox(
                 height: 300.h,
                 child: TabBarView(
@@ -152,6 +149,7 @@ class _HomeViewState extends State<HomeView>
                     5,
                     (index) => BuildProductsStream(
                       allProductsCubit: allProductsCubit,
+                      addFavCubit: addFavCubit,
                     ),
                   ),
                 ),

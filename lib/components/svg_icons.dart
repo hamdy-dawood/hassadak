@@ -5,7 +5,7 @@ class SvgIcon extends StatelessWidget {
   const SvgIcon({
     Key? key,
     required this.icon,
-    this.color = Colors.white12,
+    required this.color,
     this.height = 0,
   }) : super(key: key);
 
@@ -18,6 +18,7 @@ class SvgIcon extends StatelessWidget {
     return SvgPicture.asset(
       icon,
       height: height,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
 }
