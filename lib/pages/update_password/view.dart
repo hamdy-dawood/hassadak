@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/custom_form_field.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
@@ -60,7 +59,13 @@ class UpdatePasswordView extends StatelessWidget {
                       suffixPress: () {
                         cubit.currentPassVisibility();
                       },
-                      visibility: cubit.currentPass,
+                      getVisibility: () => cubit.currentPass,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل كلمة الحالية !';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 0.02.sh,
@@ -71,46 +76,32 @@ class UpdatePasswordView extends StatelessWidget {
                       suffixPress: () {
                         cubit.passwordVisibility();
                       },
-                      visibility: cubit.securePass,
+                      getVisibility: () => cubit.securePass,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل كلمة المرور !';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 0.02.sh,
                     ),
-                    BlocBuilder<UpdatePasswordCubit, UpdatePasswordStates>(
-                      builder: (context, state) {
-                        return CustomTextFormField(
-                          controller: cubit.confirmPasswordController,
-                          hint: 'تأكيد كلمة المرور',
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(8.0.w),
-                            child: SvgIcon(
-                              icon: "assets/icons/lock.svg",
-                              color: ColorManager.grey,
-                              height: 10.h,
-                            ),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.confPasswordVisibility();
-                            },
-                            icon: Icon(
-                              cubit.secureConfPass
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                            ),
-                            color: ColorManager.grey,
-                          ),
-                          obscureText: cubit.secureConfPass,
-                          isLastInput: false,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل تأكيد كلمة المرور !';
-                            } else if (value != cubit.passwordController.text) {
-                              return 'كلمة المرور ليست مطابقة !';
-                            }
-                            return null;
-                          },
-                        );
+                    BuildTextField(
+                      controller: cubit.confirmPasswordController,
+                      hint: "تأكيد كلمة المرور",
+                      suffixPress: () {
+                        cubit.confPasswordVisibility();
+                      },
+                      getVisibility: () => cubit.secureConfPass,
+                      isLastInput: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل تأكيد كلمة المرور !';
+                        } else if (value != cubit.passwordController.text) {
+                          return 'كلمة المرور ليست مطابقة !';
+                        }
+                        return null;
                       },
                     ),
                     SizedBox(

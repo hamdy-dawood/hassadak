@@ -26,7 +26,7 @@ class BuildProductsStream extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         }
         final state = snapshot.data;
-        if (state is AllProductsLoadingStates ||
+        if (state is AllProductsLoadingState ||
             snapshot.connectionState == ConnectionState.waiting) {
           return ListView.builder(
             shrinkWrap: true,
@@ -41,7 +41,7 @@ class BuildProductsStream extends StatelessWidget {
               );
             },
           );
-        } else if (state is AllProductsFailedStates) {
+        } else if (state is AllProductsFailedState) {
           return Text(state.msg);
         } else {
           return ListView.builder(
@@ -53,6 +53,7 @@ class BuildProductsStream extends StatelessWidget {
                 onTap: () {
                   navigateTo(
                     page: DetailsView(
+                      id: allProductsCubit.allProducts!.data.doc[index].id,
                       image: allProductsCubit
                           .allProducts!.data.doc[index].productUrl,
                       name: allProductsCubit.allProducts!.data.doc[index].name,
@@ -70,6 +71,7 @@ class BuildProductsStream extends StatelessWidget {
                 child: BlocBuilder<AddFavCubit, AddFavStates>(
                   builder: (context, state) {
                     return ProductItem(
+                      //todo
                       favIcon: SvgIcon(
                         icon: allProductsCubit.isLoved
                             ? "assets/icons/fill_heart.svg"

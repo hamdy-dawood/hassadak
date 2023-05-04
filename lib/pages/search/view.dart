@@ -20,7 +20,7 @@ class SearchView extends StatelessWidget {
     final searchController = TextEditingController();
     final priceController = TextEditingController();
     final focusNode = FocusNode();
-    final double itemHeight = (1.sh - kToolbarHeight) / 2;
+    final double itemHeight = (1.sh - kToolbarHeight * 1.5) / 2;
     final double itemWidth = 1.sw / 2;
     return BlocProvider(
       create: (context) => AllProductsCubit(),
@@ -128,6 +128,7 @@ class SearchView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             showModalBottomSheet(
+                              isScrollControlled: true,
                               context: context,
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -136,62 +137,74 @@ class SearchView extends StatelessWidget {
                                   topLeft: Radius.circular(15.r),
                                 ),
                               ),
-                              builder: (context) => SizedBox(
-                                width: 1.sw,
-                                child: Padding(
-                                  padding: EdgeInsets.all(30.h),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          CustomElevated(
-                                            text: "تم",
-                                            borderRadius: 12.r,
-                                            btnColor: ColorManager.secMainColor,
-                                            wSize: 45.h,
-                                            hSize: 45.h,
-                                            press: () {
-                                              Navigator.pop(context);
-                                              allProductsCubit.getAllProducts(
-                                                  id: "?price[gte]=${priceController.text}");
-                                              searchController.clear();
-                                            },
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 45.h,
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.lightGrey,
-                                                borderRadius:
-                                                    BorderRadius.circular(12.r),
-                                              ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 5.h, right: 5.h),
-                                                  child: TextFormField(
-                                                    controller: priceController,
-                                                    style: GoogleFonts.almarai(
-                                                      textStyle: TextStyle(
-                                                        color:
-                                                            ColorManager.black,
-                                                        fontSize: 18.sp,
-                                                      ),
-                                                    ),
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    decoration: InputDecoration(
-                                                      border: InputBorder.none,
-                                                      hintText: "اكتب السعر",
-                                                      hintStyle:
+                              builder: (context) => Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: SizedBox(
+                                  width: 1.sw,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(30.h),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            CustomElevated(
+                                              text: "تم",
+                                              borderRadius: 12.r,
+                                              btnColor:
+                                                  ColorManager.secMainColor,
+                                              wSize: 45.h,
+                                              hSize: 45.h,
+                                              press: () {
+                                                Navigator.pop(context);
+                                                allProductsCubit.getAllProducts(
+                                                    id: "?price[gte]=${priceController.text}");
+                                                searchController.clear();
+                                              },
+                                            ),
+                                            SizedBox(
+                                              width: 5.w,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                height: 45.h,
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.lightGrey,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.r),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 5.h, right: 5.h),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          priceController,
+                                                      style:
                                                           GoogleFonts.almarai(
                                                         textStyle: TextStyle(
-                                                          color:
-                                                              ColorManager.grey,
-                                                          fontSize: 20.sp,
+                                                          color: ColorManager
+                                                              .black,
+                                                          fontSize: 18.sp,
+                                                        ),
+                                                      ),
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "اكتب السعر",
+                                                        hintStyle:
+                                                            GoogleFonts.almarai(
+                                                          textStyle: TextStyle(
+                                                            color: ColorManager
+                                                                .grey,
+                                                            fontSize: 20.sp,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -199,38 +212,38 @@ class SearchView extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      CustomElevated(
-                                        text: 'ترتيب حسب الاقل سعر',
-                                        borderRadius: 12.r,
-                                        btnColor: ColorManager.secMainColor,
-                                        wSize: 1.sw,
-                                        press: () {
-                                          Navigator.pop(context);
-                                          allProductsCubit.getAllProducts(
-                                              id: "?sort=price");
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      CustomElevated(
-                                        text: 'ترتيب حسب الأعلي سعر',
-                                        borderRadius: 12.r,
-                                        btnColor: ColorManager.secMainColor,
-                                        wSize: 1.sw,
-                                        press: () {
-                                          Navigator.pop(context);
-                                          allProductsCubit.getAllProducts(
-                                              id: "?sort=-price");
-                                        },
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        CustomElevated(
+                                          text: 'ترتيب حسب الاقل سعر',
+                                          borderRadius: 12.r,
+                                          btnColor: ColorManager.secMainColor,
+                                          wSize: 1.sw,
+                                          press: () {
+                                            Navigator.pop(context);
+                                            allProductsCubit.getAllProducts(
+                                                id: "?sort=price");
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        CustomElevated(
+                                          text: 'ترتيب حسب الأعلي سعر',
+                                          borderRadius: 12.r,
+                                          btnColor: ColorManager.secMainColor,
+                                          wSize: 1.sw,
+                                          press: () {
+                                            Navigator.pop(context);
+                                            allProductsCubit.getAllProducts(
+                                                id: "?sort=-price");
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -261,7 +274,7 @@ class SearchView extends StatelessWidget {
                           return Text('Error: ${snapshot.error}');
                         }
                         final state = snapshot.data;
-                        if (state is AllProductsLoadingStates ||
+                        if (state is AllProductsLoadingState ||
                             snapshot.connectionState ==
                                 ConnectionState.waiting) {
                           return Expanded(
@@ -285,7 +298,7 @@ class SearchView extends StatelessWidget {
                               },
                             ),
                           );
-                        } else if (state is AllProductsFailedStates) {
+                        } else if (state is AllProductsFailedState) {
                           return Text(state.msg);
                         } else {
                           return Expanded(
@@ -294,7 +307,7 @@ class SearchView extends StatelessWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 10.w,
+                                crossAxisSpacing: 5.w,
                                 mainAxisSpacing: 10.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
@@ -305,6 +318,8 @@ class SearchView extends StatelessWidget {
                                   onTap: () {
                                     navigateTo(
                                       page: DetailsView(
+                                        id: allProductsCubit
+                                            .allProducts!.data.doc[index].id,
                                         image: allProductsCubit.allProducts!
                                             .data.doc[index].productUrl,
                                         name: allProductsCubit

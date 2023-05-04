@@ -12,6 +12,7 @@ class ColorManager {
   static Color darkGrey = const Color(0xC2000000);
   static Color navGrey = const Color(0xffCCCCCC);
   static Color backGreyWhite = const Color(0xffF5F5F7);
+  static Color brown = const Color(0xff635829);
 
   // other colors
   static Color red = const Color(0xffFF0000);

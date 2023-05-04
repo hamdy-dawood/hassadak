@@ -27,7 +27,6 @@ class CacheHelper {
     return prefs.remove("token");
   }
 
-
   static Future<bool> saveId(String id) async {
     return await prefs.setString("id", id);
   }

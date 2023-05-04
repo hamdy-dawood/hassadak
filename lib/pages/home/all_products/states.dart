@@ -2,16 +2,16 @@ part of 'cubit.dart';
 
 class AllProductsStates {}
 
-class AllProductsInitialStates extends AllProductsStates {}
+class AllProductsInitialState extends AllProductsStates {}
 
-class AllProductsLoadingStates extends AllProductsStates {}
+class AllProductsLoadingState extends AllProductsStates {}
 
-class AllProductsSuccessStates extends AllProductsStates {}
+class AllProductsSuccessState extends AllProductsStates {}
 
-class AllProductsFailedStates extends AllProductsStates {
+class AllProductsFailedState extends AllProductsStates {
   final String msg;
 
-  AllProductsFailedStates({required this.msg});
+  AllProductsFailedState({required this.msg});
 }
 
-class ChangeFavouriteStates extends AllProductsStates {}
+class ChangeFavouriteState extends AllProductsStates {}

@@ -34,8 +34,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
         if (response.data["status"] == "success" &&
             response.statusCode == 201) {
           CacheHelper.saveToken("${response.data["token"]}");
-          // CacheHelper.saveEmail(controllers.emailController.text);
-          // CacheHelper.savePass(controllers.passwordController.text);
           emit(RegisterSuccessState());
         } else {
           emit(RegisterFailureState(msg: response.data["status"]));

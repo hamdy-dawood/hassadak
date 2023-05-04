@@ -1,18 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/back_with_search.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
-import 'package:hassadak/pages/search/view.dart';
+import 'package:hassadak/pages/reviews/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class DetailsView extends StatelessWidget {
   const DetailsView({
     Key? key,
+    required this.id,
     required this.name,
     required this.price,
     required this.oldPrice,
@@ -21,42 +23,14 @@ class DetailsView extends StatelessWidget {
     required this.image,
   }) : super(key: key);
 
-  final String name, desc, price, oldPrice, image;
+  final String id, name, desc, price, oldPrice, image;
   final int rating;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        backgroundColor: ColorManager.white,
-        elevation: 0.2,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              size: 22.sp,
-              color: ColorManager.black,
-            ),
-          ),
-        ],
-        leading: InkWell(
-          onTap: () {
-            navigateTo(page: const SearchView());
-          },
-          child: Padding(
-            padding: EdgeInsets.all(13.w),
-            child: SvgIcon(
-              icon: "assets/icons/search.svg",
-              height: 20.h,
-              color: ColorManager.red,
-            ),
-          ),
-        ),
-      ),
+      appBar: backWithSearch(context),
       body: ListView(
         children: [
           SizedBox(
@@ -131,18 +105,60 @@ class DetailsView extends StatelessWidget {
                   SizedBox(
                     height: 15.h,
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(
-                      rating,
-                      (index) => Padding(
-                        padding: EdgeInsets.only(left: 5.w),
-                        child: SvgIcon(
-                          icon: "assets/icons/fill_star.svg",
-                          height: 20.h,
-                          color: ColorManager.mainColor,
+                  InkWell(
+                    onTap: () {
+                      navigateTo(
+                          page: ReviewsView(
+                        rating: rating,
+                        id: id,
+                        name: name,
+                        image: image,
+                      ));
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: SvgIcon(
+                            icon: "assets/icons/fill_star.svg",
+                            height: 22.h,
+                            color: ColorManager.secMainColor,
+                          ),
                         ),
-                      ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        CustomText(
+                          text: "$rating",
+                          color: ColorManager.mainColor,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: SvgIcon(
+                            icon: "assets/icons/line.svg",
+                            height: 22.h,
+                            color: ColorManager.secMainColor,
+                          ),
+                        ),
+                        CustomText(
+                          text: "التقييمات",
+                          color: ColorManager.mainColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 18.sp,
+                          color: ColorManager.black,
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(

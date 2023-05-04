@@ -9,15 +9,13 @@ class TextFieldWithText extends StatelessWidget {
     Key? key,
     required this.title,
     required this.hint,
-
   }) : super(key: key);
   final String title, hint;
-
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.only(bottom: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

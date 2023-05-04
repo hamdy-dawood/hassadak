@@ -9,7 +9,7 @@ import 'model.dart';
 part 'states.dart';
 
 class AllProductsCubit extends Cubit<AllProductsStates> {
-  AllProductsCubit() : super(AllProductsInitialStates());
+  AllProductsCubit() : super(AllProductsInitialState());
   final _allProductsController =
       StreamController<AllProductsStates>.broadcast();
 
@@ -22,23 +22,24 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
   bool isLoved = false;
 
   Future<void> getAllProducts({String? id = ""}) async {
-    _allProductsController.add(AllProductsLoadingStates());
-    emit(AllProductsLoadingStates());
+    _allProductsController.add(AllProductsLoadingState());
+    emit(AllProductsLoadingState());
     try {
       final response = await Dio().get("${UrlsStrings.allProductsUrl}$id");
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
-        _allProductsController.add(AllProductsSuccessStates());
-        emit(AllProductsSuccessStates());
+        _allProductsController.add(AllProductsSuccessState());
+        emit(AllProductsSuccessState());
       } else {
-        emit(AllProductsFailedStates(msg: response.data["status"]));
+        emit(AllProductsFailedState(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(AllProductsFailedStates(msg: "$e"));
+      emit(AllProductsFailedState(msg: "$e"));
     }
   }
+
   changeFavourite() {
     isLoved = !isLoved;
-    emit(ChangeFavouriteStates());
+    emit(ChangeFavouriteState());
   }
 }

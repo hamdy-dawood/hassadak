@@ -13,17 +13,22 @@ class BuildTextField extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.suffixPress,
-    required this.visibility,
+    required this.getVisibility,
+    this.isLastInput = false,
+    required this.validator,
   }) : super(key: key);
   final TextEditingController controller;
   final String hint;
   final VoidCallback suffixPress;
-  final bool visibility;
+  final bool Function() getVisibility;
+  final FormFieldValidator validator;
+  final bool isLastInput;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdatePasswordCubit, UpdatePasswordStates>(
       builder: (context, state) {
+        bool visibility = getVisibility();
         return CustomTextFormField(
           controller: controller,
           hint: hint,
@@ -45,13 +50,8 @@ class BuildTextField extends StatelessWidget {
             color: ColorManager.navGrey,
           ),
           obscureText: visibility,
-          isLastInput: false,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'من فضلك ادخل كلمة المرور !';
-            }
-            return null;
-          },
+          isLastInput: isLastInput,
+          validator: validator,
         );
       },
     );

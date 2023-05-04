@@ -11,6 +11,7 @@ class UrlsStrings {
   static String allProductsUrl = "${baseUrl}products";
   static String allOffersUrl = "${baseUrl}offerHeader";
   static String allFavouritesUrl = "${baseUrl}products/favourites";
+  static String allReviewsUrl = "${baseUrl}reviews";
   static String noImageUrl =
       "https://cdn.vectorstock.com/i/preview-1x/82/99/no-image-available-like-missing-picture-vector-43938299.jpg";
 }

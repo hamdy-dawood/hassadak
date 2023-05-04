@@ -22,11 +22,10 @@ class ContainerWithShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical: 12.h),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       child: InkWell(
         onTap: onTap,
         child: Container(
-
           height: 50.h,
           width: 1.sw,
           decoration: BoxDecoration(

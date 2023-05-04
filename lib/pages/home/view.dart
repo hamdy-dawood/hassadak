@@ -6,7 +6,6 @@ import 'package:hassadak/components/tap_search.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
-import 'package:hassadak/pages/favourite/cubit.dart';
 import 'package:hassadak/pages/home/offers/cubit.dart';
 
 import 'all_products/cubit.dart';
@@ -142,7 +141,7 @@ class _HomeViewState extends State<HomeView>
                 ),
               ),
               SizedBox(
-                height: 300.h,
+                height: 270.h,
                 child: TabBarView(
                   controller: tabController,
                   children: List.generate(

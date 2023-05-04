@@ -7,8 +7,6 @@ import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import '../../../components/svg_icons.dart';
-
 class ProductItem extends StatelessWidget {
   const ProductItem({
     Key? key,
@@ -18,11 +16,14 @@ class ProductItem extends StatelessWidget {
     required this.userName,
     required this.userImage,
     required this.price,
-    required this.oldPrice, required this.favTap, required this.favIcon,
+    required this.oldPrice,
+    required this.favTap,
+    required this.favIcon,
   }) : super(key: key);
   final String offer, image, title, userName, userImage, price, oldPrice;
   final VoidCallback favTap;
   final Widget favIcon;
+
   @override
   Widget build(BuildContext context) {
     return ClipRect(

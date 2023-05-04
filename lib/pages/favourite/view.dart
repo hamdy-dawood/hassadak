@@ -76,6 +76,7 @@ class FavouriteView extends StatelessWidget {
                           onTap: () {
                             navigateTo(
                               page: DetailsView(
+                                id: favCubit.allFavourites!.products[index].id,
                                 image: favCubit
                                     .allFavourites!.products[index].productUrl,
                                 name: favCubit
