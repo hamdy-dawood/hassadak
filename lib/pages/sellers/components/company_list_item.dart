@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 
-import 'svg_icons.dart';
+import '../../../components/svg_icons.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile(
-      {Key? key, required this.image, required this.title, required this.onTap})
+      {Key? key, required this.image, required this.name, required this.onTap})
       : super(key: key);
-  final String image, title;
+  final String image, name;
   final VoidCallback onTap;
 
   @override
@@ -23,7 +23,7 @@ class CustomListTile extends StatelessWidget {
           backgroundImage: AssetImage(image),
         ),
         title: CustomText(
-          text: title,
+          text: name,
           color: ColorManager.mainColor,
           fontWeight: FontWeight.bold,
           fontSize: 18.sp,
@@ -31,12 +31,12 @@ class CustomListTile extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomText(
-              text: "${349}+",
-              color: ColorManager.green,
-              fontWeight: FontWeight.normal,
-              fontSize: 18.sp,
-            ),
+            // CustomText(
+            //   text: "${349}+",
+            //   color: ColorManager.green,
+            //   fontWeight: FontWeight.normal,
+            //   fontSize: 18.sp,
+            // ),
             SizedBox(
               width: 10.w,
             ),

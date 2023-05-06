@@ -13,7 +13,7 @@ import 'package:hassadak/pages/reviews/delete_review/cubit.dart';
 import 'package:hassadak/pages/reviews/states.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import 'components/build_bottom_sheef_add_review.dart';
+import 'components/build_bottom_sheet_add_review.dart';
 import 'components/build_review_builder.dart';
 import 'cubit.dart';
 
@@ -26,7 +26,7 @@ class ReviewsView extends StatelessWidget {
     required this.rating,
   }) : super(key: key);
   final String id, name, image;
-  final int rating;
+  final num rating;
 
   @override
   Widget build(BuildContext context) {

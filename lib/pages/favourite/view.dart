@@ -87,9 +87,11 @@ class FavouriteView extends StatelessWidget {
                                     "${favCubit.allFavourites!.products[index].price}",
                                 oldPrice:
                                     "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
-                                rating: (favCubit.allFavourites!.products[index]
-                                        .ratingsAverage)
+                                ratingsAverage: (favCubit.allFavourites!
+                                        .products[index].ratingsAverage)
                                     .toInt(),
+                                ratingsQuantity: (favCubit.allFavourites!
+                                    .products[index].ratingsQuantity),
                               ),
                             );
                           },

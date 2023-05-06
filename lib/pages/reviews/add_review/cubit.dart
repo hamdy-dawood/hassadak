@@ -14,8 +14,8 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
   static AddReviewsCubit get(context) => BlocProvider.of(context);
 
   final dio = Dio();
-  final formKey = GlobalKey<FormState>();
-  final reviewController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController reviewController = TextEditingController();
   late double rate;
 
   Future<void> addReview({required String productID}) async {
@@ -38,8 +38,20 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
           emit(AddReviewsFailureState(msg: response.data["status"]));
         }
       } on DioError catch (e) {
+        String errorMessage = e.type.toString();
+        if (e.response != null) {
+          errorMessage = e.response!.data.toString();
+        }
+        emit(AddReviewsFailureState(msg: errorMessage));
+      } catch (e) {
         emit(AddReviewsFailureState(msg: "$e"));
       }
     }
+  }
+
+  @override
+  Future<void> close() {
+    reviewController.dispose();
+    return super.close();
   }
 }

@@ -14,6 +14,9 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
   final dio = Dio();
 
+  //todo
+  bool isLoved = false;
+
   Future<void> addFav({required String id}) async {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
@@ -28,5 +31,11 @@ class AddFavCubit extends Cubit<AddFavStates> {
     } on DioError catch (e) {
       emit(AddFavFailedStates(msg: "$e"));
     }
+  }
+
+  //todo
+  changeFavourite() {
+    isLoved = !isLoved;
+    emit(ChangeFavouriteState());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
+import 'package:hassadak/core/cache_helper.dart';
 import 'package:hassadak/pages/home/offers/model.dart';
 
 part 'states.dart';
@@ -10,12 +11,14 @@ class AllOffersCubit extends Cubit<AllOffersStates> {
 
   static AllOffersCubit get(context) => BlocProvider.of(context);
 
+  final dio = Dio();
   OfferResponse? allOffers;
 
   Future<void> getAllOffers() async {
     emit(AllOffersLoadingStates());
     try {
-      final response = await Dio().get(UrlsStrings.allOffersUrl);
+      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+      final response = await dio.get(UrlsStrings.allOffersUrl);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allOffers = OfferResponse.fromJson(response.data);
         // print(response.data);

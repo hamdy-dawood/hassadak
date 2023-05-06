@@ -62,9 +62,11 @@ class BuildProductsStream extends StatelessWidget {
                           "${allProductsCubit.allProducts!.data.doc[index].price}",
                       oldPrice:
                           "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
-                      rating: (allProductsCubit
+                      ratingsAverage: (allProductsCubit
                               .allProducts!.data.doc[index].ratingsAverage)
                           .toInt(),
+                      ratingsQuantity: (allProductsCubit
+                          .allProducts!.data.doc[index].ratingsQuantity),
                     ),
                   );
                 },
@@ -72,14 +74,14 @@ class BuildProductsStream extends StatelessWidget {
                   builder: (context, state) {
                     return ProductItem(
                       favIcon: SvgIcon(
-                        icon: allProductsCubit
-                            .allProducts!.data.doc[index].status
-                            ? "assets/icons/fill_heart.svg"
-                            : "assets/icons/heart.svg",
-                        color:allProductsCubit
-                            .allProducts!.data.doc[index].status
-                            ? ColorManager.red
-                            : ColorManager.white,
+                        icon:
+                            allProductsCubit.allProducts!.data.doc[index].status
+                                ? "assets/icons/fill_heart.svg"
+                                : "assets/icons/heart.svg",
+                        color:
+                            allProductsCubit.allProducts!.data.doc[index].status
+                                ? ColorManager.green
+                                : ColorManager.white,
                         height: 18.h,
                       ),
                       favTap: () {
@@ -87,7 +89,7 @@ class BuildProductsStream extends StatelessWidget {
                             id: allProductsCubit
                                 .allProducts!.data.doc[index].id);
                         //todo
-                       // allProductsCubit.changeFavourite();
+                        addFavCubit.changeFavourite();
                       },
                       offer: 'خصم 20%',
                       image: allProductsCubit

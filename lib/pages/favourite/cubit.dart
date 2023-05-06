@@ -18,8 +18,8 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
       _allFavouritesController.stream;
 
   static AllFavouritesCubit get(context) => BlocProvider.of(context);
-  FavouriteResponse? allFavourites;
 
+  FavouriteResponse? allFavourites;
   final dio = Dio();
 
   Future<void> getAllFavourites() async {

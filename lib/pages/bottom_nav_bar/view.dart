@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/pages/bottom_nav_bar/states.dart';
-import 'package:hassadak/pages/company/view.dart';
 import 'package:hassadak/pages/favourite/view.dart';
 import 'package:hassadak/pages/home/view.dart';
 import 'package:hassadak/pages/profile/view.dart';
+import 'package:hassadak/pages/sellers/view.dart';
 
 import 'bottom_bar_item.dart';
 import 'cubit.dart';
@@ -17,7 +17,7 @@ class NavBarView extends StatelessWidget {
   List screens = const [
     HomeView(),
     FavouriteView(),
-    CompanyView(),
+    SellersView(),
     ProfileView(),
     // AboutView(),
   ];

@@ -252,8 +252,8 @@ class RegisterView extends StatelessWidget {
                           showMessage(message: "فشل انشاء حساب");
                           print(state.msg);
                         } else if (state is RegisterSuccessState) {
-                          return navigateTo(
-                              page: NavBarView(), withHistory: false);
+                          navigateTo(page: NavBarView(), withHistory: false);
+                          cubit.close();
                         }
                       },
                       builder: (context, state) {

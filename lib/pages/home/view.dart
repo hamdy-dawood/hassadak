@@ -47,6 +47,7 @@ class _HomeViewState extends State<HomeView>
       final offersCubit = AllOffersCubit.get(context);
       final categoriesCubit = AllCategoriesCubit.get(context);
       final addFavCubit = AddFavCubit.get(context);
+
       offersCubit.getAllOffers();
       categoriesCubit.getAllCategories();
 

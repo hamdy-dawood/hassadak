@@ -331,9 +331,17 @@ class SearchView extends StatelessWidget {
                                             "${allProductsCubit.allProducts!.data.doc[index].price}",
                                         oldPrice:
                                             "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
-                                        rating: (allProductsCubit.allProducts!
-                                                .data.doc[index].ratingsAverage)
+                                        ratingsAverage: (allProductsCubit
+                                                .allProducts!
+                                                .data
+                                                .doc[index]
+                                                .ratingsAverage)
                                             .toInt(),
+                                        ratingsQuantity: (allProductsCubit
+                                            .allProducts!
+                                            .data
+                                            .doc[index]
+                                            .ratingsQuantity),
                                       ),
                                     );
                                   },

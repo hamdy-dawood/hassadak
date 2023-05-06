@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
+import 'package:hassadak/core/cache_helper.dart';
 
 import 'model.dart';
 
@@ -14,6 +15,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
   static AllCategoriesCubit get(context) => BlocProvider.of(context);
 
   AllCategories? allCategories;
+  final dio = Dio();
   final _allCategoriesController =
       StreamController<AllCategoriesStates>.broadcast();
 
@@ -24,7 +26,8 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
     _allCategoriesController.add(AllCategoriesLoadingStates());
     emit(AllCategoriesLoadingStates());
     try {
-      final response = await Dio().get(UrlsStrings.allCategoriesUrl);
+      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+      final response = await dio.get(UrlsStrings.allCategoriesUrl);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allCategories = AllCategories.fromJson(response.data);
         _allCategoriesController
@@ -43,6 +46,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
         errorMsg = 'Connection timed out';
       } else if (e.type == DioErrorType.badResponse) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print("Received invalid status code: ${e.response?.statusCode}");
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
       }

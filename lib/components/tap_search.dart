@@ -8,7 +8,9 @@ import 'package:hassadak/pages/search/view.dart';
 import 'svg_icons.dart';
 
 class TapToSearch extends StatelessWidget {
-  const TapToSearch({Key? key}) : super(key: key);
+  const TapToSearch({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
+import 'package:hassadak/core/cache_helper.dart';
 
 import 'model.dart';
 
@@ -17,15 +18,15 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       _allProductsController.stream;
 
   static AllProductsCubit get(context) => BlocProvider.of(context);
-
+  final dio = Dio();
   AllProductsResponse? allProducts;
-  // bool isLoved = false;
 
   Future<void> getAllProducts({String? id = ""}) async {
     _allProductsController.add(AllProductsLoadingState());
     emit(AllProductsLoadingState());
     try {
-      final response = await Dio().get("${UrlsStrings.allProductsUrl}$id");
+      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+      final response = await dio.get("${UrlsStrings.allProductsUrl}$id");
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
         _allProductsController.add(AllProductsSuccessState());
@@ -37,9 +38,4 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       emit(AllProductsFailedState(msg: "$e"));
     }
   }
-
-  // changeFavourite() {
-  //   isLoved = !isLoved;
-  //   emit(ChangeFavouriteState());
-  // }
 }

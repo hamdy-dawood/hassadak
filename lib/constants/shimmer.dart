@@ -34,3 +34,57 @@ class ContainerShimmer extends StatelessWidget {
     );
   }
 }
+
+class ListTileShimmer extends StatelessWidget {
+  const ListTileShimmer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50.h,
+      child: ListTile(
+        leading: ShimmerWidget.circular(
+          height: 40.h,
+          width: 40.h,
+          shapeBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.r),
+          ),
+        ),
+        title: ShimmerWidget.rectangular(height: 16.h),
+        trailing: ShimmerWidget.rectangular(height: 20.h, width: 40.w),
+      ),
+    );
+  }
+}
+
+class ShimmerWidget extends StatelessWidget {
+  final double width;
+  final double height;
+  final ShapeBorder shapeBorder;
+
+  const ShimmerWidget.rectangular(
+      {super.key, this.width = double.infinity, required this.height})
+      : shapeBorder = const RoundedRectangleBorder();
+
+  const ShimmerWidget.circular(
+      {super.key,
+      this.width = double.infinity,
+      required this.height,
+      this.shapeBorder = const CircleBorder()});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: ShapeDecoration(
+          color: Colors.grey.shade300,
+          shape: shapeBorder,
+        ),
+      ),
+    );
+  }
+}

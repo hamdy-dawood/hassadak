@@ -213,6 +213,7 @@ class _LoginViewState extends State<LoginView>
                                   } else if (state is LoginSuccessState) {
                                     navigateTo(
                                         page: NavBarView(), withHistory: false);
+                                    cubit.close();
                                   }
                                 },
                                 builder: (context, state) {
