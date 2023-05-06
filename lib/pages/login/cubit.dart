@@ -32,6 +32,7 @@ class LoginCubit extends Cubit<LoginStates> {
             emailResponse.statusCode == 200) {
           loginResponse = LoginResponse.fromJson(emailResponse.data);
           CacheHelper.saveToken("${emailResponse.data["token"]}");
+          print("${emailResponse.data["token"]}");
           CacheHelper.saveId(loginResponse!.data.user.id);
           print(loginResponse!.data.user.email);
           print(loginResponse!.data.user.id);

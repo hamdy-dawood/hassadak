@@ -24,7 +24,20 @@ class AllOffersCubit extends Cubit<AllOffersStates> {
         emit(AllOffersFailedStates(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(AllOffersFailedStates(msg: "$e"));
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+      } else if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+      } else if (e.type == DioErrorType.badResponse) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+      }
+    } catch (e) {
+      AllOffersFailedStates(msg: 'An unknown error occurred: $e');
     }
   }
 }

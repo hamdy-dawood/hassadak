@@ -79,11 +79,6 @@ class BuildReviewBuilder extends StatelessWidget {
                                   builder: (context) {
                                     return AlertDialog(
                                       backgroundColor: Colors.white,
-                                      icon: Icon(
-                                        Icons.delete_outline,
-                                        color: ColorManager.red,
-                                        size: 40.sp,
-                                      ),
                                       title: CustomText(
                                         text: "حذف التعليق",
                                         color: ColorManager.mainColor,
@@ -91,7 +86,7 @@ class BuildReviewBuilder extends StatelessWidget {
                                         fontSize: 22.sp,
                                       ),
                                       content: CustomText(
-                                        text: "هل انت متأكد من حذف التعليق",
+                                        text: "هل انت متأكد من حذف التعليق؟",
                                         color: ColorManager.mainColor,
                                         fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'hassadak',
+            title: 'Hassadak',
             navigatorKey: navigatorKey,
             theme: ThemeData(
               platform: TargetPlatform.iOS,

@@ -21,16 +21,15 @@ class Data {
     required this.doc,
   });
 
-  late final List<Products> doc;
+  late final List<Doc> doc;
 
   Data.fromJson(Map<String, dynamic> json) {
-    doc = List.from(json['doc']).map((e) => Products.fromJson(e)).toList();
+    doc = List.from(json['doc']).map((e) => Doc.fromJson(e)).toList();
   }
 }
 
-class Products {
-  Products({
-    required this.id,
+class Doc {
+  Doc({
     required this.name,
     required this.desc,
     required this.typeId,
@@ -41,9 +40,10 @@ class Products {
     required this.price,
     required this.createdAt,
     required this.updatedAt,
+    required this.status,
+    required this.id,
   });
 
-  late final String id;
   late final String name;
   late final String desc;
   late final String typeId;
@@ -54,9 +54,10 @@ class Products {
   late final num price;
   late final String createdAt;
   late final String updatedAt;
+  late final bool status;
+  late final String id;
 
-  Products.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
+  Doc.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     desc = json['desc'];
     typeId = json['typeId'];
@@ -67,5 +68,7 @@ class Products {
     price = json['price'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    status = json['status'];
+    id = json['id'];
   }
 }

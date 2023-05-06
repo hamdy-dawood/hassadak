@@ -16,7 +16,7 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
   final dio = Dio();
   final formKey = GlobalKey<FormState>();
   final reviewController = TextEditingController();
-  final int rate = 0;
+  late double rate;
 
   Future<void> addReview({required String productID}) async {
     if (formKey.currentState!.validate()) {
@@ -26,13 +26,14 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
             'Bearer ${CacheHelper.getToken()}';
         final response = await dio.post(UrlsStrings.allReviewsUrl, data: {
           "review": reviewController.text,
-          "rating": 4,
+          "rating": rate,
           "product": productID,
           "user": CacheHelper.getId()
         });
         if (response.data["status"] == "success" &&
             response.statusCode == 201) {
           emit(AddReviewsSuccessState());
+          reviewController.clear();
         } else {
           emit(AddReviewsFailureState(msg: response.data["status"]));
         }

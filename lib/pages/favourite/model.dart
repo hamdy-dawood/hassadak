@@ -36,12 +36,12 @@ class Products {
   late final String typeId;
   late final String categoryId;
   late final String productUrl;
-  late final int ratingsAverage;
-  late final int ratingsQuantity;
-  late final int price;
+  late final num ratingsAverage;
+  late final num ratingsQuantity;
+  late final num price;
   late final String createdAt;
   late final String updatedAt;
-  late final int V;
+  late final num V;
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['_id'];

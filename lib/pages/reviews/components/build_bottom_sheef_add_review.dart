@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/custom_elevated.dart';
+import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
@@ -47,14 +49,15 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                     width: 1.sw,
                     child: Padding(
                       padding: EdgeInsets.only(
-                          right: 30.h, left: 30.h, bottom: 30, top: 10.h),
-                      child: Column(
+                          right: 30.h, left: 30.h, bottom: 20.h, top: 10.h),
+                      child: ListView(
                         children: [
                           CustomText(
                             text: "اكتب تقييما",
                             color: ColorManager.mainColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.sp,
+                            textAlign: TextAlign.center,
                           ),
                           SizedBox(
                             height: 15.h,
@@ -64,9 +67,36 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                             color: ColorManager.mainColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 18.sp,
+                            textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: 20.h,
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            width: 1.sw,
+                            child: Center(
+                              child: RatingBar.builder(
+                                initialRating: 0,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: false,
+                                itemCount: 5,
+                                itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 5.w),
+                                itemBuilder: (context, _) => SvgIcon(
+                                  icon: "assets/icons/fill_star.svg",
+                                  height: 20.h,
+                                  color: ColorManager.green,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  addReviewsCubit.rate = rating;
+                                  print(rating);
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.h,
                           ),
                           SizedBox(
                             height: 100.h,
@@ -110,7 +140,7 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                                 showMessage(message: "فشل الارسال");
                                 print(state.msg);
                               } else if (state is AddReviewsSuccessState) {
-                                addReviewsCubit.reviewController.clear();
+                                showMessage(message: "تم الارسال");
                                 return Navigator.pop(context);
                               }
                             },

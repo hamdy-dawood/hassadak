@@ -144,6 +144,7 @@ class SearchView extends StatelessWidget {
                                         .bottom),
                                 child: SizedBox(
                                   width: 1.sw,
+                                  height: 0.4.sh,
                                   child: Padding(
                                     padding: EdgeInsets.all(30.h),
                                     child: Column(

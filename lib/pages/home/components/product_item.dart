@@ -47,120 +47,119 @@ class ProductItem extends StatelessWidget {
               color: ColorManager.navGrey,
             ),
           ),
-          child: Column(
+          child: Stack(
             children: [
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.r),
-                      topRight: Radius.circular(12.r),
-                    ),
-                    child: SizedBox(
-                      height: 150.h,
-                      width: 0.47.sw,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.w),
-                        child: CachedNetworkImage(
-                          fit: BoxFit.fill,
-                          imageUrl: image.replaceAll(
-                              "https://mobizil.com/oppo-f3-specs/",
-                              UrlsStrings.noImageUrl),
-                          placeholder: (context, url) =>
-                              JumpingDotsProgressIndicator(
-                            fontSize: 50.h,
-                            color: ColorManager.secMainColor,
-                          ),
-                          errorWidget: (context, url, error) => Center(
-                            child: Image.network(UrlsStrings.noImageUrl),
-                          ),
-                        ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12.r),
+                  topRight: Radius.circular(12.r),
+                ),
+                child: SizedBox(
+                  height: 150.h,
+                  width: 0.47.sw,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      imageUrl: image.replaceAll(
+                          "https://mobizil.com/oppo-f3-specs/",
+                          UrlsStrings.noImageUrl),
+                      placeholder: (context, url) =>
+                          JumpingDotsProgressIndicator(
+                        fontSize: 50.h,
+                        color: ColorManager.secMainColor,
+                      ),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.network(UrlsStrings.noImageUrl),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: EdgeInsets.all(5.w),
-                      child: InkWell(
-                        onTap: favTap,
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: ColorManager.navGrey,
-                          child: favIcon,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: 0.47.sw,
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: ColorManager.navGrey,
                   ),
                 ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
                 child: Padding(
-                  padding: EdgeInsets.all(5.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: title,
-                        color: ColorManager.mainColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                        maxLines: 1,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        child: Row(
+                  padding: EdgeInsets.all(5.w),
+                  child: InkWell(
+                    onTap: favTap,
+                    child: CircleAvatar(
+                      radius: 20.r,
+                      backgroundColor: ColorManager.navGrey,
+                      child: favIcon,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  width: 0.47.sw,
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: ColorManager.navGrey,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(5.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: title,
+                          color: ColorManager.mainColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          maxLines: 1,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 15.r,
+                                backgroundImage: AssetImage(
+                                  userImage,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              CustomText(
+                                text: userName,
+                                color: ColorManager.mainColor,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
                           children: [
-                            CircleAvatar(
-                              radius: 15.r,
-                              backgroundImage: AssetImage(
-                                userImage,
+                            Expanded(
+                              child: CustomText(
+                                text: "$price دينار",
+                                color: ColorManager.green,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
                               ),
                             ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            CustomText(
-                              text: userName,
-                              color: ColorManager.mainColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15.sp,
+                            const Spacer(),
+                            Expanded(
+                              child: CustomText(
+                                text: "$oldPrice دينار",
+                                color: ColorManager.navGrey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp,
+                                textDecoration: TextDecoration.lineThrough,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: CustomText(
-                              text: "$price دينار",
-                              color: ColorManager.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
-                            ),
-                          ),
-                          const Spacer(),
-                          Expanded(
-                            child: CustomText(
-                              text: "$oldPrice دينار",
-                              color: ColorManager.navGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp,
-                              textDecoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

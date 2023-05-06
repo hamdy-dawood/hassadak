@@ -18,13 +18,13 @@ import 'components/build_review_builder.dart';
 import 'cubit.dart';
 
 class ReviewsView extends StatelessWidget {
-  const ReviewsView(
-      {Key? key,
-      required this.id,
-      required this.name,
-      required this.image,
-      required this.rating})
-      : super(key: key);
+  const ReviewsView({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.rating,
+  }) : super(key: key);
   final String id, name, image;
   final int rating;
 

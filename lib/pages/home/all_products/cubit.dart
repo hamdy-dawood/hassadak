@@ -19,7 +19,7 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
   static AllProductsCubit get(context) => BlocProvider.of(context);
 
   AllProductsResponse? allProducts;
-  bool isLoved = false;
+  // bool isLoved = false;
 
   Future<void> getAllProducts({String? id = ""}) async {
     _allProductsController.add(AllProductsLoadingState());
@@ -38,8 +38,8 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
     }
   }
 
-  changeFavourite() {
-    isLoved = !isLoved;
-    emit(ChangeFavouriteState());
-  }
+  // changeFavourite() {
+  //   isLoved = !isLoved;
+  //   emit(ChangeFavouriteState());
+  // }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/constants/color_manager.dart';
+import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/cache_helper.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/login/view.dart';
@@ -56,8 +58,51 @@ class ProfileView extends StatelessWidget {
               ),
               ContainerWithShadow(
                 onTap: () {
-                  navigateTo(page: const LoginView(), withHistory: false);
-                  CacheHelper.removeToken();
+                  showDialog(
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.white,
+                          title: CustomText(
+                            text: "تسجيل الخروج",
+                            color: ColorManager.mainColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.sp,
+                          ),
+                          content: CustomText(
+                            text: "هل انت متأكد من تسجيل الخروج؟",
+                            color: ColorManager.mainColor,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18.sp,
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: CustomText(
+                                text: "الغاء",
+                                fontSize: 18.sp,
+                                color: ColorManager.navGrey,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            CustomElevated(
+                              press: () {
+                                navigateTo(
+                                    page: const LoginView(),
+                                    withHistory: false);
+                                CacheHelper.removeToken();
+                              },
+                              text: "خروج",
+                              wSize: 100.w,
+                              hSize: 40.sp,
+                              borderRadius: 5.r,
+                              btnColor: ColorManager.mainColor,
+                            )
+                          ],
+                        );
+                      },
+                      context: context);
                 },
                 image: "assets/icons/logout.svg",
                 title: "تسجيل الخروج",
