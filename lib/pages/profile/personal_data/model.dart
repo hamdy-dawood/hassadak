@@ -40,7 +40,6 @@ class Doc {
     required this.updatedAt,
     required this.V,
     required this.passwordChangedAt,
-    required this.passwordResetTokenOTP,
   });
 
   late final String id;
@@ -56,7 +55,6 @@ class Doc {
   late final String updatedAt;
   late final int V;
   late final String passwordChangedAt;
-  late final String passwordResetTokenOTP;
 
   Doc.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -73,6 +71,5 @@ class Doc {
     updatedAt = json['updatedAt'];
     V = json['__v'];
     passwordChangedAt = json['passwordChangedAt'];
-    passwordResetTokenOTP = json['passwordResetTokenOTP'];
   }
 }

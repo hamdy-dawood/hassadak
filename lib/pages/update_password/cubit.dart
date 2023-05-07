@@ -40,9 +40,7 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
         if (response.data["status"] == "success" &&
             response.statusCode == 200) {
           emit(UpdatePasswordSuccessState());
-          currentPasswordController.clear();
-          passwordController.clear();
-          confirmPasswordController.clear();
+          CacheHelper.saveToken("${response.data["token"]}");
         } else {
           emit(UpdatePasswordFailureState(msg: response.data["message"]));
           print(response.data["message"]);
@@ -67,5 +65,13 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
   confPasswordVisibility() {
     secureConfPass = !secureConfPass;
     emit(UpdateConfPasswordVisibilityState());
+  }
+
+  @override
+  Future<void> close() {
+    currentPasswordController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    return super.close();
   }
 }

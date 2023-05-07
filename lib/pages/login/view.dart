@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView>
                                 builder: (context, state) {
                                   return CustomTextFormField(
                                     controller:
-                                        cubit.controllers.passwordController,
+                                        cubit.controllers.emailPasswordController,
                                     hint: 'كلمة المرور',
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(8.0.w),
@@ -213,7 +213,6 @@ class _LoginViewState extends State<LoginView>
                                   } else if (state is LoginSuccessState) {
                                     navigateTo(
                                         page: NavBarView(), withHistory: false);
-                                    cubit.close();
                                   }
                                 },
                                 builder: (context, state) {
@@ -289,7 +288,7 @@ class _LoginViewState extends State<LoginView>
                                 builder: (context, state) {
                                   return CustomTextFormField(
                                     controller:
-                                        cubit.controllers.passwordController,
+                                        cubit.controllers.phonePasswordController,
                                     hint: 'كلمة المرور',
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(8.0.w),

@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginStates> {
         final emailResponse =
             await Dio().post(UrlsStrings.emailLoginUrl, data: {
           "email": controllers.emailController.text,
-          "password": controllers.passwordController.text,
+          "password": controllers.emailPasswordController.text,
         });
         if (emailResponse.data["status"] == "success" &&
             emailResponse.statusCode == 200) {
@@ -53,7 +53,7 @@ class LoginCubit extends Cubit<LoginStates> {
         final phoneResponse =
             await Dio().post(UrlsStrings.phoneLoginUrl, data: {
           "telephone": controllers.phoneController.text,
-          "password": controllers.passwordController.text,
+          "password": controllers.phonePasswordController.text,
         });
         if (phoneResponse.data["status"] == "success" &&
             phoneResponse.statusCode == 200) {

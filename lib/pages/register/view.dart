@@ -253,7 +253,6 @@ class RegisterView extends StatelessWidget {
                           print(state.msg);
                         } else if (state is RegisterSuccessState) {
                           navigateTo(page: NavBarView(), withHistory: false);
-                          cubit.close();
                         }
                       },
                       builder: (context, state) {

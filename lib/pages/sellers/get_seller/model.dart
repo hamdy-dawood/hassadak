@@ -48,7 +48,7 @@ class User {
   late final String whatsapp;
   late final String facebookUrl;
   late final String instaUrl;
-  late final String twitterUrl;
+  late String? twitterUrl = "";
   late final String description;
   late final String role;
   late final List<dynamic> favouriteProduct;
