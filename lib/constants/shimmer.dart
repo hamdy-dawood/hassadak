@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/constants/color_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ContainerShimmer extends StatelessWidget {
@@ -18,8 +19,8 @@ class ContainerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.withOpacity(0.25),
-      highlightColor: Colors.white.withOpacity(0.6),
+      baseColor: ColorManager.shimmerBaseColor,
+      highlightColor: ColorManager.shimmerHighlightColor,
       direction: ShimmerDirection.rtl,
       child: Container(
         margin: margin,
@@ -44,14 +45,18 @@ class ListTileShimmer extends StatelessWidget {
       height: 50.h,
       child: ListTile(
         leading: ShimmerWidget.circular(
-          height: 40.h,
-          width: 40.h,
+          height: 45.h,
+          width: 45.h,
           shapeBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.r),
           ),
         ),
-        title: ShimmerWidget.rectangular(height: 16.h),
-        trailing: ShimmerWidget.rectangular(height: 20.h, width: 40.w),
+        title: ShimmerWidget.rectangular(height: 12.h),
+        trailing: Icon(
+          Icons.favorite,
+          size: 30.sp,
+          color: ColorManager.shimmerBaseColor,
+        ),
       ),
     );
   }
@@ -75,8 +80,9 @@ class ShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: ColorManager.shimmerBaseColor,
+      highlightColor: ColorManager.shimmerHighlightColor,
+      direction: ShimmerDirection.rtl,
       child: Container(
         height: height,
         width: width,

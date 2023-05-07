@@ -72,6 +72,7 @@ class BuildProductsStream extends StatelessWidget {
                 },
                 child: BlocBuilder<AddFavCubit, AddFavStates>(
                   builder: (context, state) {
+                   // addFavCubit.isLoved =  allProductsCubit.allProducts!.data.doc[index].status;
                     return ProductItem(
                       favIcon: SvgIcon(
                         icon:
@@ -89,7 +90,7 @@ class BuildProductsStream extends StatelessWidget {
                             id: allProductsCubit
                                 .allProducts!.data.doc[index].id);
                         //todo
-                        addFavCubit.changeFavourite();
+                       // addFavCubit.changeFavourite();
                       },
                       offer: 'خصم 20%',
                       image: allProductsCubit

@@ -15,7 +15,7 @@ class AddFavCubit extends Cubit<AddFavStates> {
   final dio = Dio();
 
   //todo
-  bool isLoved = false;
+ // bool isLoved = false;
 
   Future<void> addFav({required String id}) async {
     try {
@@ -34,8 +34,8 @@ class AddFavCubit extends Cubit<AddFavStates> {
   }
 
   //todo
-  changeFavourite() {
-    isLoved = !isLoved;
-    emit(ChangeFavouriteState());
-  }
+  // changeFavourite() {
+  //   isLoved = !isLoved;
+  //   emit(ChangeFavouriteState());
+  // }
 }

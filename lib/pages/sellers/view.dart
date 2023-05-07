@@ -31,7 +31,7 @@ class SellersView extends StatelessWidget {
                 if (state is AllSellersLoadingState) {
                   return ListView.separated(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: 7,
                       separatorBuilder: (context, index) => SizedBox(
                             height: 10.w,
                           ),

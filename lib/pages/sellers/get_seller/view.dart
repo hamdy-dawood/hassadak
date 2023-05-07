@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/shimmer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'cubit.dart';
 
@@ -44,70 +44,70 @@ class GetSellerView extends StatelessWidget {
               child: BlocBuilder<GetSellerCubit, GetSellerStates>(
                 builder: (context, state) {
                   if (state is GetSellerLoadingState) {
-                    // return ListView(
-                    //   children: [
-                    //     SizedBox(
-                    //       height: 0.02.sh,
-                    //     ),
-                    //     ContainerShimmer(
-                    //       height: 0.15.sh,
-                    //       width: 0.15.sh,
-                    //       margin: EdgeInsets.all(0.h),
-                    //       padding: EdgeInsets.all(0.h),
-                    //       radius: 50.r,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 0.02.sh,
-                    //     ),
-                    //     ContainerShimmer(
-                    //       height: 20.h,
-                    //       width: 100.w,
-                    //       margin: EdgeInsets.all(0.h),
-                    //       padding: EdgeInsets.all(0.h),
-                    //     ),
-                    //     SizedBox(
-                    //       height: 0.02.sh,
-                    //     ),
-                    //     Align(
-                    //       alignment: Alignment.centerRight,
-                    //       child: ContainerShimmer(
-                    //         height: 30.h,
-                    //         width: 100.w,
-                    //         margin: EdgeInsets.all(0.h),
-                    //         padding: EdgeInsets.all(0.h),
-                    //       ),
-                    //     ),
-                    //     SizedBox(
-                    //       height: 0.02.sh,
-                    //     ),
-                    //     Align(
-                    //       alignment: Alignment.centerRight,
-                    //       child: ListView.builder(
-                    //         itemCount: 6,
-                    //         itemBuilder: (context, index) => ContainerShimmer(
-                    //           height: 20.h,
-                    //           width: 0.8.sw,
-                    //           margin: EdgeInsets.all(5.h),
-                    //           padding: EdgeInsets.all(0.h),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // );
-                    return ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: 10.w,
-                            ),
-                        itemBuilder: (context, index) {
-                          return ContainerShimmer(
-                            height: 50.h,
-                            width: 0.85.sw,
-                            margin: EdgeInsets.all(12.h),
-                            padding: EdgeInsets.all(12.h),
-                          );
-                        });
+                    return SizedBox(
+                      height: 1.sh,
+                      child: Shimmer.fromColors(
+                        baseColor: ColorManager.shimmerBaseColor,
+                        highlightColor: ColorManager.shimmerHighlightColor,
+                        direction: ShimmerDirection.rtl,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 0.02.sh,
+                              ),
+                              CircleAvatar(
+                                radius: 50.r,
+                                backgroundColor: ColorManager.shimmerBaseColor,
+                              ),
+                              SizedBox(
+                                height: 0.02.sh,
+                              ),
+                              Container(
+                                height: 20.h,
+                                width: 150.w,
+                                color: ColorManager.shimmerBaseColor,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Container(
+                                height: 20.h,
+                                width: 300.w,
+                                color: ColorManager.shimmerBaseColor,
+                              ),
+                              SizedBox(
+                                height: 40.h,
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  height: 20.h,
+                                  width: 150.w,
+                                  color: ColorManager.shimmerBaseColor,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                  10,
+                                  (index) => Container(
+                                    margin: EdgeInsets.only(bottom: 5.h),
+                                    height: 15.h,
+                                    width: 300.w,
+                                    color: ColorManager.shimmerBaseColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
                   } else if (state is GetSellerFailedState) {
                     return Text(state.msg);
                   } else {

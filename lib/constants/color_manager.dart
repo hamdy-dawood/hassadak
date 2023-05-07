@@ -13,6 +13,8 @@ class ColorManager {
   static Color navGrey = const Color(0xffCCCCCC);
   static Color backGreyWhite = const Color(0xffF5F5F7);
   static Color brown = const Color(0xff635829);
+  static Color shimmerBaseColor = Colors.grey.withOpacity(0.25);
+  static Color shimmerHighlightColor = Colors.white.withOpacity(0.6);
 
   // other colors
   static Color red = const Color(0xffFF0000);
