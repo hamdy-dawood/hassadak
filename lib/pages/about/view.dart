@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/back_with_title.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
-import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 

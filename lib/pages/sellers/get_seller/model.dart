@@ -32,7 +32,7 @@ class User {
     this.twitterUrl = "",
     this.description = "",
     this.role,
-    this.image ,
+    this.image,
     this.likes,
     this.favouriteProduct,
     this.favouriteCompany,

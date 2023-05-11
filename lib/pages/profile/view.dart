@@ -96,7 +96,6 @@ class ProfileView extends StatelessWidget {
                                     withHistory: false);
                                 CacheHelper.removeToken();
                                 CacheHelper.removeId();
-
                               },
                               text: "خروج",
                               wSize: 100.w,

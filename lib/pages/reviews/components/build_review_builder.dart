@@ -65,7 +65,7 @@ class BuildReviewBuilder extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Builder(builder: (context) {
                   personalDataCubit.getPersonalData(
-                      id: "${reviewCubit.reviewsResponse?.data.doc[0].user.id}");
+                      id: "${reviewCubit.reviewsResponse?.data.doc[index].user.id}");
                   return BlocBuilder<PersonalDataCubit, PersonalDataStates>(
                     builder: (context, state) {
                       return InkWell(
@@ -80,7 +80,7 @@ class BuildReviewBuilder extends StatelessWidget {
                               ),
                             ),
                             builder: (context) => SizedBox(
-                              height: 200.h,
+                              height: 100.h,
                               width: 1.sw,
                               child: Padding(
                                 padding: EdgeInsets.all(30.h),
@@ -308,7 +308,8 @@ class BuildReviewBuilder extends StatelessWidget {
                                               CustomText(
                                                 text:
                                                     "${reviewCubit.reviewsResponse?.data.doc[index].updatedAt}"
-                                                        .split("T")[1].split(".")[0],
+                                                        .split("T")[1]
+                                                        .split(".")[0],
                                                 color: ColorManager.grey,
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 16.sp,

@@ -259,7 +259,7 @@ class GetSellerView extends StatelessWidget {
                                       image:
                                           "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
                                       userImage:
-                                      "${cubit.sellerResponse!.user.image}",
+                                          "${cubit.sellerResponse!.user.image}",
                                       name:
                                           "${cubit.sellerResponse!.getUserProduct[index].name}",
                                       desc:

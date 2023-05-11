@@ -1,16 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import 'components/favourite_item.dart';
 import 'cubit.dart';
@@ -43,7 +39,7 @@ class FavouriteView extends StatelessWidget {
             body: SizedBox(
               width: 1.sw,
               height: 1.sh,
-              child: BlocBuilder<AllFavouritesCubit,AllFavouritesStates>(
+              child: BlocBuilder<AllFavouritesCubit, AllFavouritesStates>(
                 builder: (context, state) {
                   if (state is AllFavouritesLoadingStates) {
                     return ListView.builder(
@@ -62,7 +58,7 @@ class FavouriteView extends StatelessWidget {
                     return Text(state.msg);
                   } else if (state is NetworkErrorState) {
                     return const ErrorNetwork();
-                  }else {
+                  } else {
                     return ListView.separated(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
                       shrinkWrap: true,

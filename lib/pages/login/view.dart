@@ -155,8 +155,8 @@ class _LoginViewState extends State<LoginView>
                               BlocBuilder<LoginCubit, LoginStates>(
                                 builder: (context, state) {
                                   return CustomTextFormField(
-                                    controller:
-                                        cubit.controllers.emailPasswordController,
+                                    controller: cubit
+                                        .controllers.emailPasswordController,
                                     hint: 'كلمة المرور',
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(8.0.w),
@@ -287,8 +287,8 @@ class _LoginViewState extends State<LoginView>
                               BlocBuilder<LoginCubit, LoginStates>(
                                 builder: (context, state) {
                                   return CustomTextFormField(
-                                    controller:
-                                        cubit.controllers.phonePasswordController,
+                                    controller: cubit
+                                        .controllers.phonePasswordController,
                                     hint: 'كلمة المرور',
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(8.0.w),

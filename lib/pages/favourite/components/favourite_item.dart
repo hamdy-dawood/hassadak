@@ -8,7 +8,6 @@ import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-
 class FavouriteItem extends StatelessWidget {
   const FavouriteItem({
     Key? key,

@@ -14,17 +14,17 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
 
   static AllCategoriesCubit get(context) => BlocProvider.of(context);
 
-  AllCategories? allCategories;
-  final dio = Dio();
   final _allCategoriesController =
       StreamController<AllCategoriesStates>.broadcast();
 
   Stream<AllCategoriesStates> get allCategoriesStream =>
       _allCategoriesController.stream;
 
-  int? length ;
+  AllCategories? allCategories;
+  final dio = Dio();
+  int? length;
 
-  Future<AllCategories> getAllCategories() async {
+  Future<void> getAllCategories() async {
     _allCategoriesController.add(AllCategoriesLoadingStates());
     emit(AllCategoriesLoadingStates());
     try {
@@ -58,7 +58,6 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       _allCategoriesController
           .add(AllCategoriesFailedStates(msg: 'An unknown error occurred: $e'));
     }
-    return allCategories!;
   }
 
   void dispose() {

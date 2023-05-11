@@ -14,7 +14,8 @@ class UrlsStrings {
   static String allReviewsUrl = "${baseUrl}reviews";
   static String allSellersUrl = "${baseUrl}users";
   static String getSellerUrl = "${baseUrl}users/seller";
-  static String networkErrorUrl = "https://img.freepik.com/premium-vector/system-connection-error-repairing-network-problem_126608-1489.jpg?w=2000";
+  static String networkErrorUrl =
+      "https://img.freepik.com/premium-vector/system-connection-error-repairing-network-problem_126608-1489.jpg?w=2000";
   static String noImageUrl =
       "https://github.com/hamdy-dawood/medical_system/assets/77101158/9c010c3d-019b-4442-ba5d-c60d9201d072";
 }

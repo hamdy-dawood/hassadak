@@ -125,12 +125,15 @@ class ProductItem extends StatelessWidget {
                                   child: CachedNetworkImage(
                                     fit: BoxFit.contain,
                                     imageUrl: userImage,
-                                    placeholder: (context, url) => JumpingDotsProgressIndicator(
+                                    placeholder: (context, url) =>
+                                        JumpingDotsProgressIndicator(
                                       fontSize: 20.h,
                                       color: ColorManager.secMainColor,
                                     ),
-                                    errorWidget: (context, url, error) => Center(
-                                      child: Image.asset("assets/images/user.png"),
+                                    errorWidget: (context, url, error) =>
+                                        Center(
+                                      child:
+                                          Image.asset("assets/images/user.png"),
                                     ),
                                   ),
                                 ),
