@@ -58,7 +58,7 @@ class BuildProductsStream extends StatelessWidget {
                       id: allProductsCubit.allProducts!.data.doc[index].id,
                       image: allProductsCubit
                           .allProducts!.data.doc[index].productUrl,
-                      userImage: 'assets/images/user.png',
+                      userImage: "assets/images/user.png",
                       name: allProductsCubit.allProducts!.data.doc[index].name,
                       desc: allProductsCubit.allProducts!.data.doc[index].desc,
                       price:

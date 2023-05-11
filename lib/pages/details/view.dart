@@ -83,7 +83,7 @@ class DetailsView extends StatelessWidget {
                           width: 5.w,
                         ),
                         CustomText(
-                          text: "محمد عبدالله",
+                          text: "محمد احمد",
                           color: ColorManager.mainColor,
                           fontWeight: FontWeight.normal,
                           fontSize: 20.sp,
