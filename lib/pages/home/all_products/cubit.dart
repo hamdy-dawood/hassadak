@@ -30,6 +30,7 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
         _allProductsController.add(AllProductsSuccessState());
+        print(response.data);
         emit(AllProductsSuccessState());
       } else {
         emit(AllProductsFailedState(msg: response.data["status"]));

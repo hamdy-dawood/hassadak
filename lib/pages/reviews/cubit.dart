@@ -11,17 +11,12 @@ import 'states.dart';
 class ReviewsCubit extends Cubit<ReviewsStates> {
   ReviewsCubit() : super(ReviewsInitialState());
 
-  final _reviewsController = StreamController<ReviewsStates>.broadcast();
-
-  Stream<ReviewsStates> get reviewsStream => _reviewsController.stream;
-
   static ReviewsCubit get(context) => BlocProvider.of(context);
 
   final dio = Dio();
   ReviewsResponse? reviewsResponse;
 
   Future<void> getReviews({required String id}) async {
-    _reviewsController.add(ReviewsLoadingState());
     emit(ReviewsLoadingState());
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
@@ -31,7 +26,6 @@ class ReviewsCubit extends Cubit<ReviewsStates> {
 
       if (response.data["status"] == "success" && response.statusCode == 200) {
         reviewsResponse = ReviewsResponse.fromJson(response.data);
-        _reviewsController.add(ReviewsSuccessState());
         emit(ReviewsSuccessState());
       } else {
         emit(ReviewsFailureState(msg: response.data["status"]));

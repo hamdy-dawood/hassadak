@@ -32,7 +32,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       final response = await dio.get(UrlsStrings.allCategoriesUrl);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allCategories = AllCategories.fromJson(response.data);
-        length = allCategories!.data.doc.length;
+        length = allCategories!.results;
         _allCategoriesController
             .add(AllCategoriesSuccessStates(id: allCategories!.data.doc));
         emit(AllCategoriesSuccessStates(id: allCategories!.data.doc));
