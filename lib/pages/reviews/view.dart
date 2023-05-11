@@ -8,6 +8,7 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/constants/strings.dart';
+import 'package:hassadak/pages/profile/personal_data/cubit.dart';
 import 'package:hassadak/pages/reviews/add_review/cubit.dart';
 import 'package:hassadak/pages/reviews/delete_review/cubit.dart';
 import 'package:hassadak/pages/reviews/states.dart';
@@ -35,6 +36,8 @@ class ReviewsView extends StatelessWidget {
         final addReviewCubit = AddReviewsCubit.get(context);
         final reviewCubit = ReviewsCubit.get(context);
         final deleteReviewCubit = DeleteReviewsCubit.get(context);
+        final personalDataCubit = PersonalDataCubit.get(context);
+
         reviewCubit.getReviews(id: id);
         return RefreshIndicator(
           backgroundColor: ColorManager.secMainColor,
@@ -47,7 +50,9 @@ class ReviewsView extends StatelessWidget {
             backgroundColor: ColorManager.white,
             appBar: backWithSearch(context),
             bottomSheet: BuildBottomSheetAddReview(
-                addReviewsCubit: addReviewCubit, id: id),
+              addReviewsCubit: addReviewCubit,
+              id: id,
+            ),
             body: ListView(
               children: [
                 Row(
@@ -64,86 +69,114 @@ class ReviewsView extends StatelessWidget {
                             color: ColorManager.secMainColor,
                           ),
                           errorWidget: (context, url, error) => Center(
-                            child: Image.network(UrlsStrings.noImageUrl),
+                            child: Image.asset("assets/images/no_image.png"),
                           ),
                         ),
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          text: name,
-                          color: ColorManager.mainColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.sp,
-                          maxLines: 2,
-                        ),
-                        SizedBox(
-                          height: 0.02.sh,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgIcon(
-                              icon: "assets/icons/fill_star.svg",
-                              height: 22.h,
-                              color: ColorManager.green,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            CustomText(
-                              text: "$rating",
-                              color: ColorManager.mainColor,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 0.02.sh,
-                        ),
-                        BlocBuilder<ReviewsCubit, ReviewsStates>(
-                          builder: (context, state) {
-                            if (state is ReviewsLoadingState) {
-                              return ContainerShimmer(
-                                height: 20.h,
-                                width: 100.w,
-                                margin: EdgeInsets.all(0.h),
-                                padding: EdgeInsets.all(0.h),
-                                radius: 5.r,
-                              );
-                            } else if (state is ReviewsFailureState) {
-                              return Text(state.msg);
-                            } else {
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CustomText(
-                                    text:
-                                        "${reviewCubit.reviewsResponse?.results}",
-                                    color: ColorManager.mainColor,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.normal,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: name,
+                            color: ColorManager.mainColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            maxLines: 2,
+                          ),
+                          SizedBox(
+                            height: 0.02.sh,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgIcon(
+                                icon: "assets/icons/fill_star.svg",
+                                height: 22.h,
+                                color: ColorManager.green,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              CustomText(
+                                text: "$rating",
+                                color: ColorManager.mainColor,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 0.02.sh,
+                          ),
+                          BlocBuilder<ReviewsCubit, ReviewsStates>(
+                            builder: (context, state) {
+                              if (state is ReviewsLoadingState) {
+                                return ContainerShimmer(
+                                  height: 20.h,
+                                  width: 100.w,
+                                  margin: EdgeInsets.all(0.h),
+                                  padding: EdgeInsets.all(0.h),
+                                  radius: 5.r,
+                                );
+                              } else if (state is ReviewsFailureState) {
+                                return Text(state.msg);
+                              } else if (state is ReviewsNetworkErrorState) {
+                                return SizedBox(
+                                  height: 0.04.sh,
+                                  child: Row(
+                                    children: [
+                                      CustomText(
+                                        text: "يرجي التحقق من الانترنت",
+                                        color: ColorManager.mainColor,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      CachedNetworkImage(
+                                        imageUrl: UrlsStrings.networkErrorUrl,
+                                        placeholder: (context, url) =>
+                                            JumpingDotsProgressIndicator(
+                                          fontSize: 20.h,
+                                          color: ColorManager.secMainColor,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Center(
+                                                child: Image.asset(
+                                                    "assets/images/no_network.png")),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: 5.w,
-                                  ),
-                                  CustomText(
-                                    text: "تقييم",
-                                    color: ColorManager.mainColor,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 18.sp,
-                                  ),
-                                ],
-                              );
-                            }
-                          },
-                        ),
-                      ],
+                                );
+                              } else {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CustomText(
+                                      text:
+                                          "${reviewCubit.reviewsResponse?.results}",
+                                      color: ColorManager.mainColor,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    CustomText(
+                                      text: "تقييم",
+                                      color: ColorManager.mainColor,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -154,6 +187,7 @@ class ReviewsView extends StatelessWidget {
                 BuildReviewBuilder(
                   reviewCubit: reviewCubit,
                   deleteReviewCubit: deleteReviewCubit,
+                  personalDataCubit: personalDataCubit,
                 ),
               ],
             ),

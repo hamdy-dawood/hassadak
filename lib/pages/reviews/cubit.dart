@@ -11,12 +11,17 @@ import 'states.dart';
 class ReviewsCubit extends Cubit<ReviewsStates> {
   ReviewsCubit() : super(ReviewsInitialState());
 
+  final _reviewsController = StreamController<ReviewsStates>.broadcast();
+
+  Stream<ReviewsStates> get reviewsStream => _reviewsController.stream;
+
   static ReviewsCubit get(context) => BlocProvider.of(context);
 
   final dio = Dio();
   ReviewsResponse? reviewsResponse;
 
   Future<void> getReviews({required String id}) async {
+    _reviewsController.add(ReviewsLoadingState());
     emit(ReviewsLoadingState());
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
@@ -26,12 +31,30 @@ class ReviewsCubit extends Cubit<ReviewsStates> {
 
       if (response.data["status"] == "success" && response.statusCode == 200) {
         reviewsResponse = ReviewsResponse.fromJson(response.data);
+        _reviewsController.add(ReviewsSuccessState());
         emit(ReviewsSuccessState());
       } else {
         emit(ReviewsFailureState(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(ReviewsFailureState(msg: "$e"));
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+      } else if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+      } else if (e.type == DioErrorType.badResponse) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print("Received invalid status code: ${e.response?.statusCode}");
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
+        emit(ReviewsNetworkErrorState());
+      }
+    } catch (e) {
+      emit(ReviewsFailureState(msg: 'An unknown error occurred: $e'));
+      print(e);
     }
   }
 }

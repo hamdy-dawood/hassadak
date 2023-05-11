@@ -35,7 +35,24 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
         emit(AllProductsFailedState(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(AllProductsFailedState(msg: "$e"));
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+      } else if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+      } else if (e.type == DioErrorType.badResponse) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print("Received invalid status code: ${e.response?.statusCode}");
+        print(errorMsg);
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
+        emit(NetworkErrorState());
+      }
+    } catch (e) {
+      emit(AllProductsFailedState(msg: 'An unknown error occurred: $e'));
     }
   }
 }

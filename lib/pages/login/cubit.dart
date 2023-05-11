@@ -58,7 +58,6 @@ class LoginCubit extends Cubit<LoginStates> {
         if (phoneResponse.data["status"] == "success" &&
             phoneResponse.statusCode == 200) {
           loginResponse = LoginResponse.fromJson(phoneResponse.data);
-
           CacheHelper.saveToken("${phoneResponse.data["token"]}");
           CacheHelper.saveId(loginResponse!.data.user.id);
           print(loginResponse!.data.user.telephone);

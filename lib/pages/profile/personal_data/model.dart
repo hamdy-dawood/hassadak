@@ -1,3 +1,5 @@
+import 'package:hassadak/constants/strings.dart';
+
 class PersonalDataResp {
   PersonalDataResp({
     required this.status,
@@ -34,6 +36,7 @@ class Doc {
     required this.username,
     required this.telephone,
     required this.role,
+    required this.image,
     required this.favouriteProduct,
     required this.favouriteCompany,
     required this.createdAt,
@@ -49,7 +52,8 @@ class Doc {
   late final String username;
   late final String telephone;
   late final String role;
-  late final List<String> favouriteProduct;
+  late final String image;
+  late final List<dynamic> favouriteProduct;
   late final List<dynamic> favouriteCompany;
   late final String createdAt;
   late final String updatedAt;
@@ -57,19 +61,21 @@ class Doc {
   late final String passwordChangedAt;
 
   Doc.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    username = json['username'];
-    telephone = json['telephone'];
-    role = json['role'];
-    favouriteProduct = List.castFrom<dynamic, String>(json['favouriteProduct']);
+    id = json['_id'] ?? "";
+    firstName = json['firstName'] ?? "";
+    lastName = json['lastName'] ?? "";
+    email = json['email'] ?? "";
+    username = json['username'] ?? "";
+    telephone = json['telephone'] ?? "";
+    role = json['role'] ?? "";
+    image = json['image'] ?? UrlsStrings.noImageUrl;
+    favouriteProduct =
+        List.castFrom<dynamic, String>(json['favouriteProduct'] ?? "");
     favouriteCompany =
-        List.castFrom<dynamic, dynamic>(json['favouriteCompany']);
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    V = json['__v'];
-    passwordChangedAt = json['passwordChangedAt'];
+        List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? "");
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    V = json['__v'] ?? 0;
+    passwordChangedAt = json['passwordChangedAt'] ?? "";
   }
 }

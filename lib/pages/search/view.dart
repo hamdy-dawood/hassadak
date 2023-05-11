@@ -1,16 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/back_with_title.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -29,25 +32,9 @@ class SearchView extends StatelessWidget {
         allProductsCubit.getAllProducts();
         return Scaffold(
           backgroundColor: ColorManager.white,
-          appBar: AppBar(
-            backgroundColor: ColorManager.white,
-            elevation: 0.0,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgIcon(
-                icon: "assets/icons/arrow.svg",
-                height: 18.h,
-                color: ColorManager.black,
-              ),
-            ),
-            title: CustomText(
-              text: "البحث",
-              color: ColorManager.mainColor,
-              fontSize: 25.sp,
-              fontWeight: FontWeight.bold,
-            ),
+          appBar: backWithTitle(
+            context,
+            title: "البحث",
           ),
           body: RefreshIndicator(
             backgroundColor: ColorManager.secMainColor,
@@ -301,6 +288,24 @@ class SearchView extends StatelessWidget {
                           );
                         } else if (state is AllProductsFailedState) {
                           return Text(state.msg);
+                        } else if (state is NetworkErrorState) {
+                          return SizedBox(
+                            height: 0.4.sh,
+                            child: Center(
+                              child: CachedNetworkImage(
+                                imageUrl: UrlsStrings.networkErrorUrl,
+                                placeholder: (context, url) =>
+                                    JumpingDotsProgressIndicator(
+                                  fontSize: 100.h,
+                                  color: ColorManager.secMainColor,
+                                ),
+                                errorWidget: (context, url, error) => Center(
+                                  child: Image.asset(
+                                      "assets/images/no_network.png"),
+                                ),
+                              ),
+                            ),
+                          );
                         } else {
                           return Expanded(
                             child: GridView.builder(
@@ -323,6 +328,7 @@ class SearchView extends StatelessWidget {
                                             .allProducts!.data.doc[index].id,
                                         image: allProductsCubit.allProducts!
                                             .data.doc[index].productUrl,
+                                        userImage: 'assets/images/user.png',
                                         name: allProductsCubit
                                             .allProducts!.data.doc[index].name,
                                         desc: allProductsCubit

@@ -7,7 +7,6 @@ import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/reviews/view.dart';
@@ -24,9 +23,10 @@ class DetailsView extends StatelessWidget {
     required this.ratingsAverage,
     required this.image,
     required this.ratingsQuantity,
+    required this.userImage,
   }) : super(key: key);
 
-  final String id, name, desc, price, oldPrice, image;
+  final String id, name, desc, price, oldPrice, image, userImage;
   final num ratingsAverage, ratingsQuantity;
 
   @override
@@ -42,13 +42,14 @@ class DetailsView extends StatelessWidget {
               height: 0.35.sh,
               child: Center(
                 child: CachedNetworkImage(
+                  fit: BoxFit.contain,
                   imageUrl: image,
                   placeholder: (context, url) => JumpingDotsProgressIndicator(
-                    fontSize: 50.h,
+                    fontSize: 100.h,
                     color: ColorManager.secMainColor,
                   ),
                   errorWidget: (context, url, error) => Center(
-                    child: Image.network(UrlsStrings.noImageUrl),
+                    child: Image.asset("assets/images/no_image.png"),
                   ),
                 ),
               ),
@@ -65,8 +66,17 @@ class DetailsView extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 20.r,
-                          backgroundImage: const AssetImage(
-                            "assets/images/user.png",
+                          child: CachedNetworkImage(
+                            fit: BoxFit.contain,
+                            imageUrl: userImage,
+                            placeholder: (context, url) =>
+                                JumpingDotsProgressIndicator(
+                              fontSize: 20.h,
+                              color: ColorManager.secMainColor,
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: Image.asset("assets/images/user.png"),
+                            ),
                           ),
                         ),
                         SizedBox(

@@ -5,6 +5,7 @@ import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
 
 import 'controllers.dart';
+import 'model.dart';
 import 'states.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -15,6 +16,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final formKey = GlobalKey<FormState>();
   bool securePass = true;
   bool secureConfPass = true;
+  RegisterResponse? registerResponse;
 
   final controllers = RegisterControllers();
 
@@ -26,6 +28,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           "firstName": controllers.firstNameController.text,
           "lastName": controllers.lastNameController.text,
           "email": controllers.emailController.text,
+          "image": controllers.imageController.text,
           "username": controllers.userNameController.text,
           "telephone": controllers.phoneController.text,
           "password": controllers.passwordController.text,
@@ -34,6 +37,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         if (response.data["status"] == "success" &&
             response.statusCode == 201) {
           CacheHelper.saveToken("${response.data["token"]}");
+          CacheHelper.saveId(registerResponse!.data.user.id);
           emit(RegisterSuccessState());
         } else {
           emit(RegisterFailureState(msg: response.data["status"]));

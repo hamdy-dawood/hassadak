@@ -123,6 +123,28 @@ class RegisterView extends StatelessWidget {
                       height: 0.02.sh,
                     ),
                     CustomTextFormField(
+                      controller: cubit.controllers.imageController,
+                      keyboardType: TextInputType.text,
+                      hint: 'لينك الصورة',
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(10.0.w),
+                        child: SvgIcon(
+                          icon: "assets/icons/email.svg",
+                          color: ColorManager.grey,
+                          height: 10.h,
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل لينك الصورة !';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 0.02.sh,
+                    ),
+                    CustomTextFormField(
                       controller: cubit.controllers.userNameController,
                       keyboardType: TextInputType.text,
                       hint: 'اسم المستخدم',

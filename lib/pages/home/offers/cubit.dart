@@ -36,11 +36,13 @@ class AllOffersCubit extends Cubit<AllOffersStates> {
         errorMsg = 'Connection timed out';
       } else if (e.type == DioErrorType.badResponse) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print(errorMsg);
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
       }
     } catch (e) {
-      AllOffersFailedStates(msg: 'An unknown error occurred: $e');
+      emit(AllOffersFailedStates(msg: 'An unknown error occurred: $e'));
     }
   }
 }

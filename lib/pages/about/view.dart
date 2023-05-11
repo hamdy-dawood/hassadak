@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/back_with_title.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/app_bar.dart';
@@ -12,10 +14,13 @@ class AboutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
+    final textController = TextEditingController();
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: customAppBar(text: "عن التطبيق"),
+      appBar: backWithTitle(
+        context,
+        title: "عن التطبيق",
+      ),
       body: SizedBox(
         width: 1.sw,
         child: Padding(
@@ -67,10 +72,9 @@ class AboutView extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {},
-                    child: SvgIcon(
-                      icon: "assets/icons/whatsapp.svg",
+                    child: SvgPicture.asset(
+                      "assets/icons/whatsapp.svg",
                       height: 50.h,
-                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -78,10 +82,9 @@ class AboutView extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {},
-                    child: SvgIcon(
-                      icon: "assets/icons/twitter.svg",
+                    child: SvgPicture.asset(
+                      "assets/icons/twitter.svg",
                       height: 50.h,
-                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -89,10 +92,9 @@ class AboutView extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {},
-                    child: SvgIcon(
-                      icon: "assets/icons/instagram.svg",
+                    child: SvgPicture.asset(
+                      "assets/icons/instagram.svg",
                       height: 50.h,
-                      color: ColorManager.black,
                     ),
                   ),
                   SizedBox(
@@ -100,10 +102,9 @@ class AboutView extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {},
-                    child: SvgIcon(
-                      icon: "assets/icons/facebook.svg",
+                    child: SvgPicture.asset(
+                      "assets/icons/facebook.svg",
                       height: 50.h,
-                      color: ColorManager.black,
                     ),
                   ),
                 ],
@@ -124,7 +125,7 @@ class AboutView extends StatelessWidget {
                 height: 100.h,
                 width: 1.sw,
                 child: TextField(
-                  controller: emailController,
+                  controller: textController,
                   maxLines: null,
                   expands: true,
                   keyboardType: TextInputType.multiline,
@@ -158,7 +159,7 @@ class AboutView extends StatelessWidget {
               CustomElevated(
                 text: "ارسال",
                 press: () {
-                  emailController.clear();
+                  textController.clear();
                 },
                 hSize: 50.h,
                 wSize: 1.sw,

@@ -5,6 +5,7 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/cache_helper.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/about/view.dart';
 import 'package:hassadak/pages/login/view.dart';
 import 'package:hassadak/pages/update_password/view.dart';
 
@@ -26,7 +27,7 @@ class ProfileView extends StatelessWidget {
           child: ListView(
             children: [
               SizedBox(
-                height: 0.05.sh,
+                height: 0.02.sh,
               ),
               ContainerWithShadow(
                 onTap: () {
@@ -51,7 +52,9 @@ class ProfileView extends StatelessWidget {
                 color: ColorManager.secMainColor,
               ),
               ContainerWithShadow(
-                onTap: () {},
+                onTap: () {
+                  navigateTo(page: const AboutView());
+                },
                 image: "assets/icons/about.svg",
                 title: "عن التطبيق",
                 color: ColorManager.secMainColor,
@@ -92,6 +95,8 @@ class ProfileView extends StatelessWidget {
                                     page: const LoginView(),
                                     withHistory: false);
                                 CacheHelper.removeToken();
+                                CacheHelper.removeId();
+
                               },
                               text: "خروج",
                               wSize: 100.w,

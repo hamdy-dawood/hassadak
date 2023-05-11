@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
@@ -13,11 +15,11 @@ class PersonalDataCubit extends Cubit<PersonalDataStates> {
   final dio = Dio();
   PersonalDataResp? profileResponse;
 
-  Future<void> getPersonalData() async {
+  Future<void> getPersonalData({required String id}) async {
     emit(PersonalDataLoadingState());
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response = await dio.get(UrlsStrings.getMeUrl);
+      final response = await dio.get("${UrlsStrings.getUserUrl}/$id");
       if (response.data["status"] == "success" && response.statusCode == 200) {
         profileResponse = PersonalDataResp.fromJson(response.data);
         emit(PersonalDataSuccessState());
@@ -25,7 +27,24 @@ class PersonalDataCubit extends Cubit<PersonalDataStates> {
         emit(PersonalDataFailureState(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(PersonalDataFailureState(msg: "$e"));
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+      } else if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+      } else if (e.type == DioErrorType.badResponse) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print("Received invalid status code: ${e.response?.statusCode}");
+        print(errorMsg);
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
+        emit(NetworkErrorState());
+      }
+    } catch (e) {
+      emit(PersonalDataFailureState(msg: 'An unknown error occurred: $e'));
     }
   }
 }

@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import 'custom_elevated.dart';
 
 class FavouriteItem extends StatelessWidget {
   const FavouriteItem({
@@ -133,7 +133,7 @@ class FavouriteItem extends StatelessWidget {
                       color: ColorManager.secMainColor,
                     ),
                     errorWidget: (context, url, error) => Center(
-                      child: Image.network(UrlsStrings.noImageUrl),
+                      child: Image.asset("assets/images/no_image.png"),
                     ),
                   ),
                 ),

@@ -8,11 +8,12 @@ import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
+import 'package:hassadak/pages/home/categories/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 
 class BuildProductsStream extends StatelessWidget {
   const BuildProductsStream(
-      {Key? key, required this.allProductsCubit, required this.addFavCubit})
+      {Key? key, required this.allProductsCubit, required this.addFavCubit,})
       : super(key: key);
   final AllProductsCubit allProductsCubit;
   final AddFavCubit addFavCubit;
@@ -26,8 +27,8 @@ class BuildProductsStream extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         }
         final state = snapshot.data;
-        if (state is AllProductsLoadingState ||
-            snapshot.connectionState == ConnectionState.waiting) {
+        if ((state is AllProductsLoadingState ||
+                snapshot.connectionState == ConnectionState.waiting) ) {
           return ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -56,6 +57,7 @@ class BuildProductsStream extends StatelessWidget {
                       id: allProductsCubit.allProducts!.data.doc[index].id,
                       image: allProductsCubit
                           .allProducts!.data.doc[index].productUrl,
+                      userImage: 'assets/images/user.png',
                       name: allProductsCubit.allProducts!.data.doc[index].name,
                       desc: allProductsCubit.allProducts!.data.doc[index].desc,
                       price:
@@ -72,7 +74,7 @@ class BuildProductsStream extends StatelessWidget {
                 },
                 child: BlocBuilder<AddFavCubit, AddFavStates>(
                   builder: (context, state) {
-                   // addFavCubit.isLoved =  allProductsCubit.allProducts!.data.doc[index].status;
+                    // addFavCubit.isLoved =  allProductsCubit.allProducts!.data.doc[index].status;
                     return ProductItem(
                       favIcon: SvgIcon(
                         icon:
@@ -89,8 +91,6 @@ class BuildProductsStream extends StatelessWidget {
                         addFavCubit.addFav(
                             id: allProductsCubit
                                 .allProducts!.data.doc[index].id);
-                        //todo
-                       // addFavCubit.changeFavourite();
                       },
                       offer: 'خصم 20%',
                       image: allProductsCubit

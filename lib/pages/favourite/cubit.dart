@@ -11,11 +11,6 @@ part 'states.dart';
 
 class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
   AllFavouritesCubit() : super(AllFavouritesInitialStates());
-  final _allFavouritesController =
-      StreamController<AllFavouritesStates>.broadcast();
-
-  Stream<AllFavouritesStates> get allFavouritesStream =>
-      _allFavouritesController.stream;
 
   static AllFavouritesCubit get(context) => BlocProvider.of(context);
 
@@ -23,20 +18,34 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
   final dio = Dio();
 
   Future<void> getAllFavourites() async {
-    _allFavouritesController.add(AllFavouritesLoadingStates());
     emit(AllFavouritesLoadingStates());
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response = await dio.get(UrlsStrings.allFavouritesUrl);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allFavourites = FavouriteResponse.fromJson(response.data);
-        _allFavouritesController.add(AllFavouritesSuccessStates());
         emit(AllFavouritesSuccessStates());
       } else {
         emit(AllFavouritesFailedStates(msg: response.data["status"]));
       }
     } on DioError catch (e) {
-      emit(AllFavouritesFailedStates(msg: "$e"));
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+      } else if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+      } else if (e.type == DioErrorType.badResponse) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        print("Received invalid status code: ${e.response?.statusCode}");
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
+        emit(NetworkErrorState());
+      }
+    } catch (e) {
+      emit(AllFavouritesFailedStates(msg: 'An unknown error occurred: $e'));
     }
   }
 }

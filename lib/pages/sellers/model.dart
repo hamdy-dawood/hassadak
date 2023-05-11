@@ -1,94 +1,81 @@
-import 'dart:convert';
-
-AllSellersResponse getSellersFromJson(String str) =>
-    AllSellersResponse.fromJson(json.decode(str));
+import 'package:hassadak/constants/strings.dart';
 
 class AllSellersResponse {
-  String status;
-  int results;
-  Data data;
-
   AllSellersResponse({
     required this.status,
     required this.results,
     required this.data,
   });
 
-  factory AllSellersResponse.fromJson(Map<String, dynamic> json) =>
-      AllSellersResponse(
-        status: json["status"],
-        results: json["results"],
-        data: Data.fromJson(json["data"]),
-      );
+  late final String status;
+  late final int results;
+  late final Data data;
+
+  AllSellersResponse.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    results = json['results'];
+    data = Data.fromJson(json['data']);
+  }
 }
 
 class Data {
-  List<Doc> doc;
-
   Data({
     required this.doc,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        doc: List<Doc>.from(json["doc"].map((x) => Doc.fromJson(x))),
-      );
+  late final List<Doc> doc;
+
+  Data.fromJson(Map<String, dynamic> json) {
+    doc = List.from(json['doc']).map((e) => Doc.fromJson(e)).toList();
+  }
 }
 
 class Doc {
-  String id;
-  String firstName;
-  String lastName;
-  String email;
-  String username;
-  String telephone;
-  String whatsapp;
-  String facebookUrl;
-  String instaUrl;
-  String? twitterUrl;
-  String? description;
-  String role;
-  List<dynamic> favouriteProduct;
-  List<dynamic> favouriteCompany;
-  DateTime createdAt;
-  DateTime updatedAt;
-
   Doc({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.username,
-    required this.telephone,
-    required this.whatsapp,
-    required this.facebookUrl,
-    required this.instaUrl,
-    this.twitterUrl,
-    this.description,
-    required this.role,
-    required this.favouriteProduct,
-    required this.favouriteCompany,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.username,
+    this.telephone,
+    this.role,
+    required this.image,
+    this.likes,
+    this.favouriteProduct,
+    this.favouriteCompany,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory Doc.fromJson(Map<String, dynamic> json) => Doc(
-        id: json["_id"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        email: json["email"],
-        username: json["username"],
-        telephone: json["telephone"],
-        whatsapp: json["whatsapp"],
-        facebookUrl: json["facebookUrl"],
-        instaUrl: json["instaUrl"],
-        twitterUrl: json["twitterUrl"],
-        description: json["description"],
-        role: json["role"],
-        favouriteProduct:
-            List<dynamic>.from(json["favouriteProduct"].map((x) => x)),
-        favouriteCompany:
-            List<dynamic>.from(json["favouriteCompany"].map((x) => x)),
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-      );
+  late final String? id;
+  late final String? firstName;
+  late final String? lastName;
+  late final String? email;
+  late final String? username;
+  late final String? telephone;
+  late final String? role;
+  late final String image;
+  late final List<dynamic>? likes;
+  late final List<dynamic>? favouriteProduct;
+  late final List<dynamic>? favouriteCompany;
+  late final String? createdAt;
+  late final String? updatedAt;
+
+  Doc.fromJson(Map<String, dynamic> json) {
+    id = json['_id'] ?? "";
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    email = json['email'];
+    username = json['username'] ?? "";
+    telephone = json['telephone'];
+    role = json['role'];
+    image = json['image'] ?? UrlsStrings.noImageUrl;
+    likes = List<dynamic>.from(json["likes"].map((x) => x));
+    favouriteProduct =
+        List<dynamic>.from(json["favouriteProduct"].map((x) => x));
+    favouriteCompany =
+        List<dynamic>.from(json["favouriteCompany"].map((x) => x));
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
 }

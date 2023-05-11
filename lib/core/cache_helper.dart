@@ -35,6 +35,10 @@ class CacheHelper {
     return prefs.getString("id") ?? "";
   }
 
+  static Future<bool> removeId() {
+    return prefs.remove("id");
+  }
+
   // static Future<bool> saveEmail(String email) async {
   //   return await prefs.setString("email", email);
   // }

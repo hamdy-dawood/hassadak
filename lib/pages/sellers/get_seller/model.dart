@@ -20,42 +20,46 @@ class GetSellerResponse {
 
 class User {
   User({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.username,
-    required this.telephone,
-    required this.whatsapp,
-    required this.facebookUrl,
-    required this.instaUrl,
-    required this.twitterUrl,
-    required this.description,
-    required this.role,
-    required this.favouriteProduct,
-    required this.favouriteCompany,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.V,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.username,
+    this.telephone,
+    this.whatsapp = "",
+    this.facebookUrl = "",
+    this.instaUrl = "",
+    this.twitterUrl = "",
+    this.description = "",
+    this.role,
+    this.image ,
+    this.likes,
+    this.favouriteProduct,
+    this.favouriteCompany,
+    this.createdAt,
+    this.updatedAt,
+    this.V,
   });
 
-  late final String id;
-  late final String firstName;
-  late final String lastName;
-  late final String email;
-  late final String username;
-  late final String telephone;
-  late final String whatsapp;
-  late final String facebookUrl;
-  late final String instaUrl;
-  late String? twitterUrl = "";
-  late final String description;
-  late final String role;
-  late final List<dynamic> favouriteProduct;
-  late final List<dynamic> favouriteCompany;
-  late final String createdAt;
-  late final String updatedAt;
-  late final int V;
+  late final String? id;
+  late final String? firstName;
+  late final String? lastName;
+  late final String? email;
+  late final String? username;
+  late final String? telephone;
+  late final String? whatsapp;
+  late final String? facebookUrl;
+  late final String? instaUrl;
+  late final String? twitterUrl;
+  late final String? description;
+  late final String? role;
+  late final String? image;
+  late final List<dynamic>? likes;
+  late final List<dynamic>? favouriteProduct;
+  late final List<dynamic>? favouriteCompany;
+  late final String? createdAt;
+  late final String? updatedAt;
+  late final num? V;
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -70,6 +74,8 @@ class User {
     twitterUrl = json['twitterUrl'];
     description = json['description'];
     role = json['role'];
+    image = json['image'];
+    likes = List.castFrom<dynamic, dynamic>(json['likes']);
     favouriteProduct =
         List.castFrom<dynamic, dynamic>(json['favouriteProduct']);
     favouriteCompany =
@@ -82,40 +88,40 @@ class User {
 
 class GetUserProduct {
   GetUserProduct({
-    required this.name,
-    required this.desc,
-    required this.typeId,
-    required this.categoryId,
-    required this.productUrl,
-    required this.ratingsAverage,
-    required this.ratingsQuantity,
-    required this.price,
-    required this.discount,
-    required this.discountPerc,
-    required this.uploaderId,
-    required this.uploaderName,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.V,
-    required this.id,
+    this.name,
+    this.desc,
+    this.typeId,
+    this.categoryId,
+    this.productUrl,
+    this.ratingsAverage,
+    this.ratingsQuantity,
+    this.price,
+    this.discount,
+    this.discountPerc,
+    this.uploaderId,
+    this.uploaderName,
+    this.createdAt,
+    this.updatedAt,
+    this.V,
+    this.id,
   });
 
-  late final String name;
-  late final String desc;
-  late final String typeId;
-  late final String categoryId;
-  late final String productUrl;
-  late final int ratingsAverage;
-  late final int ratingsQuantity;
-  late final int price;
-  late final String discount;
-  late final int discountPerc;
-  late final String uploaderId;
-  late final String uploaderName;
-  late final String createdAt;
-  late final String updatedAt;
-  late final int V;
-  late final String id;
+  late final String? name;
+  late final String? desc;
+  late final String? typeId;
+  late final String? categoryId;
+  late final String? productUrl;
+  late final num? ratingsAverage;
+  late final num? ratingsQuantity;
+  late final num? price;
+  late final String? discount;
+  late final num? discountPerc;
+  late final String? uploaderId;
+  late final String? uploaderName;
+  late final String? createdAt;
+  late final String? updatedAt;
+  late final num? V;
+  late final String? id;
 
   GetUserProduct.fromJson(Map<String, dynamic> json) {
     name = json['name'];

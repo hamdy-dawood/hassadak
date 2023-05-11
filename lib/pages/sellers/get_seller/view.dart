@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
+import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/details/view.dart';
+import 'package:hassadak/pages/home/components/product_item.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'cubit.dart';
@@ -115,24 +121,29 @@ class GetSellerView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.h),
-                          child: Container(
-                            height: 0.15.sh,
-                            decoration: BoxDecoration(
-                              color: ColorManager.secMainColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.5),
-                              child: Image.asset(
-                                "assets/images/user.png",
+                          child: CircleAvatar(
+                            radius: 60.r,
+                            backgroundColor: ColorManager.secMainColor,
+                            child: ClipOval(
+                              child: CachedNetworkImage(
                                 fit: BoxFit.contain,
+                                imageUrl: "${cubit.sellerResponse!.user.image}",
+                                placeholder: (context, url) =>
+                                    JumpingDotsProgressIndicator(
+                                  fontSize: 20.h,
+                                  color: ColorManager.secMainColor,
+                                ),
+                                errorWidget: (context, url, error) => Center(
+                                  child:
+                                      Image.asset("assets/images/no_image.png"),
+                                ),
                               ),
                             ),
                           ),
                         ),
                         CustomText(
                           textAlign: TextAlign.center,
-                          text: cubit.sellerResponse!.user.username,
+                          text: "${cubit.sellerResponse!.user.username}",
                           color: ColorManager.secMainColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 25.sp,
@@ -142,7 +153,7 @@ class GetSellerView extends StatelessWidget {
                         ),
                         CustomText(
                           textAlign: TextAlign.center,
-                          text: cubit.sellerResponse!.user.email,
+                          text: "${cubit.sellerResponse!.user.email}",
                           color: ColorManager.secMainColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 20.sp,
@@ -219,6 +230,107 @@ class GetSellerView extends StatelessWidget {
                               ),
                             ),
                           ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        CustomText(
+                          text: "المنتجات",
+                          color: ColorManager.secMainColor,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 25.sp,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        SizedBox(
+                          height: 270.h,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                cubit.sellerResponse!.getUserProduct.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  navigateTo(
+                                    page: DetailsView(
+                                      id: "${cubit.sellerResponse!.getUserProduct[index].id}",
+                                      image:
+                                          "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
+                                      userImage:
+                                      "${cubit.sellerResponse!.user.image}",
+                                      name:
+                                          "${cubit.sellerResponse!.getUserProduct[index].name}",
+                                      desc:
+                                          "${cubit.sellerResponse!.getUserProduct[index].desc}",
+                                      price:
+                                          "${cubit.sellerResponse!.getUserProduct[index].price}",
+                                      oldPrice:
+                                          "${cubit.sellerResponse!.getUserProduct[index].price! - (cubit.sellerResponse!.getUserProduct[index].price! * (cubit.sellerResponse!.getUserProduct[index].discountPerc! / 100))}",
+                                      ratingsAverage: cubit.sellerResponse!
+                                          .getUserProduct[index].ratingsAverage!
+                                          .toInt(),
+                                      ratingsQuantity: cubit
+                                          .sellerResponse!
+                                          .getUserProduct[index]
+                                          .ratingsQuantity!
+                                          .toInt(),
+                                    ),
+                                  );
+                                },
+                                child: BlocBuilder<GetSellerCubit,
+                                    GetSellerStates>(
+                                  builder: (context, state) {
+                                    if (state is GetSellerLoadingState) {
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 3,
+                                        itemBuilder: (context, index) {
+                                          return ContainerShimmer(
+                                            height: 100.h,
+                                            width: 0.5.sw,
+                                            margin:
+                                                EdgeInsets.only(right: 10.w),
+                                            padding: EdgeInsets.all(0.h),
+                                          );
+                                        },
+                                      );
+                                    } else if (state is GetSellerFailedState) {
+                                      return Text(state.msg);
+                                    } else {
+                                      return ProductItem(
+                                        favIcon: SvgIcon(
+                                          icon: "assets/icons/heart.svg",
+                                          color: ColorManager.white,
+                                          height: 18.h,
+                                        ),
+                                        favTap: () {},
+                                        offer:
+                                            'خصم ${cubit.sellerResponse!.getUserProduct[index].discountPerc}%',
+                                        image:
+                                            "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
+                                        title:
+                                            "${cubit.sellerResponse!.getUserProduct[index].name}",
+                                        userName:
+                                            "${cubit.sellerResponse!.user.username}",
+                                        userImage:
+                                            "${cubit.sellerResponse!.user.image}",
+                                        price:
+                                            "${cubit.sellerResponse!.getUserProduct[index].price}",
+                                        oldPrice:
+                                            "${cubit.sellerResponse!.getUserProduct[index].price! - (cubit.sellerResponse!.getUserProduct[index].price! * (cubit.sellerResponse!.getUserProduct[index].discountPerc! / 100))}",
+                                      );
+                                    }
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
                         ),
                       ],
                     );

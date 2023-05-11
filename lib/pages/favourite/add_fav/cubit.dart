@@ -15,7 +15,7 @@ class AddFavCubit extends Cubit<AddFavStates> {
   final dio = Dio();
 
   //todo
- // bool isLoved = false;
+  //bool isLoved = false;
 
   Future<void> addFav({required String id}) async {
     try {
@@ -25,6 +25,9 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
       if (response.data["status"] == "success" && response.statusCode == 200) {
         emit(AddFavSuccessStates());
+        //todo
+        // isLoved = true;
+        // emit(ChangeFavouriteState());
       } else {
         emit(AddFavFailedStates(msg: response.data["status"]));
       }
@@ -33,9 +36,9 @@ class AddFavCubit extends Cubit<AddFavStates> {
     }
   }
 
-  //todo
-  // changeFavourite() {
-  //   isLoved = !isLoved;
-  //   emit(ChangeFavouriteState());
-  // }
+//todo
+//   changeFavourite() {
+//     isLoved = !isLoved;
+//     emit(ChangeFavouriteState());
+//   }
 }

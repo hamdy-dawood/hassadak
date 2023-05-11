@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/back_with_title.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
@@ -24,25 +23,9 @@ class UpdatePasswordView extends StatelessWidget {
           final cubit = UpdatePasswordCubit.get(context);
           return Scaffold(
             backgroundColor: ColorManager.white,
-            appBar: AppBar(
-              backgroundColor: ColorManager.white,
-              elevation: 0.0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: SvgIcon(
-                  icon: "assets/icons/arrow.svg",
-                  height: 18.h,
-                  color: ColorManager.black,
-                ),
-              ),
-              title: CustomText(
-                text: "تغيير كلمة المرور",
-                color: ColorManager.mainColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-              ),
+            appBar: backWithTitle(
+              context,
+              title: "تغيير كلمة المرور",
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),

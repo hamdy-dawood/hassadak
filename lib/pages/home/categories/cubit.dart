@@ -22,7 +22,9 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
   Stream<AllCategoriesStates> get allCategoriesStream =>
       _allCategoriesController.stream;
 
-  Future<void> getAllCategories() async {
+  int? length ;
+
+  Future<AllCategories> getAllCategories() async {
     _allCategoriesController.add(AllCategoriesLoadingStates());
     emit(AllCategoriesLoadingStates());
     try {
@@ -30,6 +32,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       final response = await dio.get(UrlsStrings.allCategoriesUrl);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allCategories = AllCategories.fromJson(response.data);
+        length = allCategories!.data.doc.length;
         _allCategoriesController
             .add(AllCategoriesSuccessStates(id: allCategories!.data.doc));
         emit(AllCategoriesSuccessStates(id: allCategories!.data.doc));
@@ -55,6 +58,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       _allCategoriesController
           .add(AllCategoriesFailedStates(msg: 'An unknown error occurred: $e'));
     }
+    return allCategories!;
   }
 
   void dispose() {

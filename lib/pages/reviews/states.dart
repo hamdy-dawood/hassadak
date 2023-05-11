@@ -6,6 +6,8 @@ class ReviewsLoadingState extends ReviewsStates {}
 
 class ReviewsSuccessState extends ReviewsStates {}
 
+class ReviewsNetworkErrorState extends ReviewsStates {}
+
 class ReviewsFailureState extends ReviewsStates {
   final String msg;
 

@@ -12,4 +12,6 @@ class PersonalDataFailureState extends PersonalDataStates {
   PersonalDataFailureState({required this.msg});
 }
 
+class NetworkErrorState extends PersonalDataStates {}
+
 class ChanceVisibilityState extends PersonalDataStates {}

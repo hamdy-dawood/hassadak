@@ -3,7 +3,7 @@ class UrlsStrings {
   static String emailLoginUrl = "${baseUrl}users/login";
   static String phoneLoginUrl = "${baseUrl}users/loginPhone";
   static String registerUrl = "${baseUrl}users/signup";
-  static String getMeUrl = "${baseUrl}users/me";
+  static String getUserUrl = "${baseUrl}users";
   static String forgetPassUrl = "${baseUrl}users/forgotPassword";
   static String updatePassUrl = "${baseUrl}users/updateMyPassword";
   static String otpUrl = "${baseUrl}users/resetPassword";
@@ -14,6 +14,7 @@ class UrlsStrings {
   static String allReviewsUrl = "${baseUrl}reviews";
   static String allSellersUrl = "${baseUrl}users";
   static String getSellerUrl = "${baseUrl}users/seller";
+  static String networkErrorUrl = "https://img.freepik.com/premium-vector/system-connection-error-repairing-network-problem_126608-1489.jpg?w=2000";
   static String noImageUrl =
-      "https://cdn.vectorstock.com/i/preview-1x/82/99/no-image-available-like-missing-picture-vector-43938299.jpg";
+      "https://github.com/hamdy-dawood/medical_system/assets/77101158/9c010c3d-019b-4442-ba5d-c60d9201d072";
 }
