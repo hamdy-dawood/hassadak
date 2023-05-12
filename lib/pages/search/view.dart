@@ -11,9 +11,10 @@ import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
-import 'package:hassadak/pages/home/all_products/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+
+import 'cubit.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -28,10 +29,11 @@ class SearchView extends StatelessWidget {
     final double itemWidth = 1.sw / 2;
 
     return BlocProvider(
-      create: (context) => AllProductsCubit(),
+      create: (context) => SearchCubit(),
       child: Builder(builder: (context) {
-        final allProductsCubit = AllProductsCubit.get(context);
-        allProductsCubit.getAllProducts();
+        final searchCubit = SearchCubit.get(context);
+        searchCubit.getSearch();
+
         return Scaffold(
           backgroundColor: ColorManager.white,
           appBar: backWithTitle(
@@ -43,7 +45,7 @@ class SearchView extends StatelessWidget {
             color: Colors.white,
             onRefresh: () async {
               await Future.delayed(const Duration(seconds: 1));
-              allProductsCubit.getAllProducts();
+              searchCubit.getSearch();
             },
             child: SizedBox(
               height: 1.sh,
@@ -74,7 +76,7 @@ class SearchView extends StatelessWidget {
                                       if (searchController.text == "") {
                                         focusNode.unfocus();
                                       } else {
-                                        allProductsCubit.getAllProducts(
+                                        searchCubit.getSearch(
                                           id: "/search/${searchController.text}",
                                         );
                                       }
@@ -149,7 +151,7 @@ class SearchView extends StatelessWidget {
                                               hSize: 45.h,
                                               press: () {
                                                 Navigator.pop(context);
-                                                allProductsCubit.getAllProducts(
+                                                searchCubit.getSearch(
                                                     id: "?price[gte]=${priceController.text}");
                                                 priceController.clear();
                                               },
@@ -214,7 +216,7 @@ class SearchView extends StatelessWidget {
                                           wSize: 1.sw,
                                           press: () {
                                             Navigator.pop(context);
-                                            allProductsCubit.getAllProducts(
+                                            searchCubit.getSearch(
                                                 id: "?sort=price");
                                           },
                                         ),
@@ -228,7 +230,7 @@ class SearchView extends StatelessWidget {
                                           wSize: 1.sw,
                                           press: () {
                                             Navigator.pop(context);
-                                            allProductsCubit.getAllProducts(
+                                            searchCubit.getSearch(
                                                 id: "?sort=-price");
                                           },
                                         ),
@@ -257,16 +259,9 @@ class SearchView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    StreamBuilder<AllProductsStates>(
-                      stream: AllProductsCubit.get(context).allProductsStream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        }
-                        final state = snapshot.data;
-                        if (state is AllProductsLoadingState ||
-                            snapshot.connectionState ==
-                                ConnectionState.waiting) {
+                    BlocBuilder<SearchCubit, SearchStates>(
+                      builder: (context, state) {
+                        if (state is SearchLoadingState) {
                           return Expanded(
                             child: GridView.builder(
                               shrinkWrap: true,
@@ -288,9 +283,9 @@ class SearchView extends StatelessWidget {
                               },
                             ),
                           );
-                        } else if (state is AllProductsFailedState) {
+                        } else if (state is SearchFailedState) {
                           return Text(state.msg);
-                        } else if (state is NetworkErrorState) {
+                        } else if (state is SearchNetworkErrorState) {
                           return SizedBox(
                             height: 0.4.sh,
                             child: Center(
@@ -320,33 +315,33 @@ class SearchView extends StatelessWidget {
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount:
-                                  allProductsCubit.allProducts!.data.doc.length,
+                                  searchCubit.searchResponse!.data.doc.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
                                     navigateTo(
                                       page: DetailsView(
-                                        id: allProductsCubit
-                                            .allProducts!.data.doc[index].id,
-                                        image: allProductsCubit.allProducts!
-                                            .data.doc[index].productUrl,
+                                        id: searchCubit
+                                            .searchResponse!.data.doc[index].id,
+                                        image: searchCubit.searchResponse!.data
+                                            .doc[index].productUrl,
                                         userImage: UrlsStrings.userImageUrl,
-                                        name: allProductsCubit
-                                            .allProducts!.data.doc[index].name,
-                                        desc: allProductsCubit
-                                            .allProducts!.data.doc[index].desc,
+                                        name: searchCubit.searchResponse!.data
+                                            .doc[index].name,
+                                        desc: searchCubit.searchResponse!.data
+                                            .doc[index].desc,
                                         price:
-                                            "${allProductsCubit.allProducts!.data.doc[index].price}",
+                                            "${searchCubit.searchResponse!.data.doc[index].price}",
                                         oldPrice:
-                                            "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
-                                        ratingsAverage: (allProductsCubit
-                                                .allProducts!
+                                            "${searchCubit.searchResponse!.data.doc[index].price - (searchCubit.searchResponse!.data.doc[index].price * 0.2)}",
+                                        ratingsAverage: (searchCubit
+                                                .searchResponse!
                                                 .data
                                                 .doc[index]
                                                 .ratingsAverage)
                                             .toInt(),
-                                        ratingsQuantity: (allProductsCubit
-                                            .allProducts!
+                                        ratingsQuantity: (searchCubit
+                                            .searchResponse!
                                             .data
                                             .doc[index]
                                             .ratingsQuantity),
@@ -361,16 +356,16 @@ class SearchView extends StatelessWidget {
                                     ),
                                     favTap: () {},
                                     offer: 'خصم 20%',
-                                    image: allProductsCubit.allProducts!.data
+                                    image: searchCubit.searchResponse!.data
                                         .doc[index].productUrl,
-                                    title: allProductsCubit
-                                        .allProducts!.data.doc[index].name,
+                                    title: searchCubit
+                                        .searchResponse!.data.doc[index].name,
                                     userName: 'محمد احمد',
                                     userImage: 'assets/images/user.png',
                                     price:
-                                        "${allProductsCubit.allProducts!.data.doc[index].price}",
+                                        "${searchCubit.searchResponse!.data.doc[index].price}",
                                     oldPrice:
-                                        "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
+                                        "${searchCubit.searchResponse!.data.doc[index].price - (searchCubit.searchResponse!.data.doc[index].price * 0.2)}",
                                   ),
                                 );
                               },

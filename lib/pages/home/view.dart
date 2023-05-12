@@ -25,6 +25,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   TabController? tabController;
   int currentIndex = 0;
 
+  final _allProductsCubit = AllProductsCubit();
+  final _allCategoriesCubit = AllCategoriesCubit();
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +47,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   @override
   void dispose() {
     tabController!.dispose();
+    _allProductsCubit.dispose();
+    _allCategoriesCubit.dispose();
     super.dispose();
   }
 
