@@ -5,6 +5,7 @@ import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 
@@ -76,7 +77,7 @@ class FavouriteView extends StatelessWidget {
                                 id: favCubit.allFavourites!.products[index].id,
                                 image: favCubit
                                     .allFavourites!.products[index].productUrl,
-                                userImage: 'assets/images/user.png',
+                                userImage: UrlsStrings.userImageUrl,
                                 name: favCubit
                                     .allFavourites!.products[index].name,
                                 desc: favCubit
@@ -99,7 +100,7 @@ class FavouriteView extends StatelessWidget {
                             image: favCubit
                                 .allFavourites!.products[index].productUrl,
                             userName: 'محمد احمد',
-                            userImage: 'assets/images/user.png',
+                            userImage: UrlsStrings.userImageUrl,
                             price:
                                 "${favCubit.allFavourites!.products[index].price}",
                             oldPrice:

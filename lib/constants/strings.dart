@@ -17,5 +17,7 @@ class UrlsStrings {
   static String networkErrorUrl =
       "https://img.freepik.com/premium-vector/system-connection-error-repairing-network-problem_126608-1489.jpg?w=2000";
   static String noImageUrl =
-      "https://github.com/hamdy-dawood/medical_system/assets/77101158/9c010c3d-019b-4442-ba5d-c60d9201d072";
+      "https://github.com/hamdy-dawood/images/assets/77101158/81a2d3cd-81a5-48f4-ab6b-e9eb338eb93e";
+  static String userImageUrl =
+      "https://github.com/hamdy-dawood/images/assets/77101158/081f4267-b8c9-443a-9c68-637bcd4025f6";
 }

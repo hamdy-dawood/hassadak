@@ -8,6 +8,7 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/profile/personal_data/cubit.dart';
 import 'package:hassadak/pages/profile/personal_data/states.dart';
@@ -80,7 +81,7 @@ class BuildReviewBuilder extends StatelessWidget {
                               ),
                             ),
                             builder: (context) => SizedBox(
-                              height: 100.h,
+                              height: 130.h,
                               width: 1.sw,
                               child: Padding(
                                 padding: EdgeInsets.all(30.h),
@@ -241,12 +242,12 @@ class BuildReviewBuilder extends StatelessWidget {
                                                 color:
                                                     ColorManager.secMainColor,
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Center(
-                                                child: Image.asset(
-                                                    "assets/images/user.png"),
-                                              ),
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  Center(
+                                                      child: Image.network(
+                                                          UrlsStrings
+                                                              .userImageUrl)),
                                             ),
                                           ),
                                         ),

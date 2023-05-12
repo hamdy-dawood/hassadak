@@ -16,32 +16,35 @@ void navigateTo({required Widget page, bool withHistory = true}) {
       (route) => withHistory);
 }
 
-showMessage({required String message}) {
+showMessage({required String message, int maxLines = 1, double height = 50}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
     SnackBar(
       backgroundColor: ColorManager.mainColor,
       elevation: 2.0,
-      content: Row(
-        children: [
-          Icon(
-            Icons.error_outline_outlined,
-            color: ColorManager.white,
-          ),
-          SizedBox(width: 20.w),
-          Expanded(
-            child: Text(
-              message,
-              style: GoogleFonts.almarai(
-                textStyle: TextStyle(
-                  color: ColorManager.white,
-                  fontSize: 16.sp,
-                ),
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+      content: SizedBox(
+        height: height,
+        child: Row(
+          children: [
+            Icon(
+              Icons.error_outline_outlined,
+              color: ColorManager.white,
             ),
-          )
-        ],
+            SizedBox(width: 20.w),
+            Expanded(
+              child: Text(
+                message,
+                style: GoogleFonts.almarai(
+                  textStyle: TextStyle(
+                    color: ColorManager.white,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                maxLines: maxLines,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );

@@ -271,8 +271,9 @@ class RegisterView extends StatelessWidget {
                     BlocConsumer<RegisterCubit, RegisterStates>(
                       listener: (context, state) {
                         if (state is RegisterFailureState) {
-                          showMessage(message: "فشل انشاء حساب");
-                          print(state.msg);
+                          // showMessage(message: "فشل انشاء حساب");
+                          showMessage(
+                              message: state.msg, height: 60.h, maxLines: 5);
                         } else if (state is RegisterSuccessState) {
                           navigateTo(page: NavBarView(), withHistory: false);
                         }

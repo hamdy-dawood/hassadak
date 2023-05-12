@@ -123,19 +123,17 @@ class ProductItem extends StatelessWidget {
                                 backgroundColor: ColorManager.secMainColor,
                                 child: ClipOval(
                                   child: CachedNetworkImage(
-                                    fit: BoxFit.contain,
-                                    imageUrl: userImage,
-                                    placeholder: (context, url) =>
-                                        JumpingDotsProgressIndicator(
-                                      fontSize: 20.h,
-                                      color: ColorManager.secMainColor,
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Center(
-                                      child:
-                                          Image.asset("assets/images/user.png"),
-                                    ),
-                                  ),
+                                      fit: BoxFit.contain,
+                                      imageUrl: userImage,
+                                      placeholder: (context, url) =>
+                                          JumpingDotsProgressIndicator(
+                                            fontSize: 20.h,
+                                            color: ColorManager.secMainColor,
+                                          ),
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                              child: Image.asset(
+                                                  "assets/images/user.png"))),
                                 ),
                               ),
                               SizedBox(

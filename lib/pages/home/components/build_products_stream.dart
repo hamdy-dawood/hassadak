@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
@@ -58,7 +59,7 @@ class BuildProductsStream extends StatelessWidget {
                       id: allProductsCubit.allProducts!.data.doc[index].id,
                       image: allProductsCubit
                           .allProducts!.data.doc[index].productUrl,
-                      userImage: "assets/images/user.png",
+                      userImage: UrlsStrings.userImageUrl,
                       name: allProductsCubit.allProducts!.data.doc[index].name,
                       desc: allProductsCubit.allProducts!.data.doc[index].desc,
                       price:

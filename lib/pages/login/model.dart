@@ -10,9 +10,9 @@ class LoginResponse {
   late final Data data;
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    token = json['token'];
-    data = Data.fromJson(json['data']);
+    status = json['status'] ?? "";
+    token = json['token'] ?? "";
+    data = Data.fromJson(json['data'] ?? "");
   }
 }
 
@@ -24,7 +24,7 @@ class Data {
   late final User user;
 
   Data.fromJson(Map<String, dynamic> json) {
-    user = User.fromJson(json['user']);
+    user = User.fromJson(json['user'] ?? "");
   }
 }
 
@@ -69,11 +69,11 @@ class User {
     role = json['role'] ?? "";
     image = json['image'] ?? "";
     favouriteProduct =
-        List.castFrom<dynamic, dynamic>(json['favouriteProduct']);
+        List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? "");
     favouriteCompany =
-        List.castFrom<dynamic, dynamic>(json['favouriteCompany']);
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    V = json['__v'];
+        List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? "");
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    V = json['__v'] ?? "";
   }
 }

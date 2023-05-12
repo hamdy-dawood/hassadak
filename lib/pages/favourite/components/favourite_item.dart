@@ -68,7 +68,18 @@ class FavouriteItem extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 15.r,
-                            backgroundImage: AssetImage(userImage),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.contain,
+                              imageUrl: userImage,
+                              placeholder: (context, url) =>
+                                  JumpingDotsProgressIndicator(
+                                    fontSize: 20.h,
+                                    color: ColorManager.secMainColor,
+                                  ),
+                              errorWidget: (context, url, error) => Center(
+                                child: Image.asset("assets/images/user.png"),
+                              ),
+                            ),
                           ),
                           SizedBox(
                             width: 5.w,

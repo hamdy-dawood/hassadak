@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -25,12 +26,13 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
     _allProductsController.add(AllProductsLoadingState());
     emit(AllProductsLoadingState());
     try {
-      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response = await dio.get("${UrlsStrings.allProductsUrl}$id");
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
         _allProductsController.add(AllProductsSuccessState());
         emit(AllProductsSuccessState());
+        print(response.data);
       } else {
         emit(AllProductsFailedState(msg: response.data["status"]));
       }

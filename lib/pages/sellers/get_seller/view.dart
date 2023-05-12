@@ -7,6 +7,7 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
@@ -258,8 +259,7 @@ class GetSellerView extends StatelessWidget {
                                       id: "${cubit.sellerResponse!.getUserProduct[index].id}",
                                       image:
                                           "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
-                                      userImage:
-                                          "${cubit.sellerResponse!.user.image}",
+                                      userImage: UrlsStrings.userImageUrl,
                                       name:
                                           "${cubit.sellerResponse!.getUserProduct[index].name}",
                                       desc:

@@ -23,8 +23,10 @@ class SearchView extends StatelessWidget {
     final searchController = TextEditingController();
     final priceController = TextEditingController();
     final focusNode = FocusNode();
+
     final double itemHeight = (1.sh - kToolbarHeight * 1.5) / 2;
     final double itemWidth = 1.sw / 2;
+
     return BlocProvider(
       create: (context) => AllProductsCubit(),
       child: Builder(builder: (context) {
@@ -67,6 +69,7 @@ class SearchView extends StatelessWidget {
                                       EdgeInsets.only(left: 5.h, right: 5.h),
                                   child: TextFormField(
                                     focusNode: focusNode,
+                                    controller: searchController,
                                     onFieldSubmitted: (_) {
                                       if (searchController.text == "") {
                                         focusNode.unfocus();
@@ -76,7 +79,6 @@ class SearchView extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    controller: searchController,
                                     style: GoogleFonts.almarai(
                                       textStyle: TextStyle(
                                         color: ColorManager.black,
@@ -149,7 +151,7 @@ class SearchView extends StatelessWidget {
                                                 Navigator.pop(context);
                                                 allProductsCubit.getAllProducts(
                                                     id: "?price[gte]=${priceController.text}");
-                                                searchController.clear();
+                                                priceController.clear();
                                               },
                                             ),
                                             SizedBox(
@@ -328,7 +330,7 @@ class SearchView extends StatelessWidget {
                                             .allProducts!.data.doc[index].id,
                                         image: allProductsCubit.allProducts!
                                             .data.doc[index].productUrl,
-                                        userImage: 'assets/images/user.png',
+                                        userImage: UrlsStrings.userImageUrl,
                                         name: allProductsCubit
                                             .allProducts!.data.doc[index].name,
                                         desc: allProductsCubit
