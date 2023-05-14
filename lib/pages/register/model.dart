@@ -1,13 +1,15 @@
+import 'package:hassadak/constants/strings.dart';
+
 class RegisterResponse {
   RegisterResponse({
-    required this.status,
-    required this.token,
-    required this.data,
+    this.status,
+    this.token,
+    this.data,
   });
 
-  late final String status;
-  late final String token;
-  late final Data data;
+  String? status;
+  String? token;
+  Data? data;
 
   RegisterResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'] ?? "";
@@ -18,10 +20,10 @@ class RegisterResponse {
 
 class Data {
   Data({
-    required this.user,
+    this.user,
   });
 
-  late final User user;
+  User? user;
 
   Data.fromJson(Map<String, dynamic> json) {
     user = User.fromJson(json['user'] ?? "");
@@ -30,38 +32,38 @@ class Data {
 
 class User {
   User({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.username,
-    required this.telephone,
-    required this.role,
-    required this.likes,
-    required this.image,
-    required this.favouriteProduct,
-    required this.favouriteCompany,
-    required this.createdAt,
-    required this.active,
-    required this.id,
-    required this.updatedAt,
-    required this.V,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.username,
+    this.telephone,
+    this.role,
+    this.likes,
+    this.image,
+    this.favouriteProduct,
+    this.favouriteCompany,
+    this.createdAt,
+    this.active,
+    this.id,
+    this.updatedAt,
+    this.V,
   });
 
-  late final String firstName;
-  late final String lastName;
-  late final String email;
-  late final String username;
-  late final String telephone;
-  late final String role;
-  late final List<dynamic> likes;
-  late final String image;
-  late final List<dynamic> favouriteProduct;
-  late final List<dynamic> favouriteCompany;
-  late final String createdAt;
-  late final bool active;
-  late final String id;
-  late final String updatedAt;
-  late final int V;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? username;
+  String? telephone;
+  String? role;
+  List<dynamic>? likes;
+  String? image;
+  List<dynamic>? favouriteProduct;
+  List<dynamic>? favouriteCompany;
+  String? createdAt;
+  bool? active;
+  String? id;
+  String? updatedAt;
+  int? V;
 
   User.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'] ?? "";
@@ -70,16 +72,16 @@ class User {
     username = json['username'] ?? "";
     telephone = json['telephone'] ?? "";
     role = json['role'] ?? "";
-    likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? "");
-    image = json['image'] ?? "";
+    likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? []);
+    image = json['image'] ?? UrlsStrings.noImageUrl;
     favouriteProduct =
-        List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? "");
+        List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? []);
     favouriteCompany =
-        List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? "");
+        List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? []);
     createdAt = json['createdAt'] ?? "";
-    active = json['active'] ?? "";
+    active = json['active'] ?? false;
     id = json['_id'] ?? "";
     updatedAt = json['updatedAt'] ?? "";
-    V = json['__v'] ?? "";
+    V = json['__v'] ?? 0;
   }
 }

@@ -1,71 +1,100 @@
 class ReviewsResponse {
   ReviewsResponse({
-    required this.status,
-    required this.results,
-    required this.data,
+    this.status,
+    this.results,
+    this.data,
   });
 
-  late final String status;
-  late final int results;
-  late final Data data;
+  String? status;
+  int? results;
+  Data? data;
 
-  ReviewsResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    results = json['results'];
-    data = Data.fromJson(json['data']);
+  // ReviewsResponse.fromJson(Map<String, dynamic> json) {
+  //   status = json['status'] ?? "";
+  //   results = json['results'] ?? "";
+  //   data = Data.fromJson(json['data'] ?? "");
+  // }
+
+  ReviewsResponse.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      status = json['status'] ?? "";
+      results = json['results'] ?? 0;
+      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+    }
   }
 }
 
 class Data {
   Data({
-    required this.doc,
+    this.doc,
   });
 
-  late final List<Doc> doc;
+  List<Doc>? doc;
 
-  Data.fromJson(Map<String, dynamic> json) {
-    doc = List.from(json['doc']).map((e) => Doc.fromJson(e)).toList();
+  // Data.fromJson(Map<String, dynamic> json) {
+  //   doc = List.from(json['doc'] ?? []).map((e) => Doc.fromJson(e)).toList();
+  // }
+  Data.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      doc = List.from(json['doc'] ?? [])
+          .map((e) => Doc.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
   }
 }
 
 class Doc {
   Doc({
-    required this.review,
-    required this.rating,
-    required this.createdAt,
-    required this.product,
-    required this.user,
-    required this.updatedAt,
-    required this.id,
+    this.review,
+    this.rating,
+    this.createdAt,
+    this.product,
+    this.user,
+    this.updatedAt,
+    this.id,
+    this.userName,
+    this.image,
   });
 
-  late final String review;
-  late final int rating;
-  late final String createdAt;
-  late final String product;
-  late final User user;
-  late final String updatedAt;
-  late final String id;
+  String? review;
+  int? rating;
+  String? createdAt;
+  String? product;
+  User? user;
+  String? updatedAt;
+  String? id;
+  String? userName;
+  String? image;
 
-  Doc.fromJson(Map<String, dynamic> json) {
-    review = json['review'];
-    rating = json['rating'];
-    createdAt = json['createdAt'];
-    product = json['product'];
-    user = User.fromJson(json['user']);
-    updatedAt = json['updatedAt'];
-    id = json['id'];
+  Doc.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      review = json['review'] ?? "";
+      rating = json['rating'] ?? 0;
+      createdAt = json['createdAt'] ?? "";
+      product = json['product'] ?? "";
+      user = User.fromJson(json['user'] as Map<String, dynamic>);
+      updatedAt = json['updatedAt'] ?? "";
+      id = json['id'] ?? "";
+      userName = json['userName'] ?? "";
+      image = json['image'] ?? "";
+    }
   }
 }
 
 class User {
   User({
-    required this.id,
+    this.id,
   });
 
-  late final String id;
+  String? id;
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
+  // User.fromJson(Map<String, dynamic> json) {
+  //   id = json['_id'] ?? "";
+  // }
+
+  User.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      id = json['_id'] ?? "";
+    }
   }
 }

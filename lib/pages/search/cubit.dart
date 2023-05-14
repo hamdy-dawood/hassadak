@@ -22,11 +22,9 @@ class SearchCubit extends Cubit<SearchStates> {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response = await dio.get("${UrlsStrings.allProductsUrl}$id");
-      if (response.data["status"] == "success" && response.statusCode == 200) {
+      if (response.data["status"] == "success" && response.statusCode == 200 ) {
         searchResponse = SearchResponse.fromJson(response.data);
         emit(SearchSuccessState());
-        print("//"*100);
-        print(response.data);
       } else {
         emit(SearchFailedState(msg: response.data["status"]));
       }
@@ -40,10 +38,8 @@ class SearchCubit extends Cubit<SearchStates> {
         errorMsg = 'Connection timed out';
       } else if (e.type == DioErrorType.badResponse) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print("Received invalid status code: ${e.response?.statusCode}");
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
         emit(SearchNetworkErrorState());
       }
     } catch (e) {

@@ -50,27 +50,30 @@ class BuildProductsStream extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: allProductsCubit.allProducts!.data.doc.length,
+            itemCount: allProductsCubit.allProducts!.data!.doc!.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
                   navigateTo(
                     page: DetailsView(
-                      id: allProductsCubit.allProducts!.data.doc[index].id,
-                      image: allProductsCubit
-                          .allProducts!.data.doc[index].productUrl,
+                      id: "${allProductsCubit.allProducts!.data!.doc![index].id}",
+                      image:
+                          "${allProductsCubit.allProducts!.data!.doc![index].productUrl}",
                       userImage: UrlsStrings.userImageUrl,
-                      name: allProductsCubit.allProducts!.data.doc[index].name,
-                      desc: allProductsCubit.allProducts!.data.doc[index].desc,
+                      productName:
+                          "${allProductsCubit.allProducts!.data!.doc![index].name}",
+                      userName:"${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
+                      desc:
+                          "${allProductsCubit.allProducts!.data!.doc![index].desc}",
                       price:
-                          "${allProductsCubit.allProducts!.data.doc[index].price}",
+                          "${allProductsCubit.allProducts!.data!.doc![index].price}",
                       oldPrice:
-                          "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
+                          "${allProductsCubit.allProducts!.data!.doc![index].price! - (allProductsCubit.allProducts!.data!.doc![index].price! * 0.2)}",
                       ratingsAverage: (allProductsCubit
-                              .allProducts!.data.doc[index].ratingsAverage)
+                              .allProducts!.data!.doc![index].ratingsAverage)!
                           .toInt(),
                       ratingsQuantity: (allProductsCubit
-                          .allProducts!.data.doc[index].ratingsQuantity),
+                          .allProducts!.data!.doc![index].ratingsQuantity!),
                     ),
                   );
                 },
@@ -79,31 +82,32 @@ class BuildProductsStream extends StatelessWidget {
                     // addFavCubit.isLoved =  allProductsCubit.allProducts!.data.doc[index].status;
                     return ProductItem(
                       favIcon: SvgIcon(
-                        icon:
-                            allProductsCubit.allProducts!.data.doc[index].status
-                                ? "assets/icons/fill_heart.svg"
-                                : "assets/icons/heart.svg",
-                        color:
-                            allProductsCubit.allProducts!.data.doc[index].status
-                                ? ColorManager.green
-                                : ColorManager.white,
+                        icon: allProductsCubit
+                                .allProducts!.data!.doc![index].status!
+                            ? "assets/icons/fill_heart.svg"
+                            : "assets/icons/heart.svg",
+                        color: allProductsCubit
+                                .allProducts!.data!.doc![index].status!
+                            ? ColorManager.green
+                            : ColorManager.white,
                         height: 18.h,
                       ),
                       favTap: () {
                         addFavCubit.addFav(
                             id: allProductsCubit
-                                .allProducts!.data.doc[index].id);
+                                .allProducts!.data!.doc![index].id!);
                       },
                       offer: 'خصم 20%',
-                      image: allProductsCubit
-                          .allProducts!.data.doc[index].productUrl,
-                      title: allProductsCubit.allProducts!.data.doc[index].name,
-                      userName: 'محمد احمد',
+                      image:
+                          "${allProductsCubit.allProducts!.data!.doc![index].productUrl}",
+                      title:
+                          "${allProductsCubit.allProducts!.data!.doc![index].name}",
+                      userName:"${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
                       userImage: 'assets/images/user.png',
                       price:
-                          "${allProductsCubit.allProducts!.data.doc[index].price}",
+                          "${allProductsCubit.allProducts!.data!.doc![index].price}",
                       oldPrice:
-                          "${allProductsCubit.allProducts!.data.doc[index].price - (allProductsCubit.allProducts!.data.doc[index].price * 0.2)}",
+                          "${allProductsCubit.allProducts!.data!.doc![index].price! - (allProductsCubit.allProducts!.data!.doc![index].price! * 0.2)}",
                     );
                   },
                 ),

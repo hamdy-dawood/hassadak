@@ -77,8 +77,7 @@ class SearchView extends StatelessWidget {
                                         focusNode.unfocus();
                                       } else {
                                         searchCubit.getSearch(
-                                          id: "/search/${searchController.text}",
-                                        );
+                                            id: "/search/${searchController.text}");
                                       }
                                     },
                                     style: GoogleFonts.almarai(
@@ -269,7 +268,7 @@ class SearchView extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10.w,
-                                crossAxisSpacing: 10.w,
+                                crossAxisSpacing: 8.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount: 20,
@@ -311,40 +310,41 @@ class SearchView extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 5.w,
-                                mainAxisSpacing: 10.w,
+                                mainAxisSpacing: 8.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount:
-                                  searchCubit.searchResponse!.data.doc.length,
+                                  searchCubit.searchResponse!.data!.doc!.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
                                     navigateTo(
                                       page: DetailsView(
-                                        id: searchCubit
-                                            .searchResponse!.data.doc[index].id,
-                                        image: searchCubit.searchResponse!.data
-                                            .doc[index].productUrl,
+                                        id: "${searchCubit.searchResponse!.data!.doc![index].id}",
+                                        image:
+                                            "${searchCubit.searchResponse!.data!.doc![index].productUrl}",
                                         userImage: UrlsStrings.userImageUrl,
-                                        name: searchCubit.searchResponse!.data
-                                            .doc[index].name,
-                                        desc: searchCubit.searchResponse!.data
-                                            .doc[index].desc,
+                                        productName:
+                                            "${searchCubit.searchResponse!.data!.doc![index].name}",
+                                        userName:
+                                        "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
+                                        desc:
+                                            "${searchCubit.searchResponse!.data!.doc![index].desc}",
                                         price:
-                                            "${searchCubit.searchResponse!.data.doc[index].price}",
+                                            "${searchCubit.searchResponse!.data!.doc![index].price}",
                                         oldPrice:
-                                            "${searchCubit.searchResponse!.data.doc[index].price - (searchCubit.searchResponse!.data.doc[index].price * 0.2)}",
+                                            "${searchCubit.searchResponse!.data!.doc![index].price! - (searchCubit.searchResponse!.data!.doc![index].price! * 0.2)}",
                                         ratingsAverage: (searchCubit
                                                 .searchResponse!
-                                                .data
-                                                .doc[index]
-                                                .ratingsAverage)
+                                                .data!
+                                                .doc![index]
+                                                .ratingsAverage)!
                                             .toInt(),
                                         ratingsQuantity: (searchCubit
                                             .searchResponse!
-                                            .data
-                                            .doc[index]
-                                            .ratingsQuantity),
+                                            .data!
+                                            .doc![index]
+                                            .ratingsQuantity!),
                                       ),
                                     );
                                   },
@@ -356,16 +356,17 @@ class SearchView extends StatelessWidget {
                                     ),
                                     favTap: () {},
                                     offer: 'خصم 20%',
-                                    image: searchCubit.searchResponse!.data
-                                        .doc[index].productUrl,
-                                    title: searchCubit
-                                        .searchResponse!.data.doc[index].name,
-                                    userName: 'محمد احمد',
-                                    userImage: 'assets/images/user.png',
+                                    image:
+                                        "${searchCubit.searchResponse!.data!.doc![index].productUrl}",
+                                    title:
+                                        "${searchCubit.searchResponse!.data!.doc![index].name}",
+                                    userName:
+                                        "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
+                                    userImage: UrlsStrings.userImageUrl,
                                     price:
-                                        "${searchCubit.searchResponse!.data.doc[index].price}",
+                                        "${searchCubit.searchResponse!.data!.doc![index].price}",
                                     oldPrice:
-                                        "${searchCubit.searchResponse!.data.doc[index].price - (searchCubit.searchResponse!.data.doc[index].price * 0.2)}",
+                                        "${searchCubit.searchResponse!.data!.doc![index].price! - (searchCubit.searchResponse!.data!.doc![index].price! * 0.2)}",
                                   ),
                                 );
                               },

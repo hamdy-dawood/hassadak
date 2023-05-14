@@ -1,20 +1,24 @@
+import 'package:hassadak/constants/strings.dart';
+
 class GetSellerResponse {
   GetSellerResponse({
-    required this.status,
-    required this.user,
-    required this.getUserProduct,
+    this.status,
+    this.user,
+    this.getUserProduct,
   });
 
-  late final String status;
-  late final User user;
-  late final List<GetUserProduct> getUserProduct;
+  String? status;
+  User? user;
+  List<GetUserProduct>? getUserProduct;
 
-  GetSellerResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    user = User.fromJson(json['user']);
-    getUserProduct = List.from(json['getUserProduct'])
-        .map((e) => GetUserProduct.fromJson(e))
-        .toList();
+  GetSellerResponse.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      status = json['status'] ?? "";
+      user = User.fromJson(json['user'] as Map<String, dynamic>);
+      getUserProduct = List.from(json['getUserProduct'] ?? [])
+          .map((e) => GetUserProduct.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
   }
 }
 
@@ -26,11 +30,11 @@ class User {
     this.email,
     this.username,
     this.telephone,
-    this.whatsapp = "",
-    this.facebookUrl = "",
-    this.instaUrl = "",
-    this.twitterUrl = "",
-    this.description = "",
+    this.whatsapp,
+    this.facebookUrl,
+    this.instaUrl,
+    this.twitterUrl,
+    this.description,
     this.role,
     this.image,
     this.likes,
@@ -41,48 +45,50 @@ class User {
     this.V,
   });
 
-  late final String? id;
-  late final String? firstName;
-  late final String? lastName;
-  late final String? email;
-  late final String? username;
-  late final String? telephone;
-  late final String? whatsapp;
-  late final String? facebookUrl;
-  late final String? instaUrl;
-  late final String? twitterUrl;
-  late final String? description;
-  late final String? role;
-  late final String? image;
-  late final List<dynamic>? likes;
-  late final List<dynamic>? favouriteProduct;
-  late final List<dynamic>? favouriteCompany;
-  late final String? createdAt;
-  late final String? updatedAt;
-  late final num? V;
+  String? id;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? username;
+  String? telephone;
+  String? whatsapp;
+  String? facebookUrl;
+  String? instaUrl;
+  String? twitterUrl;
+  String? description;
+  String? role;
+  String? image;
+  List<dynamic>? likes;
+  List<dynamic>? favouriteProduct;
+  List<dynamic>? favouriteCompany;
+  String? createdAt;
+  String? updatedAt;
+  num? V;
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    username = json['username'];
-    telephone = json['telephone'];
-    whatsapp = json['whatsapp'];
-    facebookUrl = json['facebookUrl'];
-    instaUrl = json['instaUrl'];
-    twitterUrl = json['twitterUrl'];
-    description = json['description'];
-    role = json['role'];
-    image = json['image'];
-    likes = List.castFrom<dynamic, dynamic>(json['likes']);
-    favouriteProduct =
-        List.castFrom<dynamic, dynamic>(json['favouriteProduct']);
-    favouriteCompany =
-        List.castFrom<dynamic, dynamic>(json['favouriteCompany']);
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    V = json['__v'];
+  User.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      id = json['_id'] ?? "";
+      firstName = json['firstName'] ?? "";
+      lastName = json['lastName'] ?? "";
+      email = json['email'] ?? "";
+      username = json['username'] ?? "";
+      telephone = json['telephone'] ?? "";
+      whatsapp = json['whatsapp'] ?? "";
+      facebookUrl = json['facebookUrl'] ?? "https://www.facebook.com/";
+      instaUrl = json['instaUrl'] ?? "https://www.instagram.com/";
+      twitterUrl = json['twitterUrl'] ?? "https://twitter.com/";
+      description = json['description'] ?? "no description";
+      role = json['role'] ?? "";
+      image = json['image'] ?? UrlsStrings.noImageUrl;
+      likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? []);
+      favouriteProduct =
+          List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? []);
+      favouriteCompany =
+          List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? []);
+      createdAt = json['createdAt'] ?? "";
+      updatedAt = json['updatedAt'] ?? "";
+      V = json['__v'] ?? 0;
+    }
   }
 }
 
@@ -106,39 +112,41 @@ class GetUserProduct {
     this.id,
   });
 
-  late final String? name;
-  late final String? desc;
-  late final String? typeId;
-  late final String? categoryId;
-  late final String? productUrl;
-  late final num? ratingsAverage;
-  late final num? ratingsQuantity;
-  late final num? price;
-  late final String? discount;
-  late final num? discountPerc;
-  late final String? uploaderId;
-  late final String? uploaderName;
-  late final String? createdAt;
-  late final String? updatedAt;
-  late final num? V;
-  late final String? id;
+  String? name;
+  String? desc;
+  String? typeId;
+  String? categoryId;
+  String? productUrl;
+  num? ratingsAverage;
+  num? ratingsQuantity;
+  num? price;
+  String? discount;
+  num? discountPerc;
+  String? uploaderId;
+  String? uploaderName;
+  String? createdAt;
+  String? updatedAt;
+  num? V;
+  String? id;
 
-  GetUserProduct.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    desc = json['desc'];
-    typeId = json['typeId'];
-    categoryId = json['categoryId'];
-    productUrl = json['productUrl'];
-    ratingsAverage = json['ratingsAverage'];
-    ratingsQuantity = json['ratingsQuantity'];
-    price = json['price'];
-    discount = json['discount'];
-    discountPerc = json['discountPerc'];
-    uploaderId = json['uploaderId'];
-    uploaderName = json['uploaderName'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    V = json['__v'];
-    id = json['id'];
+  GetUserProduct.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      name = json['name'] ?? "";
+      desc = json['desc'] ?? "";
+      typeId = json['typeId'] ?? "";
+      categoryId = json['categoryId'] ?? "";
+      productUrl = json['productUrl'] ?? "";
+      ratingsAverage = json['ratingsAverage'] ?? 0;
+      ratingsQuantity = json['ratingsQuantity'] ?? 0;
+      price = json['price'] ?? 0;
+      discount = json['discount'] ?? "";
+      discountPerc = json['discountPerc'] ?? 0;
+      uploaderId = json['uploaderId'] ?? "";
+      uploaderName = json['uploaderName'] ?? "";
+      createdAt = json['createdAt'] ?? "";
+      updatedAt = json['updatedAt'] ?? "";
+      V = json['__v'] ?? 0;
+      id = json['id'] ?? "";
+    }
   }
 }

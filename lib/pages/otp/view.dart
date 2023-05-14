@@ -8,6 +8,7 @@ import 'package:hassadak/components/custom_form_field.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
+import 'package:hassadak/constants/input_validator.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 import 'package:hassadak/pages/otp/states.dart';
@@ -136,12 +137,7 @@ class OtpScreen extends StatelessWidget {
                         ),
                         obscureText: cubit.securePass,
                         isLastInput: false,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'من فضلك ادخل كلمة المرور !';
-                          }
-                          return null;
-                        },
+                        validator: regPasswordValidator,
                       );
                     },
                   ),
@@ -194,8 +190,6 @@ class OtpScreen extends StatelessWidget {
                         showMessage(message: state.msg);
                       } else if (state is OtpSuccessState) {
                         navigateTo(page: NavBarView());
-                        print(cubit.otpController.text);
-                        print(cubit.passwordController);
                       }
                     },
                     builder: (context, state) {

@@ -13,12 +13,22 @@ import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'cubit.dart';
 
 class GetSellerView extends StatelessWidget {
   const GetSellerView({Key? key, required this.id}) : super(key: key);
   final String id;
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +138,8 @@ class GetSellerView extends StatelessWidget {
                             child: ClipOval(
                               child: CachedNetworkImage(
                                 fit: BoxFit.contain,
-                                imageUrl: "${cubit.sellerResponse!.user.image}",
+                                imageUrl:
+                                    "${cubit.sellerResponse!.user!.image}",
                                 placeholder: (context, url) =>
                                     JumpingDotsProgressIndicator(
                                   fontSize: 20.h,
@@ -144,7 +155,7 @@ class GetSellerView extends StatelessWidget {
                         ),
                         CustomText(
                           textAlign: TextAlign.center,
-                          text: "${cubit.sellerResponse!.user.username}",
+                          text: "${cubit.sellerResponse!.user!.username}",
                           color: ColorManager.secMainColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 25.sp,
@@ -154,7 +165,7 @@ class GetSellerView extends StatelessWidget {
                         ),
                         CustomText(
                           textAlign: TextAlign.center,
-                          text: "${cubit.sellerResponse!.user.email}",
+                          text: "${cubit.sellerResponse!.user!.email}",
                           color: ColorManager.secMainColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 20.sp,
@@ -172,8 +183,7 @@ class GetSellerView extends StatelessWidget {
                           height: 0.01.sh,
                         ),
                         CustomText(
-                          text:
-                              "يعد اكسايت الغانم للالكترونيات أكبر موزع للالكترونيات في الكويت ويضم العديد من العلامات التجارية من بينها ما يفوق الـ٣٠٠ علامة تجارية عالمية. أما شركة صناعات الغانم التي يندرج تحتها اكسايت فهي واحدة من أكبر شركات القطاع الخاص في منطقة الخليج. وهي تمارس أنشطتها المتعددة في ٤٠ دولة وفي أكثر من ٣٠ مجال.",
+                          text: "${cubit.sellerResponse!.user!.description}",
                           color: ColorManager.navGrey,
                           fontWeight: FontWeight.normal,
                           fontSize: 20.sp,
@@ -194,7 +204,10 @@ class GetSellerView extends StatelessWidget {
                         Row(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _launchInBrowser(Uri.parse(
+                                    "https://api.whatsapp.com/send/?phone=%2B2${cubit.sellerResponse!.user!.telephone}"));
+                              },
                               child: SvgPicture.asset(
                                 "assets/icons/whatsapp.svg",
                                 height: 50.h,
@@ -204,7 +217,10 @@ class GetSellerView extends StatelessWidget {
                               width: 10.h,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _launchInBrowser(Uri.parse(
+                                    "${cubit.sellerResponse!.user!.twitterUrl}"));
+                              },
                               child: SvgPicture.asset(
                                 "assets/icons/twitter.svg",
                                 height: 50.h,
@@ -214,7 +230,10 @@ class GetSellerView extends StatelessWidget {
                               width: 10.h,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _launchInBrowser(Uri.parse(
+                                    "${cubit.sellerResponse!.user!.instaUrl}"));
+                              },
                               child: SvgPicture.asset(
                                 "assets/icons/instagram.svg",
                                 height: 50.h,
@@ -224,7 +243,10 @@ class GetSellerView extends StatelessWidget {
                               width: 10.h,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _launchInBrowser(Uri.parse(
+                                    "${cubit.sellerResponse!.user!.facebookUrl}"));
+                              },
                               child: SvgPicture.asset(
                                 "assets/icons/facebook.svg",
                                 height: 50.h,
@@ -250,30 +272,35 @@ class GetSellerView extends StatelessWidget {
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount:
-                                cubit.sellerResponse!.getUserProduct.length,
+                                cubit.sellerResponse!.getUserProduct!.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
                                   navigateTo(
                                     page: DetailsView(
-                                      id: "${cubit.sellerResponse!.getUserProduct[index].id}",
+                                      id: "${cubit.sellerResponse!.getUserProduct![index].id}",
                                       image:
-                                          "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
-                                      userImage: UrlsStrings.userImageUrl,
-                                      name:
-                                          "${cubit.sellerResponse!.getUserProduct[index].name}",
+                                          "${cubit.sellerResponse!.getUserProduct![index].productUrl}",
+                                      userImage:
+                                      "${cubit.sellerResponse!.user!.image}",
+                                      productName:
+                                          "${cubit.sellerResponse!.getUserProduct![index].name}",
+                                      userName:
+                                          "${cubit.sellerResponse!.user!.username}",
                                       desc:
-                                          "${cubit.sellerResponse!.getUserProduct[index].desc}",
+                                          "${cubit.sellerResponse!.getUserProduct![index].desc}",
                                       price:
-                                          "${cubit.sellerResponse!.getUserProduct[index].price}",
+                                          "${cubit.sellerResponse!.getUserProduct![index].price}",
                                       oldPrice:
-                                          "${cubit.sellerResponse!.getUserProduct[index].price! - (cubit.sellerResponse!.getUserProduct[index].price! * (cubit.sellerResponse!.getUserProduct[index].discountPerc! / 100))}",
-                                      ratingsAverage: cubit.sellerResponse!
-                                          .getUserProduct[index].ratingsAverage!
+                                          "${cubit.sellerResponse!.getUserProduct![index].price! - (cubit.sellerResponse!.getUserProduct![index].price! * (cubit.sellerResponse!.getUserProduct![index].discountPerc! / 100))}",
+                                      ratingsAverage: cubit
+                                          .sellerResponse!
+                                          .getUserProduct![index]
+                                          .ratingsAverage!
                                           .toInt(),
                                       ratingsQuantity: cubit
                                           .sellerResponse!
-                                          .getUserProduct[index]
+                                          .getUserProduct![index]
                                           .ratingsQuantity!
                                           .toInt(),
                                     ),
@@ -308,19 +335,19 @@ class GetSellerView extends StatelessWidget {
                                         ),
                                         favTap: () {},
                                         offer:
-                                            'خصم ${cubit.sellerResponse!.getUserProduct[index].discountPerc}%',
+                                            'خصم ${cubit.sellerResponse!.getUserProduct![index].discountPerc}%',
                                         image:
-                                            "${cubit.sellerResponse!.getUserProduct[index].productUrl}",
+                                            "${cubit.sellerResponse!.getUserProduct![index].productUrl}",
                                         title:
-                                            "${cubit.sellerResponse!.getUserProduct[index].name}",
+                                            "${cubit.sellerResponse!.getUserProduct![index].name}",
                                         userName:
-                                            "${cubit.sellerResponse!.user.username}",
+                                        "${cubit.sellerResponse!.getUserProduct![index].uploaderName}",
                                         userImage:
-                                            "${cubit.sellerResponse!.user.image}",
+                                            "${cubit.sellerResponse!.user!.image}",
                                         price:
-                                            "${cubit.sellerResponse!.getUserProduct[index].price}",
+                                            "${cubit.sellerResponse!.getUserProduct![index].price}",
                                         oldPrice:
-                                            "${cubit.sellerResponse!.getUserProduct[index].price! - (cubit.sellerResponse!.getUserProduct[index].price! * (cubit.sellerResponse!.getUserProduct[index].discountPerc! / 100))}",
+                                            "${cubit.sellerResponse!.getUserProduct![index].price! - (cubit.sellerResponse!.getUserProduct![index].price! * (cubit.sellerResponse!.getUserProduct![index].discountPerc! / 100))}",
                                       );
                                     }
                                   },

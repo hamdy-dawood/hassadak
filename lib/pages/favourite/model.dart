@@ -1,60 +1,77 @@
 class FavouriteResponse {
   FavouriteResponse({
-    required this.status,
-    required this.products,
+    this.status,
+    this.products,
   });
 
-  late final String status;
-  late final List<Products> products;
+  String? status;
+  List<Products>? products;
 
-  FavouriteResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    products =
-        List.from(json['products']).map((e) => Products.fromJson(e)).toList();
+  FavouriteResponse.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      status = json['status'] ?? "";
+      products = List.from(json['products'] ?? [])
+          .map((e) => Products.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
   }
 }
 
 class Products {
   Products({
-    required this.id,
-    required this.name,
-    required this.desc,
-    required this.typeId,
-    required this.categoryId,
-    required this.productUrl,
-    required this.ratingsAverage,
-    required this.ratingsQuantity,
-    required this.price,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.V,
+    this.id,
+    this.name,
+    this.desc,
+    this.typeId,
+    this.categoryId,
+    this.productUrl,
+    this.ratingsAverage,
+    this.ratingsQuantity,
+    this.price,
+    this.discountPerc,
+    this.discount,
+    this.uploaderId,
+    this.uploaderName,
+    this.createdAt,
+    this.updatedAt,
+    this.V,
   });
 
-  late final String id;
-  late final String name;
-  late final String desc;
-  late final String typeId;
-  late final String categoryId;
-  late final String productUrl;
-  late final num ratingsAverage;
-  late final num ratingsQuantity;
-  late final num price;
-  late final String createdAt;
-  late final String updatedAt;
-  late final num V;
+  String? id;
+  String? name;
+  String? desc;
+  String? typeId;
+  String? categoryId;
+  String? productUrl;
+  num? ratingsAverage;
+  num? ratingsQuantity;
+  num? price;
+  num? discountPerc;
+  String? discount;
+  String? uploaderId;
+  String? uploaderName;
+  String? createdAt;
+  String? updatedAt;
+  num? V;
 
-  Products.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    name = json['name'];
-    desc = json['desc'];
-    typeId = json['typeId'];
-    categoryId = json['categoryId'];
-    productUrl = json['productUrl'];
-    ratingsAverage = json['ratingsAverage'];
-    ratingsQuantity = json['ratingsQuantity'];
-    price = json['price'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    V = json['__v'];
+  Products.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      id = json['_id'] ?? "";
+      name = json['name'] ?? "";
+      desc = json['desc'] ?? "";
+      typeId = json['typeId'] ?? "";
+      categoryId = json['categoryId'] ?? "";
+      productUrl = json['productUrl'] ?? "";
+      ratingsAverage = json['ratingsAverage'] ?? 0;
+      ratingsQuantity = json['ratingsQuantity'] ?? 0;
+      price = json['price'] ?? 0;
+      discountPerc = json['discountPerc'] ?? 0;
+      discount = json['discount'] ?? "";
+      uploaderId = json['uploaderId'] ?? "";
+      uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
+      createdAt = json['createdAt'] ?? "";
+      updatedAt = json['updatedAt'] ?? "";
+      V = json['__v'] ?? "";
+    }
   }
 }

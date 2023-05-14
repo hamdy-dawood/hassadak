@@ -1,74 +1,92 @@
 class SearchResponse {
   SearchResponse({
-    required this.status,
-    required this.results,
-    required this.data,
+    this.status,
+    this.results,
+    this.data,
   });
 
-  late final String status;
-  late final int results;
-  late final Data data;
+  String? status;
+  int? results;
+  Data? data;
 
-  SearchResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    results = json['results'];
-    data = Data.fromJson(json['data']);
+  SearchResponse.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      status = json['status'] ?? "";
+      results = json['results'] ?? 0;
+      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+    }
   }
 }
 
 class Data {
   Data({
-    required this.doc,
+    this.doc,
   });
 
-  late final List<Doc> doc;
+  List<Doc>? doc;
 
   Data.fromJson(Map<String, dynamic> json) {
-    doc = List.from(json['doc']).map((e) => Doc.fromJson(e)).toList();
+    doc = List.from(json['doc'] ?? [])
+        .map((e) => Doc.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }
 
 class Doc {
   Doc({
-    required this.name,
-    required this.desc,
-    required this.typeId,
-    required this.categoryId,
-    required this.productUrl,
-    required this.ratingsAverage,
-    required this.ratingsQuantity,
-    required this.price,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.status,
-    required this.id,
+    this.name,
+    this.desc,
+    this.typeId,
+    this.categoryId,
+    this.productUrl,
+    this.ratingsAverage,
+    this.ratingsQuantity,
+    this.price,
+    this.discountPerc,
+    this.discount,
+    this.uploaderId,
+    this.uploaderName,
+    this.createdAt,
+    this.updatedAt,
+    this.status,
+    this.id,
   });
 
-  late final String name;
-  late final String desc;
-  late final String typeId;
-  late final String categoryId;
-  late final String productUrl;
-  late final num ratingsAverage;
-  late final num ratingsQuantity;
-  late final num price;
-  late final String createdAt;
-  late final String updatedAt;
-  late final bool status;
-  late final String id;
+  String? name;
+  String? desc;
+  String? typeId;
+  String? categoryId;
+  String? productUrl;
+  num? ratingsAverage;
+  num? ratingsQuantity;
+  num? price;
+  num? discountPerc;
+  String? discount;
+  String? uploaderId;
+  String? uploaderName;
+  String? createdAt;
+  String? updatedAt;
+  bool? status;
+  String? id;
 
-  Doc.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    desc = json['desc'];
-    typeId = json['typeId'];
-    categoryId = json['categoryId'];
-    productUrl = json['productUrl'];
-    ratingsAverage = json['ratingsAverage'];
-    ratingsQuantity = json['ratingsQuantity'];
-    price = json['price'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    status = json['status'];
-    id = json['id'];
+  Doc.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      name = json['name'] ?? "لا يوجد";
+      desc = json['desc'] ?? "";
+      typeId = json['typeId'] ?? "";
+      categoryId = json['categoryId'] ?? "";
+      productUrl = json['productUrl'] ?? "";
+      ratingsAverage = json['ratingsAverage'] ?? 0;
+      ratingsQuantity = json['ratingsQuantity'] ?? 0;
+      price = json['price'] ?? 0;
+      discountPerc = json['discountPerc'] ?? 0;
+      discount = json['discount'] ?? "";
+      uploaderId = json['uploaderId'] ?? "";
+      uploaderName = json['uploaderName'] ??"لا يوجد اسم";
+      createdAt = json['createdAt'] ?? "";
+      updatedAt = json['updatedAt'] ?? "";
+      status = json['status'] ?? false;
+      id = json['id'] ?? "";
+    }
   }
 }

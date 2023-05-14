@@ -66,13 +66,14 @@ class SellersView extends StatelessWidget {
                         onTap: () {
                           navigateTo(
                             page: GetSellerView(
-                              id: "${cubit.allSellers!.data.doc[index].id}",
+                              id: "${cubit.allSellers!.data!.doc![index].id}",
                             ),
                           );
                         },
-                        name: "${cubit.allSellers!.data.doc[index].username}",
-                        image: "${cubit.allSellers!.data.doc[index].image}",
-                        likes: cubit.allSellers!.data.doc[index].likes!.length,
+                        name: "${cubit.allSellers!.data!.doc![index].username}",
+                        image: "${cubit.allSellers!.data!.doc![index].image}",
+                        likes:
+                            cubit.allSellers!.data!.doc![index].likes!.length,
                       );
                     },
                   );

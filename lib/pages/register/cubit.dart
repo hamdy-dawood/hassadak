@@ -21,8 +21,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final controllers = RegisterControllers();
 
   Future<void> register() async {
-    emit(RegisterLoadingState());
     if (formKey.currentState!.validate()) {
+      emit(RegisterLoadingState());
       try {
         final response = await Dio().post(UrlsStrings.registerUrl, data: {
           "firstName": controllers.firstNameController.text,
@@ -38,7 +38,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
             response.statusCode == 201) {
           registerResponse = RegisterResponse.fromJson(response.data);
           CacheHelper.saveToken("${response.data["token"]}");
-          CacheHelper.saveId(registerResponse!.data.user.id);
+          CacheHelper.saveId("${registerResponse!.data!.user!.id}");
           emit(RegisterSuccessState());
         } else {
           emit(RegisterFailureState(msg: response.data["status"]));
@@ -56,7 +56,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
         } else if (e.type == DioErrorType.badResponse) {
           errorMsg = 'Invalid status code: ${e.response?.data}';
           emit(RegisterFailureState(msg: errorMsg));
-          print(errorMsg);
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(RegisterFailureState(msg: errorMsg));

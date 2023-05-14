@@ -143,7 +143,7 @@ class PersonalDataView extends StatelessWidget {
                           child: ClipOval(
                             child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              imageUrl: cubit.profileResponse!.data.doc.image,
+                              imageUrl: "${cubit.profileResponse!.data!.doc!.image}",
                               placeholder: (context, url) =>
                                   JumpingDotsProgressIndicator(
                                 fontSize: 20.h,
@@ -159,7 +159,7 @@ class PersonalDataView extends StatelessWidget {
                       ),
                       CustomText(
                         textAlign: TextAlign.center,
-                        text: cubit.profileResponse!.data.doc.username,
+                        text: "${cubit.profileResponse!.data!.doc!.username}",
                         color: ColorManager.secMainColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 25.sp,
@@ -169,23 +169,23 @@ class PersonalDataView extends StatelessWidget {
                       ),
                       TextFieldWithText(
                         title: "الاسم الاول",
-                        hint: cubit.profileResponse!.data.doc.firstName,
+                        hint: "${cubit.profileResponse!.data!.doc!.firstName}",
                       ),
                       TextFieldWithText(
                         title: "الاسم الاخير",
-                        hint: cubit.profileResponse!.data.doc.lastName,
+                        hint: "${cubit.profileResponse!.data!.doc!.lastName}",
                       ),
                       TextFieldWithText(
                         title: "اسم المستخدم",
-                        hint: cubit.profileResponse!.data.doc.username,
+                        hint: "${cubit.profileResponse!.data!.doc!.username}",
                       ),
                       TextFieldWithText(
                         title: "رقم الهاتف",
-                        hint: cubit.profileResponse!.data.doc.telephone,
+                        hint: "${cubit.profileResponse!.data!.doc!.telephone}",
                       ),
                       TextFieldWithText(
                         title: "البريد الالكترونى",
-                        hint: cubit.profileResponse!.data.doc.email,
+                        hint: "${cubit.profileResponse!.data!.doc!.email}",
                       ),
                     ],
                   );

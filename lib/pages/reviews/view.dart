@@ -8,7 +8,6 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/constants/strings.dart';
-import 'package:hassadak/pages/profile/personal_data/cubit.dart';
 import 'package:hassadak/pages/reviews/add_review/cubit.dart';
 import 'package:hassadak/pages/reviews/delete_review/cubit.dart';
 import 'package:hassadak/pages/reviews/states.dart';
@@ -36,7 +35,6 @@ class ReviewsView extends StatelessWidget {
         final addReviewCubit = AddReviewsCubit.get(context);
         final reviewCubit = ReviewsCubit.get(context);
         final deleteReviewCubit = DeleteReviewsCubit.get(context);
-        final personalDataCubit = PersonalDataCubit.get(context);
 
         reviewCubit.getReviews(id: id);
         return RefreshIndicator(
@@ -187,7 +185,6 @@ class ReviewsView extends StatelessWidget {
                 BuildReviewBuilder(
                   reviewCubit: reviewCubit,
                   deleteReviewCubit: deleteReviewCubit,
-                  personalDataCubit: personalDataCubit,
                 ),
               ],
             ),

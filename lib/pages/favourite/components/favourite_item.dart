@@ -84,13 +84,14 @@ class FavouriteItem extends StatelessWidget {
                           SizedBox(
                             width: 5.w,
                           ),
-                          CustomText(
-                            text: userName,
-                            color: ColorManager.mainColor,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 15.sp,
+                          Expanded(
+                            child: CustomText(
+                              text: userName,
+                              color: ColorManager.mainColor,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15.sp,
+                            ),
                           ),
-                          const Spacer(),
                           CustomElevated(
                             text: offer,
                             btnColor: ColorManager.green,

@@ -31,12 +31,10 @@ class OtpCubit extends Cubit<OtpStates> {
         },
       );
       if (response.data["status"] == "success" && response.statusCode == 200) {
-        print(response.data);
         CacheHelper.saveToken("${response.data["token"]}");
         emit(OtpSuccessState());
       } else {
         emit(OtpFailureState(msg: response.data["message"]));
-        print(response.data["message"]);
       }
     } on DioError catch (e) {
       String errorMessage;

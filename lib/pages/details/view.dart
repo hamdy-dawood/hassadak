@@ -16,7 +16,7 @@ class DetailsView extends StatelessWidget {
   const DetailsView({
     Key? key,
     required this.id,
-    required this.name,
+    required this.productName,
     required this.price,
     required this.oldPrice,
     required this.desc,
@@ -24,9 +24,10 @@ class DetailsView extends StatelessWidget {
     required this.image,
     required this.ratingsQuantity,
     required this.userImage,
+    required this.userName,
   }) : super(key: key);
 
-  final String id, name, desc, price, oldPrice, image, userImage;
+  final String id, productName, desc, price, oldPrice, image, userImage, userName;
   final num ratingsAverage, ratingsQuantity;
 
   @override
@@ -64,18 +65,21 @@ class DetailsView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 20.r,
-                          child: CachedNetworkImage(
-                            fit: BoxFit.contain,
-                            imageUrl: userImage,
-                            placeholder: (context, url) =>
-                                JumpingDotsProgressIndicator(
-                              fontSize: 20.h,
-                              color: ColorManager.secMainColor,
-                            ),
-                            errorWidget: (context, url, error) => Center(
-                              child: Image.asset("assets/images/user.png"),
+                        ClipOval(
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: ColorManager.mainColor,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.contain,
+                              imageUrl: userImage,
+                              placeholder: (context, url) =>
+                                  JumpingDotsProgressIndicator(
+                                fontSize: 20.h,
+                                color: ColorManager.secMainColor,
+                              ),
+                              errorWidget: (context, url, error) => Center(
+                                child: Image.asset("assets/images/user.png"),
+                              ),
                             ),
                           ),
                         ),
@@ -83,7 +87,7 @@ class DetailsView extends StatelessWidget {
                           width: 5.w,
                         ),
                         CustomText(
-                          text: "محمد احمد",
+                          text: userName,
                           color: ColorManager.mainColor,
                           fontWeight: FontWeight.normal,
                           fontSize: 20.sp,
@@ -112,7 +116,7 @@ class DetailsView extends StatelessWidget {
                       height: 10.h,
                     ),
                     CustomText(
-                      text: name,
+                      text: productName,
                       color: ColorManager.mainColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 20.sp,
@@ -126,7 +130,7 @@ class DetailsView extends StatelessWidget {
                           page: ReviewsView(
                             rating: ratingsAverage,
                             id: id,
-                            name: name,
+                            name: productName,
                             image: image,
                           ),
                         );

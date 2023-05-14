@@ -63,7 +63,7 @@ class FavouriteView extends StatelessWidget {
                     return ListView.separated(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
                       shrinkWrap: true,
-                      itemCount: favCubit.allFavourites!.products.length,
+                      itemCount: favCubit.allFavourites!.products!.length,
                       separatorBuilder: (context, index) {
                         return SizedBox(
                           height: 10.w,
@@ -74,41 +74,44 @@ class FavouriteView extends StatelessWidget {
                           onTap: () {
                             navigateTo(
                               page: DetailsView(
-                                id: favCubit.allFavourites!.products[index].id,
-                                image: favCubit
-                                    .allFavourites!.products[index].productUrl,
+                                id: "${favCubit.allFavourites!.products![index].id}",
+                                image:
+                                    "${favCubit.allFavourites!.products![index].productUrl}",
                                 userImage: UrlsStrings.userImageUrl,
-                                name: favCubit
-                                    .allFavourites!.products[index].name,
-                                desc: favCubit
-                                    .allFavourites!.products[index].desc,
+                                productName:
+                                    "${favCubit.allFavourites!.products![index].name}",
+                                userName:
+                                    "${favCubit.allFavourites!.products![index].uploaderName}",
+                                desc:
+                                    "${favCubit.allFavourites!.products![index].desc}",
                                 price:
-                                    "${favCubit.allFavourites!.products[index].price}",
+                                    "${favCubit.allFavourites!.products![index].price}",
                                 oldPrice:
-                                    "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
+                                    "${favCubit.allFavourites!.products![index].price! - (favCubit.allFavourites!.products![index].price! * 0.2)}",
                                 ratingsAverage: (favCubit.allFavourites!
-                                        .products[index].ratingsAverage)
+                                        .products![index].ratingsAverage)!
                                     .toInt(),
                                 ratingsQuantity: (favCubit.allFavourites!
-                                    .products[index].ratingsQuantity),
+                                    .products![index].ratingsQuantity!),
                               ),
                             );
                           },
                           child: FavouriteItem(
                             offer: 'خصم 20%',
-                            title: favCubit.allFavourites!.products[index].name,
-                            image: favCubit
-                                .allFavourites!.products[index].productUrl,
-                            userName: 'محمد احمد',
+                            title:
+                                "${favCubit.allFavourites!.products![index].name}",
+                            image:
+                                "${favCubit.allFavourites!.products![index].productUrl}",
+                            userName:
+                                "${favCubit.allFavourites!.products![index].uploaderName}",
                             userImage: UrlsStrings.userImageUrl,
                             price:
-                                "${favCubit.allFavourites!.products[index].price}",
+                                "${favCubit.allFavourites!.products![index].price}",
                             oldPrice:
-                                "${favCubit.allFavourites!.products[index].price - (favCubit.allFavourites!.products[index].price * 0.2)}",
+                                "${favCubit.allFavourites!.products![index].price! - (favCubit.allFavourites!.products![index].price! * 0.2)}",
                             deleteTap: (context) async {
                               deleteFavCubit.deleteFav(
-                                  id: favCubit
-                                      .allFavourites!.products[index].id);
+                                  id: "${favCubit.allFavourites!.products![index].id}");
                               await Future.delayed(const Duration(seconds: 1));
                               favCubit.getAllFavourites();
                             },
