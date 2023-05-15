@@ -19,10 +19,10 @@ class DeleteReviewsCubit extends Cubit<DeleteReviewsStates> {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response = await dio.delete("${UrlsStrings.allReviewsUrl}/$id");
-      if (response.statusCode == 204) {
+      if (response.data["status"] == "success" && response.statusCode == 201) {
         emit(DeleteReviewsSuccessState());
       } else {
-        emit(DeleteReviewsFailureState(msg: response.data["status"]));
+        emit(DeleteReviewsFailureState(msg: response.data["message"]));
       }
     } on DioError catch (e) {
       emit(DeleteReviewsFailureState(msg: "$e"));

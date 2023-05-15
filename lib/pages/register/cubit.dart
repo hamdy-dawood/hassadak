@@ -48,12 +48,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
         if (e.type == DioErrorType.cancel) {
           errorMsg = 'Request was cancelled';
           emit(RegisterFailureState(msg: errorMsg));
-        } else if (e.type == DioErrorType.connectionTimeout ||
-            e.type == DioErrorType.receiveTimeout ||
+        } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
           emit(RegisterFailureState(msg: errorMsg));
-        } else if (e.type == DioErrorType.badResponse) {
+        } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.response?.data}';
           emit(RegisterFailureState(msg: errorMsg));
         } else {

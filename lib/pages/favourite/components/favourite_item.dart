@@ -73,9 +73,9 @@ class FavouriteItem extends StatelessWidget {
                               imageUrl: userImage,
                               placeholder: (context, url) =>
                                   JumpingDotsProgressIndicator(
-                                    fontSize: 20.h,
-                                    color: ColorManager.secMainColor,
-                                  ),
+                                fontSize: 20.h,
+                                color: ColorManager.secMainColor,
+                              ),
                               errorWidget: (context, url, error) => Center(
                                 child: Image.asset("assets/images/user.png"),
                               ),

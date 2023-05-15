@@ -22,7 +22,7 @@ class SearchCubit extends Cubit<SearchStates> {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response = await dio.get("${UrlsStrings.allProductsUrl}$id");
-      if (response.data["status"] == "success" && response.statusCode == 200 ) {
+      if (response.data["status"] == "success" && response.statusCode == 200) {
         searchResponse = SearchResponse.fromJson(response.data);
         emit(SearchSuccessState());
       } else {
@@ -32,11 +32,10 @@ class SearchCubit extends Cubit<SearchStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
-      } else if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.receiveTimeout ||
+      } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-      } else if (e.type == DioErrorType.badResponse) {
+      } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';

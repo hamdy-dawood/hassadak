@@ -327,9 +327,11 @@ class SearchView extends StatelessWidget {
                                         productName:
                                             "${searchCubit.searchResponse!.data!.doc![index].name}",
                                         userName:
-                                        "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
+                                            "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
                                         desc:
                                             "${searchCubit.searchResponse!.data!.doc![index].desc}",
+                                        phone:
+                                            "${searchCubit.searchResponse!.data!.doc![index].sellerPhone}",
                                         price:
                                             "${searchCubit.searchResponse!.data!.doc![index].price}",
                                         oldPrice:

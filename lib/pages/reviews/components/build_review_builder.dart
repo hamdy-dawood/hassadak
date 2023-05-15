@@ -60,7 +60,7 @@ class BuildReviewBuilder extends StatelessWidget {
             height: 1.sh,
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: reviewCubit.reviewsResponse?.data!.doc!.length,
+              itemCount: reviewCubit.reviewsResponse?.doc!.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onLongPress: () {
@@ -74,15 +74,12 @@ class BuildReviewBuilder extends StatelessWidget {
                         ),
                       ),
                       builder: (context) => SizedBox(
-                        height: 130.h,
+                        height: 120.h,
                         width: 1.sw,
                         child: Padding(
-                          padding: EdgeInsets.all(30.h),
+                          padding: EdgeInsets.all(20.h),
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 5.h,
-                              ),
                               CustomElevated(
                                 text: "حذف",
                                 borderRadius: 12.r,
@@ -101,7 +98,7 @@ class BuildReviewBuilder extends StatelessWidget {
                                           ),
                                           content: CustomText(
                                             text:
-                                            "هل انت متأكد من حذف التعليق؟",
+                                                "هل انت متأكد من حذف التعليق؟",
                                             color: ColorManager.mainColor,
                                             fontWeight: FontWeight.normal,
                                             fontSize: 18.sp,
@@ -114,31 +111,33 @@ class BuildReviewBuilder extends StatelessWidget {
                                               child: CustomText(
                                                 text: "الغاء",
                                                 fontSize: 18.sp,
-                                                color:
-                                                ColorManager.navGrey,
-                                                fontWeight:
-                                                FontWeight.normal,
+                                                color: ColorManager.navGrey,
+                                                fontWeight: FontWeight.normal,
                                               ),
                                             ),
-                                            BlocConsumer<
-                                                DeleteReviewsCubit,
+                                            BlocConsumer<DeleteReviewsCubit,
                                                 DeleteReviewsStates>(
                                               listener: (context, state) {
                                                 if (state
-                                                is DeleteReviewsFailureState) {
+                                                    is DeleteReviewsFailureState) {
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                  showMessage(
+                                                      message: state.msg,
+                                                      height: 50.h,
+                                                      maxLines: 5);
+                                                } else if (state
+                                                    is DeleteReviewsSuccessState) {
+                                                  Navigator.pop(context);
                                                   Navigator.pop(context);
                                                   showMessage(
                                                       message:
-                                                      "فشل الحذف");
-                                                } else if (state
-                                                is DeleteReviewsSuccessState) {
-                                                  return Navigator.pop(
-                                                      context);
+                                                          "تم الحذف.. اعد تحميل الصفحة");
                                                 }
                                               },
                                               builder: (context, state) {
                                                 if (state
-                                                is DeleteReviewsLoadingState) {
+                                                    is DeleteReviewsLoadingState) {
                                                   return JumpingDotsProgressIndicator(
                                                     fontSize: 50.h,
                                                     color: ColorManager
@@ -147,19 +146,14 @@ class BuildReviewBuilder extends StatelessWidget {
                                                 }
                                                 return CustomElevated(
                                                   press: () {
-                                                    deleteReviewCubit
-                                                        .deleteReview(
-                                                        id: "${reviewCubit.reviewsResponse!.data!.doc![index].id}");
-                                                    showMessage(
-                                                        message:
-                                                        "تم الحذف");
+                                                    deleteReviewCubit.deleteReview(
+                                                        id: "${reviewCubit.reviewsResponse!.doc![index].id}");
                                                   },
                                                   text: "حذف",
                                                   wSize: 100.w,
                                                   hSize: 40.sp,
                                                   borderRadius: 5.r,
-                                                  btnColor:
-                                                  ColorManager.red,
+                                                  btnColor: ColorManager.red,
                                                 );
                                               },
                                             ),
@@ -177,8 +171,8 @@ class BuildReviewBuilder extends StatelessWidget {
                   },
                   child: Container(
                     padding: EdgeInsets.all(20.w),
-                    margin: EdgeInsets.symmetric(
-                        vertical: 10.h, horizontal: 12.w),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
                     decoration: BoxDecoration(
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(12.r),
@@ -193,8 +187,7 @@ class BuildReviewBuilder extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        BlocBuilder<PersonalDataCubit,
-                            PersonalDataStates>(
+                        BlocBuilder<PersonalDataCubit, PersonalDataStates>(
                           builder: (context, state) {
                             if (state is PersonalDataLoadingState) {
                               return ContainerShimmer(
@@ -204,33 +197,28 @@ class BuildReviewBuilder extends StatelessWidget {
                                 padding: EdgeInsets.all(0.h),
                                 radius: 5.r,
                               );
-                            } else if (state
-                            is PersonalDataFailureState) {
+                            } else if (state is PersonalDataFailureState) {
                               return Text(state.msg);
                             } else {
                               return Row(
                                 children: [
                                   CircleAvatar(
                                     radius: 30.r,
-                                    backgroundColor:
-                                    ColorManager.secMainColor,
+                                    backgroundColor: ColorManager.secMainColor,
                                     child: ClipOval(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.contain,
                                         imageUrl:
-                                        "${reviewCubit.reviewsResponse?.data!.doc![index].image}",
+                                            "${reviewCubit.reviewsResponse!.doc![index].image}",
                                         placeholder: (context, url) =>
                                             JumpingDotsProgressIndicator(
-                                              fontSize: 20.h,
-                                              color:
-                                              ColorManager.secMainColor,
-                                            ),
-                                        errorWidget: (context, url,
-                                            error) =>
+                                          fontSize: 20.h,
+                                          color: ColorManager.secMainColor,
+                                        ),
+                                        errorWidget: (context, url, error) =>
                                             Center(
                                                 child: Image.network(
-                                                    UrlsStrings
-                                                        .userImageUrl)),
+                                                    UrlsStrings.userImageUrl)),
                                       ),
                                     ),
                                   ),
@@ -239,11 +227,11 @@ class BuildReviewBuilder extends StatelessWidget {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       CustomText(
                                         text:
-                                        "${reviewCubit.reviewsResponse?.data!.doc![index].userName}",
+                                            "${reviewCubit.reviewsResponse!.doc![index].userName}",
                                         color: ColorManager.mainColor,
                                         fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,
@@ -255,14 +243,13 @@ class BuildReviewBuilder extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: List.generate(
                                           reviewCubit.reviewsResponse!
-                                              .data!.doc![index].rating!
+                                              .doc![index].rating!
                                               .toInt(),
-                                              (index) => Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 5.w),
+                                          (index) => Padding(
+                                            padding: EdgeInsets.only(left: 5.w),
                                             child: SvgIcon(
                                               icon:
-                                              "assets/icons/fill_star.svg",
+                                                  "assets/icons/fill_star.svg",
                                               height: 20.h,
                                               color: ColorManager.green,
                                             ),
@@ -274,12 +261,12 @@ class BuildReviewBuilder extends StatelessWidget {
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.end,
+                                          CrossAxisAlignment.end,
                                       children: [
                                         CustomText(
                                           text:
-                                          "${reviewCubit.reviewsResponse?.data!.doc![index].updatedAt}"
-                                              .split("T")[0],
+                                              "${reviewCubit.reviewsResponse!.doc![index].updatedAt}"
+                                                  .split("T")[0],
                                           color: ColorManager.grey,
                                           fontWeight: FontWeight.normal,
                                           fontSize: 16.sp,
@@ -288,9 +275,9 @@ class BuildReviewBuilder extends StatelessWidget {
                                         SizedBox(height: 5.h),
                                         CustomText(
                                           text:
-                                          "${reviewCubit.reviewsResponse?.data!.doc![index].updatedAt}"
-                                              .split("T")[1]
-                                              .split(".")[0],
+                                              "${reviewCubit.reviewsResponse!.doc![index].updatedAt}"
+                                                  .split("T")[1]
+                                                  .split(".")[0],
                                           color: ColorManager.grey,
                                           fontWeight: FontWeight.normal,
                                           fontSize: 16.sp,
@@ -315,7 +302,7 @@ class BuildReviewBuilder extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: CustomText(
                             text:
-                            "${reviewCubit.reviewsResponse?.data!.doc![index].review}",
+                                "${reviewCubit.reviewsResponse!.doc![index].review}",
                             color: ColorManager.brown,
                             fontWeight: FontWeight.normal,
                             fontSize: 20.sp,

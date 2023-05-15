@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -20,14 +20,20 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
 
   static AllProductsCubit get(context) => BlocProvider.of(context);
   final dio = Dio();
+  final dioCacheManager = DioCacheManager(CacheConfig());
+  final myOptions =
+      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
   AllProductsResponse? allProducts;
 
   Future<void> getAllProducts({String? id = ""}) async {
     _allProductsController.add(AllProductsLoadingState());
     emit(AllProductsLoadingState());
     try {
-       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response = await dio.get("${UrlsStrings.allProductsUrl}$id");
+      dio.interceptors.add(dioCacheManager.interceptor);
+      dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
+
+      final response =
+          await dio.get("${UrlsStrings.allProductsUrl}$id", options: myOptions);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
         _allProductsController.add(AllProductsSuccessState());
@@ -39,11 +45,10 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
-      } else if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.receiveTimeout ||
+      } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-      } else if (e.type == DioErrorType.badResponse) {
+      } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
         print("Received invalid status code: ${e.response?.statusCode}");
         print(errorMsg);
@@ -56,6 +61,7 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       emit(AllProductsFailedState(msg: 'An unknown error occurred: $e'));
     }
   }
+
   void dispose() {
     _allProductsController.close();
   }

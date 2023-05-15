@@ -13,7 +13,7 @@ class SearchResponse {
     if (json != null) {
       status = json['status'] ?? "";
       results = json['results'] ?? 0;
-      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+      data = Data.fromJson(json['data'] ?? Map<String, dynamic>);
     }
   }
 }
@@ -50,6 +50,8 @@ class Doc {
     this.updatedAt,
     this.status,
     this.id,
+    this.sellerPhone,
+    this.sellerWhatsapp,
   });
 
   String? name;
@@ -68,6 +70,8 @@ class Doc {
   String? updatedAt;
   bool? status;
   String? id;
+  String? sellerPhone;
+  String? sellerWhatsapp;
 
   Doc.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -82,11 +86,13 @@ class Doc {
       discountPerc = json['discountPerc'] ?? 0;
       discount = json['discount'] ?? "";
       uploaderId = json['uploaderId'] ?? "";
-      uploaderName = json['uploaderName'] ??"لا يوجد اسم";
+      uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       status = json['status'] ?? false;
       id = json['id'] ?? "";
+      sellerPhone = json['sellerPhone'] ?? "010";
+      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
     }
   }
 }

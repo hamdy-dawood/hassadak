@@ -11,6 +11,7 @@ import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/reviews/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsView extends StatelessWidget {
   const DetailsView({
@@ -25,10 +26,28 @@ class DetailsView extends StatelessWidget {
     required this.ratingsQuantity,
     required this.userImage,
     required this.userName,
+    required this.phone,
   }) : super(key: key);
 
-  final String id, productName, desc, price, oldPrice, image, userImage, userName;
+  final String id,
+      productName,
+      desc,
+      price,
+      oldPrice,
+      image,
+      userImage,
+      userName,
+      phone;
   final num ratingsAverage, ratingsQuantity;
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,10 +201,10 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 5.w,
+                      height: 10.h,
                     ),
                     ExpansionTile(
-                      iconColor: ColorManager.grey,
+                      iconColor: const Color(0xb3464646),
                       initiallyExpanded: false,
                       title: CustomText(
                         text: "تفاصيل المنتج",
@@ -208,7 +227,7 @@ class DetailsView extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 100.h,
+                      height: 50.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -216,7 +235,10 @@ class DetailsView extends StatelessWidget {
                         Expanded(
                           child: CustomElevated(
                             text: "الذهاب إلى الشراء",
-                            press: () {},
+                            press: () {
+                              _launchInBrowser(Uri.parse(
+                                  "https://api.whatsapp.com/send/?phone=%2B2$phone"));
+                            },
                             hSize: 50.h,
                             btnColor: ColorManager.secMainColor,
                             borderRadius: 12.r,
@@ -230,9 +252,12 @@ class DetailsView extends StatelessWidget {
                           child: BlocBuilder<AddFavCubit, AddFavStates>(
                             builder: (context, state) {
                               return CustomElevated(
-                                text: "أضف إلى المفضلة",
+                                text: addFavCubit.isLoved
+                                    ? "تمت الاضافة"
+                                    : "أضف إلى المفضلة",
                                 press: () {
                                   addFavCubit.addFav(id: id);
+                                  // addFavCubit.changeFavourite();
                                 },
                                 hSize: 50.h,
                                 btnColor: ColorManager.backGreyWhite,

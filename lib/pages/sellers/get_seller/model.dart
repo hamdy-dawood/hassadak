@@ -14,7 +14,7 @@ class GetSellerResponse {
   GetSellerResponse.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
       status = json['status'] ?? "";
-      user = User.fromJson(json['user'] as Map<String, dynamic>);
+      user = User.fromJson(json['user'] ?? Map<String, dynamic>);
       getUserProduct = List.from(json['getUserProduct'] ?? [])
           .map((e) => GetUserProduct.fromJson(e as Map<String, dynamic>))
           .toList();
@@ -110,6 +110,8 @@ class GetUserProduct {
     this.updatedAt,
     this.V,
     this.id,
+    this.sellerPhone,
+    this.sellerWhatsapp,
   });
 
   String? name;
@@ -128,6 +130,8 @@ class GetUserProduct {
   String? updatedAt;
   num? V;
   String? id;
+  String? sellerPhone;
+  String? sellerWhatsapp;
 
   GetUserProduct.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -147,6 +151,8 @@ class GetUserProduct {
       updatedAt = json['updatedAt'] ?? "";
       V = json['__v'] ?? 0;
       id = json['id'] ?? "";
+      sellerPhone = json['sellerPhone'] ?? "010";
+      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
     }
   }
 }

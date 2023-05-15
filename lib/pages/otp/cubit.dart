@@ -37,29 +37,23 @@ class OtpCubit extends Cubit<OtpStates> {
         emit(OtpFailureState(msg: response.data["message"]));
       }
     } on DioError catch (e) {
-      String errorMessage;
-      switch (e.type) {
-        case DioErrorType.connectionTimeout:
-          errorMessage = "Connection timeout";
-          break;
-        case DioErrorType.sendTimeout:
-          errorMessage = "Send timeout";
-          break;
-        case DioErrorType.receiveTimeout:
-          errorMessage = "Receive timeout";
-          break;
-        case DioErrorType.badResponse:
-          errorMessage = "${e.response?.data["message"]}";
-          break;
-        case DioErrorType.cancel:
-          errorMessage = "Request was cancelled";
-          break;
-        case DioErrorType.unknown:
-        default:
-          errorMessage = "An unknown error occurred";
-          break;
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+        emit(OtpFailureState(msg: errorMsg));
+      } else if (e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+        emit(OtpFailureState(msg: errorMsg));
+      } else if (e.type == DioErrorType.other) {
+        errorMsg = 'Invalid status code: ${e.response?.statusCode}';
+        emit(OtpFailureState(msg: errorMsg));
+      } else {
+        errorMsg = 'An unexpected error : ${e.error}';
+        emit(OtpFailureState(msg: errorMsg));
       }
-      emit(OtpFailureState(msg: errorMessage));
+    } catch (e) {
+      emit(OtpFailureState(msg: 'An unknown error: $e'));
     }
   }
 

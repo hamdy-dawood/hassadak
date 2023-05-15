@@ -206,7 +206,8 @@ class _LoginViewState extends State<LoginView>
                                       showMessage(message: "فشل تسجيل الدخول");
                                     } else if (state is LoginSuccessState) {
                                       navigateTo(
-                                          page: NavBarView(), withHistory: false);
+                                          page: NavBarView(),
+                                          withHistory: false);
                                     }
                                   },
                                   builder: (context, state) {
@@ -332,7 +333,8 @@ class _LoginViewState extends State<LoginView>
                                           maxLines: 5);
                                     } else if (state is LoginSuccessState) {
                                       navigateTo(
-                                          page: NavBarView(), withHistory: false);
+                                          page: NavBarView(),
+                                          withHistory: false);
                                     }
                                   },
                                   builder: (context, state) {

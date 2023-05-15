@@ -49,6 +49,8 @@ class Doc {
     this.createdAt,
     this.updatedAt,
     this.status,
+    this.sellerPhone,
+    this.sellerWhatsapp,
     this.id,
   });
 
@@ -67,6 +69,8 @@ class Doc {
   String? createdAt;
   String? updatedAt;
   bool? status;
+  String? sellerPhone;
+  String? sellerWhatsapp;
   String? id;
 
   Doc.fromJson(Map<String, dynamic>? json) {
@@ -82,10 +86,12 @@ class Doc {
       discountPerc = json['price'] ?? 0;
       discount = json['discount'] ?? "";
       uploaderId = json['uploaderId'] ?? "";
-      uploaderName = json['uploaderName'] ??"لا يوجد اسم";
+      uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       status = json['status'] ?? false;
+      sellerPhone = json['sellerPhone'] ?? "010";
+      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
       id = json['id'] ?? "";
     }
   }

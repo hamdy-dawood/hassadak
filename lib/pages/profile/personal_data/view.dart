@@ -143,7 +143,8 @@ class PersonalDataView extends StatelessWidget {
                           child: ClipOval(
                             child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              imageUrl: "${cubit.profileResponse!.data!.doc!.image}",
+                              imageUrl:
+                                  "${cubit.profileResponse!.data!.doc!.image}",
                               placeholder: (context, url) =>
                                   JumpingDotsProgressIndicator(
                                 fontSize: 20.h,

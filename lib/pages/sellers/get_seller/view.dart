@@ -7,7 +7,6 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
@@ -282,13 +281,15 @@ class GetSellerView extends StatelessWidget {
                                       image:
                                           "${cubit.sellerResponse!.getUserProduct![index].productUrl}",
                                       userImage:
-                                      "${cubit.sellerResponse!.user!.image}",
+                                          "${cubit.sellerResponse!.user!.image}",
                                       productName:
                                           "${cubit.sellerResponse!.getUserProduct![index].name}",
                                       userName:
                                           "${cubit.sellerResponse!.user!.username}",
                                       desc:
                                           "${cubit.sellerResponse!.getUserProduct![index].desc}",
+                                      phone:
+                                          "${cubit.sellerResponse!.getUserProduct![index].sellerPhone}",
                                       price:
                                           "${cubit.sellerResponse!.getUserProduct![index].price}",
                                       oldPrice:
@@ -341,7 +342,7 @@ class GetSellerView extends StatelessWidget {
                                         title:
                                             "${cubit.sellerResponse!.getUserProduct![index].name}",
                                         userName:
-                                        "${cubit.sellerResponse!.getUserProduct![index].uploaderName}",
+                                            "${cubit.sellerResponse!.getUserProduct![index].uploaderName}",
                                         userImage:
                                             "${cubit.sellerResponse!.user!.image}",
                                         price:

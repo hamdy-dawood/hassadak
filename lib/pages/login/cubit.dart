@@ -42,12 +42,11 @@ class LoginCubit extends Cubit<LoginStates> {
         if (e.type == DioErrorType.cancel) {
           errorMsg = 'Request was cancelled';
           emit(LoginFailureState(msg: errorMsg));
-        } else if (e.type == DioErrorType.connectionTimeout ||
-            e.type == DioErrorType.receiveTimeout ||
+        } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
           emit(LoginFailureState(msg: errorMsg));
-        } else if (e.type == DioErrorType.badResponse) {
+        } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.response?.statusCode}';
           emit(LoginFailureState(msg: errorMsg));
         } else {

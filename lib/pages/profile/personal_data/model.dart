@@ -12,7 +12,7 @@ class PersonalDataResp {
   PersonalDataResp.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
       status = json['status'] ?? "";
-      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+      data = Data.fromJson(json['data'] ?? Map<String, dynamic>);
     }
   }
 }
@@ -26,7 +26,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
-      doc = Doc.fromJson(json['doc']);
+      doc = Doc.fromJson(json['doc'] ?? Map<String, dynamic>);
     }
   }
 }

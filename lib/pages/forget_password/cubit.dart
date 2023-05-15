@@ -27,14 +27,14 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates> {
           emit(ForgetPasswordFailureState(msg: response.data["message"]));
         }
       } on DioError catch (e) {
-        if (e.type == DioErrorType.connectionTimeout) {
+        if (e.type == DioErrorType.connectTimeout) {
           emit(ForgetPasswordFailureState(
               msg:
                   "Connection timeout. Please check your internet connection."));
         } else if (e.type == DioErrorType.receiveTimeout) {
           emit(ForgetPasswordFailureState(
               msg: "Receive timeout. Please check your internet connection."));
-        } else if (e.type == DioErrorType.badResponse) {
+        } else if (e.type == DioErrorType.other) {
           emit(ForgetPasswordFailureState(
               msg: "${e.response?.data["message"]}"));
         } else if (e.type == DioErrorType.cancel) {

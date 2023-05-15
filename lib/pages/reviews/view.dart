@@ -186,6 +186,9 @@ class ReviewsView extends StatelessWidget {
                   reviewCubit: reviewCubit,
                   deleteReviewCubit: deleteReviewCubit,
                 ),
+                SizedBox(
+                  height: 100.h,
+                ),
               ],
             ),
           ),

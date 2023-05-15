@@ -35,6 +35,8 @@ class Products {
     this.createdAt,
     this.updatedAt,
     this.V,
+    this.sellerPhone,
+    this.sellerWhatsapp,
   });
 
   String? id;
@@ -53,6 +55,8 @@ class Products {
   String? createdAt;
   String? updatedAt;
   num? V;
+  String? sellerPhone;
+  String? sellerWhatsapp;
 
   Products.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -72,6 +76,8 @@ class Products {
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       V = json['__v'] ?? "";
+      sellerPhone = json['sellerPhone'] ?? "010";
+      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
     }
   }
 }

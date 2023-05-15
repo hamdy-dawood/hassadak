@@ -84,6 +84,8 @@ class FavouriteView extends StatelessWidget {
                                     "${favCubit.allFavourites!.products![index].uploaderName}",
                                 desc:
                                     "${favCubit.allFavourites!.products![index].desc}",
+                                phone:
+                                    "${favCubit.allFavourites!.products![index].sellerPhone}",
                                 price:
                                     "${favCubit.allFavourites!.products![index].price}",
                                 oldPrice:

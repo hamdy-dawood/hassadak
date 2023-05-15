@@ -137,11 +137,14 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                           BlocConsumer<AddReviewsCubit, AddReviewsStates>(
                             listener: (context, state) {
                               if (state is AddReviewsFailureState) {
+                                Navigator.pop(context);
                                 showMessage(message: "فشل الارسال");
-                                print(state.msg);
+                                addReviewsCubit.reviewController.clear();
                               } else if (state is AddReviewsSuccessState) {
-                                showMessage(message: "تم الارسال");
-                                return Navigator.pop(context);
+                                Navigator.pop(context);
+                                addReviewsCubit.reviewController.clear();
+                                showMessage(
+                                    message: "تم الارسال.. اعد تحميل الصفحة");
                               }
                             },
                             builder: (context, state) {

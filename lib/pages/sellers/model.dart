@@ -15,7 +15,7 @@ class AllSellersResponse {
     if (json != null) {
       status = json['status'] ?? "";
       results = json['results'] ?? 0;
-      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+      data = Data.fromJson(json['data'] ?? Map<String, dynamic>);
     }
   }
 }
@@ -29,7 +29,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
-      doc = List.from(json['doc'])
+      doc = List.from(json['doc'] ?? [])
           .map((e) => Doc.fromJson(e as Map<String, dynamic>))
           .toList();
     }

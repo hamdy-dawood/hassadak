@@ -62,9 +62,12 @@ class BuildProductsStream extends StatelessWidget {
                       userImage: UrlsStrings.userImageUrl,
                       productName:
                           "${allProductsCubit.allProducts!.data!.doc![index].name}",
-                      userName:"${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
+                      userName:
+                          "${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
                       desc:
                           "${allProductsCubit.allProducts!.data!.doc![index].desc}",
+                      phone:
+                          "${allProductsCubit.allProducts!.data!.doc![index].sellerPhone}",
                       price:
                           "${allProductsCubit.allProducts!.data!.doc![index].price}",
                       oldPrice:
@@ -102,7 +105,8 @@ class BuildProductsStream extends StatelessWidget {
                           "${allProductsCubit.allProducts!.data!.doc![index].productUrl}",
                       title:
                           "${allProductsCubit.allProducts!.data!.doc![index].name}",
-                      userName:"${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
+                      userName:
+                          "${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
                       userImage: 'assets/images/user.png',
                       price:
                           "${allProductsCubit.allProducts!.data!.doc![index].price}",

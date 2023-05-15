@@ -14,7 +14,7 @@ class LoginResponse {
   LoginResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'] ?? "";
     token = json['token'] ?? "";
-    data = Data.fromJson(json['data'] ?? "");
+    data = Data.fromJson(json['data']);
   }
 }
 
@@ -26,7 +26,7 @@ class Data {
   User? user;
 
   Data.fromJson(Map<String, dynamic> json) {
-    user = User.fromJson(json['user'] ?? "");
+    user = User.fromJson(json['user']);
   }
 }
 

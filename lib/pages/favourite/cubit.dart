@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -16,12 +17,17 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
 
   FavouriteResponse? allFavourites;
   final dio = Dio();
+  final dioCacheManager = DioCacheManager(CacheConfig());
+  final myOptions =
+      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
 
   Future<void> getAllFavourites() async {
     emit(AllFavouritesLoadingStates());
     try {
+      dio.interceptors.add(dioCacheManager.interceptor);
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response = await dio.get(UrlsStrings.allFavouritesUrl);
+      final response =
+          await dio.get(UrlsStrings.allFavouritesUrl, options: myOptions);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allFavourites = FavouriteResponse.fromJson(response.data);
         emit(AllFavouritesSuccessStates());
@@ -32,11 +38,10 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
-      } else if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.receiveTimeout ||
+      } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-      } else if (e.type == DioErrorType.badResponse) {
+      } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
         print("Received invalid status code: ${e.response?.statusCode}");
       } else {

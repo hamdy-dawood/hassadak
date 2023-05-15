@@ -27,10 +27,10 @@ class CustomListTile extends StatelessWidget {
         height: 50.h,
         child: ListTile(
           onTap: onTap,
-          leading: ClipOval(
-            child: CircleAvatar(
-              radius: 35.r,
-              backgroundColor: ColorManager.secMainColor,
+          leading: CircleAvatar(
+            radius: 35.r,
+            backgroundColor: ColorManager.secMainColor,
+            child: ClipOval(
               child: CachedNetworkImage(
                 fit: BoxFit.contain,
                 imageUrl: image,
