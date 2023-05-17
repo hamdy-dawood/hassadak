@@ -23,9 +23,11 @@ class BuildReviewBuilder extends StatelessWidget {
     Key? key,
     required this.reviewCubit,
     required this.deleteReviewCubit,
+    required this.pressErrorNetwork,
   }) : super(key: key);
   final ReviewsCubit reviewCubit;
   final DeleteReviewsCubit deleteReviewCubit;
+  final VoidCallback pressErrorNetwork;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,9 @@ class BuildReviewBuilder extends StatelessWidget {
         } else if (state is ReviewsFailureState) {
           return Text(state.msg);
         } else if (state is ReviewsNetworkErrorState) {
-          return const ErrorNetwork();
+          return ErrorNetwork(
+            press: pressErrorNetwork,
+          );
         } else {
           return SizedBox(
             height: 1.sh,

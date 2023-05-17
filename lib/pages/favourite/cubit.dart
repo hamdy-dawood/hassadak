@@ -38,15 +38,16 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(AllFavouritesFailedStates(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print("Received invalid status code: ${e.response?.statusCode}");
+        emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
         emit(NetworkErrorState());
       }
     } catch (e) {

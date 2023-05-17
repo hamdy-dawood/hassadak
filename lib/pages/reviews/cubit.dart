@@ -38,20 +38,20 @@ class ReviewsCubit extends Cubit<ReviewsStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(ReviewsFailureState(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(ReviewsNetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print("Received invalid status code: ${e.response?.statusCode}");
+        emit(ReviewsNetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
         emit(ReviewsNetworkErrorState());
       }
     } catch (e) {
       emit(ReviewsFailureState(msg: 'An unknown error occurred: $e'));
-      print(e);
     }
   }
 }

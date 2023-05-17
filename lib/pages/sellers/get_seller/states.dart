@@ -8,6 +8,8 @@ class GetSellerLoadingState extends GetSellerStates {}
 
 class GetSellerSuccessState extends GetSellerStates {}
 
+class NetworkErrorState extends GetSellerStates {}
+
 class GetSellerFailedState extends GetSellerStates {
   final String msg;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
@@ -40,6 +41,8 @@ class BuildProductsBuilder extends StatelessWidget {
           );
         } else if (state is AllProductsFailedState) {
           return Text(state.msg);
+        } else if (state is NetworkErrorState) {
+          return ErrorNetwork(reloadButton: false, press: () {});
         } else {
           return ListView.builder(
             shrinkWrap: true,

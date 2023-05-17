@@ -42,16 +42,16 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-        emit(AllProductsFailedState(msg: errorMsg));
+        emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
-        errorMsg = 'Invalid status code: ${e.response?.statusCode}';
-        emit(AllProductsFailedState(msg: errorMsg));
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        emit(NetworkErrorState());
       } else {
-        errorMsg = 'An unexpected error : ${e.error}';
-        emit(AllProductsFailedState(msg: errorMsg));
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        emit(NetworkErrorState());
       }
     } catch (e) {
-      emit(AllProductsFailedState(msg: 'An unknown error: $e'));
+      emit(AllProductsFailedState(msg: 'An unknown error occurred: $e'));
     }
   }
 }

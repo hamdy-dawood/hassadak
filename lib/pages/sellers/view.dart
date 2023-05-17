@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 
@@ -40,23 +39,14 @@ class SellersView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return const ListTileShimmer();
                       });
-                } else if (state is SellersNotHaveAccessState) {
-                  return Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: CustomText(
-                        text: "ليس لديك الصلاحية في رؤية الشركات",
-                        color: ColorManager.mainColor,
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  );
                 } else if (state is AllSellersFailedState) {
-                  return Text(state.msg);
+                  return Center(child: Text(state.msg));
                 } else if (state is NetworkErrorState) {
-                  return const ErrorNetwork();
+                  return ErrorNetwork(
+                    press: () {
+                      cubit.getAllSellers();
+                    },
+                  );
                 } else {
                   return ListView.builder(
                     shrinkWrap: true,

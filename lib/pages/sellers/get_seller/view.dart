@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
@@ -126,6 +127,12 @@ class GetSellerView extends StatelessWidget {
                     );
                   } else if (state is GetSellerFailedState) {
                     return Text(state.msg);
+                  } else if (state is NetworkErrorState) {
+                    return ErrorNetwork(
+                      press: () {
+                        cubit.getSeller(id: id);
+                      },
+                    );
                   } else {
                     return ListView(
                       children: [

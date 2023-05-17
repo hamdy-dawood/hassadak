@@ -56,9 +56,11 @@ class FavouriteView extends StatelessWidget {
                           );
                         });
                   } else if (state is AllFavouritesFailedStates) {
-                    return Text(state.msg);
+                    return Center(child: Text(state.msg));
                   } else if (state is NetworkErrorState) {
-                    return const ErrorNetwork();
+                    return ErrorNetwork(press: () {
+                      favCubit.getAllFavourites();
+                    });
                   } else {
                     return ListView.separated(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),

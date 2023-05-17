@@ -185,6 +185,9 @@ class ReviewsView extends StatelessWidget {
                 BuildReviewBuilder(
                   reviewCubit: reviewCubit,
                   deleteReviewCubit: deleteReviewCubit,
+                  pressErrorNetwork: (){
+                    reviewCubit.getReviews(id: id);
+                  },
                 ),
                 SizedBox(
                   height: 100.h,

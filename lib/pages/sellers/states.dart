@@ -8,8 +8,6 @@ class AllSellersLoadingState extends AllSellersStates {}
 
 class AllSellersSuccessState extends AllSellersStates {}
 
-class SellersNotHaveAccessState extends AllSellersStates {}
-
 class NetworkErrorState extends AllSellersStates {}
 
 class AllSellersFailedState extends AllSellersStates {

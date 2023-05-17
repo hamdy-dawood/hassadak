@@ -32,11 +32,14 @@ class SearchCubit extends Cubit<SearchStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(SearchFailedState(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(SearchNetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        emit(SearchNetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
         emit(SearchNetworkErrorState());

@@ -100,6 +100,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                         fontSize: 15.sp,
                         fontWeight: FontWeight.normal,
                         textAlign: TextAlign.center,
+                        maxLines: 5,
                       ),
                       SizedBox(
                         height: 0.04.sh,

@@ -33,8 +33,25 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
       } else {
         emit(GetSellerFailedState(msg: response.data["status"]));
       }
-    } on DioError catch (e) {
-      emit(GetSellerFailedState(msg: "$e"));
+    }  on DioError catch (e) {
+      String errorMsg;
+      if (e.type == DioErrorType.cancel) {
+        errorMsg = 'Request was cancelled';
+        emit(GetSellerFailedState(msg: errorMsg));
+      } else if (e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        errorMsg = 'Connection timed out';
+        emit(GetSellerFailedState(msg: errorMsg));
+      } else if (e.type == DioErrorType.other) {
+        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
+        emit(NetworkErrorState());
+      } else {
+        errorMsg = 'An unexpected error occurred: ${e.error}';
+        print(errorMsg);
+        emit(NetworkErrorState());
+      }
+    } catch (e) {
+      emit(GetSellerFailedState(msg: 'An unknown error occurred: $e'));
     }
   }
 }

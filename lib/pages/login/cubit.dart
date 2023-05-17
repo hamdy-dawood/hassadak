@@ -45,10 +45,10 @@ class LoginCubit extends Cubit<LoginStates> {
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
-          emit(LoginFailureState(msg: errorMsg));
+          emit(NetworkErrorState(msg: errorMsg));
         } else if (e.type == DioErrorType.other) {
-          errorMsg = 'Invalid status code: ${e.response?.statusCode}';
-          emit(LoginFailureState(msg: errorMsg));
+          errorMsg = 'Invalid status code: ${e.error}';
+          emit(NetworkErrorState(msg: errorMsg));
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(LoginFailureState(msg: errorMsg));
@@ -78,7 +78,23 @@ class LoginCubit extends Cubit<LoginStates> {
           emit(LoginFailureState(msg: phoneResponse.data["status"]));
         }
       } on DioError catch (e) {
-        emit(LoginFailureState(msg: "$e"));
+        String errorMsg;
+        if (e.type == DioErrorType.cancel) {
+          errorMsg = 'Request was cancelled';
+          emit(LoginFailureState(msg: errorMsg));
+        } else if (e.type == DioErrorType.receiveTimeout ||
+            e.type == DioErrorType.sendTimeout) {
+          errorMsg = 'Connection timed out';
+          emit(NetworkErrorState(msg: errorMsg));
+        } else if (e.type == DioErrorType.other) {
+          errorMsg = 'Invalid status code: ${e.error}';
+          emit(NetworkErrorState(msg: errorMsg));
+        } else {
+          errorMsg = 'An unexpected error : ${e.error}';
+          emit(LoginFailureState(msg: errorMsg));
+        }
+      } catch (e) {
+        emit(LoginFailureState(msg: 'An unknown error: $e'));
       }
     }
   }

@@ -40,15 +40,16 @@ class AllSellersCubit extends Cubit<AllSellersStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(AllSellersFailedState(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        emit(SellersNotHaveAccessState());
+        emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
         emit(NetworkErrorState());
       }
     } catch (e) {

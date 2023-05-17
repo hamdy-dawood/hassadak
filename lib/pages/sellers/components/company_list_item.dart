@@ -53,19 +53,20 @@ class CustomListTile extends StatelessWidget {
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomText(
-                text: "$likes+",
-                color: ColorManager.green,
+                text: "$likes +",
+                color:likes == 0 ? ColorManager.navGrey : ColorManager.green,
                 fontWeight: FontWeight.normal,
                 fontSize: 12.sp,
               ),
               SizedBox(
-                width: 10.w,
+                width: 5.w,
               ),
               SvgIcon(
                 icon: 'assets/icons/fill_heart.svg',
-                color: ColorManager.green,
+                color: likes == 0 ? ColorManager.navGrey : ColorManager.green,
                 height: 18.h,
               ),
             ],

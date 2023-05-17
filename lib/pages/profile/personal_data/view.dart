@@ -129,9 +129,11 @@ class PersonalDataView extends StatelessWidget {
                     ),
                   );
                 } else if (state is NetworkErrorState) {
-                  return const ErrorNetwork();
+                  return ErrorNetwork(press: () {
+                    cubit.getPersonalData(id: CacheHelper.getId());
+                  });
                 } else if (state is PersonalDataFailureState) {
-                  return Text(state.msg);
+                  return Center(child: Text(state.msg));
                 } else {
                   return ListView(
                     children: [
@@ -151,8 +153,7 @@ class PersonalDataView extends StatelessWidget {
                                 color: ColorManager.secMainColor,
                               ),
                               errorWidget: (context, url, error) => Center(
-                                child:
-                                    Image.asset("assets/images/user.png"),
+                                child: Image.asset("assets/images/user.png"),
                               ),
                             ),
                           ),
