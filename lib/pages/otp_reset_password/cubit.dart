@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
 
+import 'model.dart';
 import 'states.dart';
 
 class OtpCubit extends Cubit<OtpStates> {
@@ -12,8 +13,9 @@ class OtpCubit extends Cubit<OtpStates> {
   static OtpCubit get(context) => BlocProvider.of(context);
 
   final dio = Dio();
-  final otpController = TextEditingController();
+  ResetPassOtpResponse? newPassOtpResponse;
 
+  final otpController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -31,7 +33,9 @@ class OtpCubit extends Cubit<OtpStates> {
         },
       );
       if (response.data["status"] == "success" && response.statusCode == 200) {
+        newPassOtpResponse = ResetPassOtpResponse.fromJson(response.data);
         CacheHelper.saveToken("${response.data["token"]}");
+        CacheHelper.saveId("${newPassOtpResponse!.data!.user!.id}");
         emit(OtpSuccessState());
       } else {
         emit(OtpFailureState(msg: response.data["message"]));

@@ -9,7 +9,7 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/input_validator.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
-import 'package:hassadak/pages/otp/view.dart';
+import 'package:hassadak/pages/otp_reset_password/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import 'cubit.dart';

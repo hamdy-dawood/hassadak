@@ -14,18 +14,13 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
   final dio = Dio();
 
-  bool isLoved = false;
-
   Future<void> addFav({required String id}) async {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
       final response =
           await dio.patch("${UrlsStrings.allProductsUrl}/$id/love");
-
       if (response.data["status"] == "success" && response.statusCode == 200) {
         emit(AddFavSuccessStates());
-        isLoved = true;
-        emit(ChangeFavouriteState());
       } else {
         emit(AddFavFailedStates(msg: response.data["status"]));
       }

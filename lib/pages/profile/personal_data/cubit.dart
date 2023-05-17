@@ -16,7 +16,7 @@ class PersonalDataCubit extends Cubit<PersonalDataStates> {
   final dio = Dio();
   final dioCacheManager = DioCacheManager(CacheConfig());
   final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
+      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
   PersonalDataResp? profileResponse;
 
   Future<void> getPersonalData({required String id}) async {

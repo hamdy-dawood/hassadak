@@ -12,11 +12,6 @@ part 'states.dart';
 
 class AllProductsCubit extends Cubit<AllProductsStates> {
   AllProductsCubit() : super(AllProductsInitialState());
-  final _allProductsController =
-      StreamController<AllProductsStates>.broadcast();
-
-  Stream<AllProductsStates> get allProductsStream =>
-      _allProductsController.stream;
 
   static AllProductsCubit get(context) => BlocProvider.of(context);
   final dio = Dio();
@@ -26,7 +21,6 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
   AllProductsResponse? allProducts;
 
   Future<void> getAllProducts({String? id = ""}) async {
-    _allProductsController.add(AllProductsLoadingState());
     emit(AllProductsLoadingState());
     try {
       dio.interceptors.add(dioCacheManager.interceptor);
@@ -36,7 +30,6 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
           await dio.get("${UrlsStrings.allProductsUrl}$id", options: myOptions);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
-        _allProductsController.add(AllProductsSuccessState());
         emit(AllProductsSuccessState());
       } else {
         emit(AllProductsFailedState(msg: response.data["status"]));
@@ -45,24 +38,21 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(AllProductsFailedState(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(AllProductsFailedState(msg: errorMsg));
       } else if (e.type == DioErrorType.other) {
-        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print("Received invalid status code: ${e.response?.statusCode}");
-        print(errorMsg);
+        errorMsg = 'Invalid status code: ${e.response?.statusCode}';
+        emit(AllProductsFailedState(msg: errorMsg));
       } else {
-        errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
-        emit(NetworkErrorState());
+        errorMsg = 'An unexpected error : ${e.error}';
+        emit(AllProductsFailedState(msg: errorMsg));
       }
     } catch (e) {
-      emit(AllProductsFailedState(msg: 'An unknown error occurred: $e'));
+      emit(AllProductsFailedState(msg: 'An unknown error: $e'));
     }
   }
-
-  void dispose() {
-    _allProductsController.close();
-  }
 }
+

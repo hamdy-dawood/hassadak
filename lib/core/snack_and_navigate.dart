@@ -16,7 +16,7 @@ void navigateTo({required Widget page, bool withHistory = true}) {
       (route) => withHistory);
 }
 
-showMessage({required String message, int maxLines = 1, double height = 50}) {
+showMessage({required String message, int maxLines = 1, double height = 30}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
     SnackBar(
       backgroundColor: ColorManager.mainColor,

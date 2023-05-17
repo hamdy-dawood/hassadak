@@ -13,7 +13,7 @@ class AllProductsResponse {
     if (json != null) {
       status = json['status'] ?? "";
       results = json['results'] ?? 0;
-      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+      data = Data.fromJson(json['data'] ?? Map<String, dynamic>);
     }
   }
 }

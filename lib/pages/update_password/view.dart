@@ -5,6 +5,7 @@ import 'package:hassadak/components/back_with_title.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import 'components/build_text_field.dart';
@@ -93,9 +94,12 @@ class UpdatePasswordView extends StatelessWidget {
                     BlocConsumer<UpdatePasswordCubit, UpdatePasswordStates>(
                       listener: (context, state) {
                         if (state is UpdatePasswordFailureState) {
-                          showMessage(message: state.msg);
+                          showMessage(message: state.msg,maxLines: 5,height: 50.h);
                         } else if (state is UpdatePasswordSuccessState) {
                           showMessage(message: "success");
+                          navigateTo(
+                              page: NavBarView(),
+                              withHistory: false);
                         }
                       },
                       builder: (context, state) {

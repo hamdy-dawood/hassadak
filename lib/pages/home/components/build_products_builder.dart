@@ -11,8 +11,8 @@ import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 
-class BuildProductsStream extends StatelessWidget {
-  const BuildProductsStream({
+class BuildProductsBuilder extends StatelessWidget {
+  const BuildProductsBuilder({
     Key? key,
     required this.allProductsCubit,
     required this.addFavCubit,
@@ -22,15 +22,9 @@ class BuildProductsStream extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<AllProductsStates>(
-      stream: AllProductsCubit.get(context).allProductsStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        final state = snapshot.data;
-        if ((state is AllProductsLoadingState ||
-            snapshot.connectionState == ConnectionState.waiting)) {
+    return BlocBuilder<AllProductsCubit, AllProductsStates>(
+      builder: (context, state) {
+        if (state is AllProductsLoadingState) {
           return ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -77,6 +71,8 @@ class BuildProductsStream extends StatelessWidget {
                           .toInt(),
                       ratingsQuantity: (allProductsCubit
                           .allProducts!.data!.doc![index].ratingsQuantity!),
+                      favStatus: allProductsCubit
+                          .allProducts!.data!.doc![index].status!,
                     ),
                   );
                 },

@@ -13,5 +13,3 @@ class AddFavFailedStates extends AddFavStates {
 
   AddFavFailedStates({required this.msg});
 }
-
-class ChangeFavouriteState extends AddFavStates {}

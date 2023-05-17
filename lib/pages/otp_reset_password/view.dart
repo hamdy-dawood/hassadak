@@ -11,7 +11,7 @@ import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/input_validator.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/bottom_nav_bar/view.dart';
-import 'package:hassadak/pages/otp/states.dart';
+import 'package:hassadak/pages/otp_reset_password/states.dart';
 import 'package:pinput/pinput.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
@@ -187,7 +187,8 @@ class OtpScreen extends StatelessWidget {
                   BlocConsumer<OtpCubit, OtpStates>(
                     listener: (context, state) {
                       if (state is OtpFailureState) {
-                        showMessage(message: state.msg);
+                        showMessage(
+                            message: state.msg, height: 50.h, maxLines: 5);
                       } else if (state is OtpSuccessState) {
                         navigateTo(page: NavBarView());
                       }
@@ -201,7 +202,9 @@ class OtpScreen extends StatelessWidget {
                       }
                       return CustomElevated(
                         text: "تأكيد",
-                        press: cubit.verifyOtp,
+                        press: () {
+                          cubit.verifyOtp();
+                        },
                         hSize: 50.h,
                         wSize: double.infinity,
                         btnColor: ColorManager.secMainColor,

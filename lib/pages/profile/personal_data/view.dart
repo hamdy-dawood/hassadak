@@ -152,7 +152,7 @@ class PersonalDataView extends StatelessWidget {
                               ),
                               errorWidget: (context, url, error) => Center(
                                 child:
-                                    Image.asset("assets/images/no_image.png"),
+                                    Image.asset("assets/images/user.png"),
                               ),
                             ),
                           ),

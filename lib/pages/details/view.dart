@@ -13,7 +13,7 @@ import 'package:hassadak/pages/reviews/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailsView extends StatelessWidget {
+class DetailsView extends StatefulWidget {
   const DetailsView({
     Key? key,
     required this.id,
@@ -27,6 +27,7 @@ class DetailsView extends StatelessWidget {
     required this.userImage,
     required this.userName,
     required this.phone,
+    required this.favStatus,
   }) : super(key: key);
 
   final String id,
@@ -39,6 +40,14 @@ class DetailsView extends StatelessWidget {
       userName,
       phone;
   final num ratingsAverage, ratingsQuantity;
+  final bool favStatus;
+
+  @override
+  State<DetailsView> createState() => _DetailsViewState();
+}
+
+class _DetailsViewState extends State<DetailsView> {
+  bool myBool = false;
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -63,7 +72,7 @@ class DetailsView extends StatelessWidget {
               child: Center(
                 child: CachedNetworkImage(
                   fit: BoxFit.contain,
-                  imageUrl: image,
+                  imageUrl: widget.image,
                   placeholder: (context, url) => JumpingDotsProgressIndicator(
                     fontSize: 100.h,
                     color: ColorManager.secMainColor,
@@ -90,7 +99,7 @@ class DetailsView extends StatelessWidget {
                             backgroundColor: ColorManager.mainColor,
                             child: CachedNetworkImage(
                               fit: BoxFit.contain,
-                              imageUrl: userImage,
+                              imageUrl: widget.userImage,
                               placeholder: (context, url) =>
                                   JumpingDotsProgressIndicator(
                                 fontSize: 20.h,
@@ -106,7 +115,7 @@ class DetailsView extends StatelessWidget {
                           width: 5.w,
                         ),
                         CustomText(
-                          text: userName,
+                          text: widget.userName,
                           color: ColorManager.mainColor,
                           fontWeight: FontWeight.normal,
                           fontSize: 20.sp,
@@ -115,13 +124,13 @@ class DetailsView extends StatelessWidget {
                         Column(
                           children: [
                             CustomText(
-                              text: "$price دينار",
+                              text: "${widget.price} دينار",
                               color: ColorManager.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 20.sp,
                             ),
                             CustomText(
-                              text: "$oldPrice دينار",
+                              text: "${widget.oldPrice} دينار",
                               color: ColorManager.navGrey,
                               fontWeight: FontWeight.bold,
                               fontSize: 16.sp,
@@ -135,7 +144,7 @@ class DetailsView extends StatelessWidget {
                       height: 10.h,
                     ),
                     CustomText(
-                      text: productName,
+                      text: widget.productName,
                       color: ColorManager.mainColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 20.sp,
@@ -147,10 +156,10 @@ class DetailsView extends StatelessWidget {
                       onTap: () {
                         navigateTo(
                           page: ReviewsView(
-                            rating: ratingsAverage,
-                            id: id,
-                            name: productName,
-                            image: image,
+                            rating: widget.ratingsAverage,
+                            id: widget.id,
+                            name: widget.productName,
+                            image: widget.image,
                           ),
                         );
                       },
@@ -170,7 +179,7 @@ class DetailsView extends StatelessWidget {
                             width: 5.w,
                           ),
                           CustomText(
-                            text: "$ratingsAverage",
+                            text: "${widget.ratingsAverage}",
                             color: ColorManager.mainColor,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
@@ -215,7 +224,7 @@ class DetailsView extends StatelessWidget {
                       children: [
                         ListTile(
                           title: CustomText(
-                            text: desc,
+                            text: widget.desc,
                             color: ColorManager.grey,
                             fontWeight: FontWeight.normal,
                             fontSize: 18.sp,
@@ -237,7 +246,7 @@ class DetailsView extends StatelessWidget {
                             text: "الذهاب إلى الشراء",
                             press: () {
                               _launchInBrowser(Uri.parse(
-                                  "https://api.whatsapp.com/send/?phone=%2B2$phone"));
+                                  "https://api.whatsapp.com/send/?phone=%2B2${widget.phone}"));
                             },
                             hSize: 50.h,
                             btnColor: ColorManager.secMainColor,
@@ -252,18 +261,24 @@ class DetailsView extends StatelessWidget {
                           child: BlocBuilder<AddFavCubit, AddFavStates>(
                             builder: (context, state) {
                               return CustomElevated(
-                                text: addFavCubit.isLoved
-                                    ? "تمت الاضافة"
-                                    : "أضف إلى المفضلة",
-                                press: () {
-                                  addFavCubit.addFav(id: id);
-                                  // addFavCubit.changeFavourite();
-                                },
+                                text: myBool == widget.favStatus
+                                    ? "أضف إلى المفضلة"
+                                    : "مضاف للمفضلة",
                                 hSize: 50.h,
                                 btnColor: ColorManager.backGreyWhite,
                                 borderRadius: 12.r,
                                 fontSize: 16.sp,
-                                textColor: ColorManager.black,
+                                textColor: myBool == widget.favStatus
+                                    ? Colors.black
+                                    : ColorManager.green,
+                                press: () {
+                                  if (myBool == widget.favStatus) {
+                                    addFavCubit.addFav(id: widget.id);
+
+                                    myBool = true;
+                                    setState(() {});
+                                  }
+                                },
                               );
                             },
                           ),

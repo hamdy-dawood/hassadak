@@ -304,6 +304,7 @@ class GetSellerView extends StatelessWidget {
                                           .getUserProduct![index]
                                           .ratingsQuantity!
                                           .toInt(),
+                                      favStatus: false,
                                     ),
                                   );
                                 },

@@ -347,6 +347,8 @@ class SearchView extends StatelessWidget {
                                             .data!
                                             .doc![index]
                                             .ratingsQuantity!),
+                                        favStatus: searchCubit.searchResponse!
+                                            .data!.doc![index].status!,
                                       ),
                                     );
                                   },

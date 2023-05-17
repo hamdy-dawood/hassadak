@@ -15,21 +15,14 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
 
   static AllCategoriesCubit get(context) => BlocProvider.of(context);
 
-  final _allCategoriesController =
-      StreamController<AllCategoriesStates>.broadcast();
-
-  Stream<AllCategoriesStates> get allCategoriesStream =>
-      _allCategoriesController.stream;
-
   AllCategories? allCategories;
   final dio = Dio();
   final dioCacheManager = DioCacheManager(CacheConfig());
   final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
+      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
   int? length;
 
   Future<void> getAllCategories() async {
-    _allCategoriesController.add(AllCategoriesLoadingStates());
     emit(AllCategoriesLoadingStates());
     try {
       dio.interceptors.add(dioCacheManager.interceptor);
@@ -39,8 +32,6 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allCategories = AllCategories.fromJson(response.data);
         length = allCategories!.results;
-        _allCategoriesController
-            .add(AllCategoriesSuccessStates(id: allCategories!.data.doc));
         emit(AllCategoriesSuccessStates(id: allCategories!.data.doc));
       } else {
         emit(AllCategoriesFailedStates(msg: response.data["status"]));
@@ -49,23 +40,20 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(AllCategoriesFailedStates(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(AllCategoriesFailedStates(msg: errorMsg));
       } else if (e.type == DioErrorType.other) {
-        errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print("Received invalid status code: ${e.response?.statusCode}");
+        errorMsg = 'Invalid status code: ${e.response?.statusCode}';
+        emit(AllCategoriesFailedStates(msg: errorMsg));
       } else {
-        errorMsg = 'An unexpected error occurred: ${e.error}';
+        errorMsg = 'An unexpected error : ${e.error}';
+        emit(AllCategoriesFailedStates(msg: errorMsg));
       }
-      _allCategoriesController.add(AllCategoriesFailedStates(msg: errorMsg));
     } catch (e) {
-      _allCategoriesController
-          .add(AllCategoriesFailedStates(msg: 'An unknown error occurred: $e'));
+      emit(AllCategoriesFailedStates(msg: 'An unknown error: $e'));
     }
-  }
-
-  void dispose() {
-    _allCategoriesController.close();
   }
 }

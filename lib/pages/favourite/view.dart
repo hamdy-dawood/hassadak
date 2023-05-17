@@ -95,6 +95,7 @@ class FavouriteView extends StatelessWidget {
                                     .toInt(),
                                 ratingsQuantity: (favCubit.allFavourites!
                                     .products![index].ratingsQuantity!),
+                                favStatus: true,
                               ),
                             );
                           },

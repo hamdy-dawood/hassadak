@@ -73,7 +73,7 @@ class Doc {
       username = json['username'] ?? "";
       telephone = json['telephone'] ?? "";
       role = json['role'] ?? "";
-      image = json['image'] ?? UrlsStrings.noImageUrl;
+      image = json['image'] ?? UrlsStrings.userImageUrl;
       favouriteProduct =
           List.castFrom<dynamic, String>(json['favouriteProduct'] ?? []);
       favouriteCompany =
