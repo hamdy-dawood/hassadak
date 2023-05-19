@@ -27,6 +27,7 @@ class BuildProductsBuilder extends StatelessWidget {
       builder: (context, state) {
         if (state is AllProductsLoadingState) {
           return ListView.builder(
+
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: 3,
@@ -49,68 +50,51 @@ class BuildProductsBuilder extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: allProductsCubit.allProducts!.data!.doc!.length,
             itemBuilder: (context, index) {
+              final product = allProductsCubit.allProducts!.data!.doc![index];
               return InkWell(
                 onTap: () {
                   navigateTo(
                     page: DetailsView(
-                      id: "${allProductsCubit.allProducts!.data!.doc![index].id}",
-                      image:
-                          "${allProductsCubit.allProducts!.data!.doc![index].productUrl}",
+                      id: "${product.id}",
+                      image: "${product.productUrl}",
                       userImage: UrlsStrings.userImageUrl,
-                      productName:
-                          "${allProductsCubit.allProducts!.data!.doc![index].name}",
-                      userName:
-                          "${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
-                      desc:
-                          "${allProductsCubit.allProducts!.data!.doc![index].desc}",
-                      phone:
-                          "${allProductsCubit.allProducts!.data!.doc![index].sellerPhone}",
-                      price:
-                          "${allProductsCubit.allProducts!.data!.doc![index].price}",
-                      oldPrice:
-                          "${allProductsCubit.allProducts!.data!.doc![index].price! - (allProductsCubit.allProducts!.data!.doc![index].price! * 0.2)}",
-                      ratingsAverage: (allProductsCubit
-                              .allProducts!.data!.doc![index].ratingsAverage)!
-                          .toInt(),
-                      ratingsQuantity: (allProductsCubit
-                          .allProducts!.data!.doc![index].ratingsQuantity!),
-                      favStatus: allProductsCubit
-                          .allProducts!.data!.doc![index].status!,
+                      productName: "${product.name}",
+                      userName: "${product.uploaderName}",
+                      desc: "${product.desc}",
+                      phone: "${product.sellerPhone}",
+                      price: "${product.price}",
+                      oldPrice: "${product.price! - (product.price! * 0.2)}",
+                      ratingsAverage: (product.ratingsAverage)!.toInt(),
+                      ratingsQuantity: (product.ratingsQuantity!),
+                      favStatus: product.status!,
                     ),
                   );
                 },
                 child: BlocBuilder<AddFavCubit, AddFavStates>(
                   builder: (context, state) {
-                    // addFavCubit.isLoved =  allProductsCubit.allProducts!.data.doc[index].status;
+                    final favStatus = addFavCubit.favStatusMap[index] ??
+                        FavStatus(product.status!);
                     return ProductItem(
                       favIcon: SvgIcon(
-                        icon: allProductsCubit
-                                .allProducts!.data!.doc![index].status!
+                        icon: favStatus.isLoved
                             ? "assets/icons/fill_heart.svg"
                             : "assets/icons/heart.svg",
-                        color: allProductsCubit
-                                .allProducts!.data!.doc![index].status!
+                        color: favStatus.isLoved
                             ? ColorManager.green
                             : ColorManager.white,
                         height: 18.h,
                       ),
                       favTap: () {
-                        addFavCubit.addFav(
-                            id: allProductsCubit
-                                .allProducts!.data!.doc![index].id!);
+                        addFavCubit.addFav(id: product.id!);
+                        addFavCubit.changeFavourite(index);
                       },
                       offer: 'خصم 20%',
-                      image:
-                          "${allProductsCubit.allProducts!.data!.doc![index].productUrl}",
-                      title:
-                          "${allProductsCubit.allProducts!.data!.doc![index].name}",
-                      userName:
-                          "${allProductsCubit.allProducts!.data!.doc![index].uploaderName}",
+                      image: "${product.productUrl}",
+                      title: "${product.name}",
+                      userName: "${product.uploaderName}",
                       userImage: 'assets/images/user.png',
-                      price:
-                          "${allProductsCubit.allProducts!.data!.doc![index].price}",
-                      oldPrice:
-                          "${allProductsCubit.allProducts!.data!.doc![index].price! - (allProductsCubit.allProducts!.data!.doc![index].price! * 0.2)}",
+                      price: "${product.price}",
+                      oldPrice: "${product.price! - (product.price! * 0.2)}",
                     );
                   },
                 ),
