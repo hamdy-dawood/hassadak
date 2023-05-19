@@ -94,12 +94,11 @@ class UpdatePasswordView extends StatelessWidget {
                     BlocConsumer<UpdatePasswordCubit, UpdatePasswordStates>(
                       listener: (context, state) {
                         if (state is UpdatePasswordFailureState) {
-                          showMessage(message: state.msg,maxLines: 5,height: 50.h);
+                          showMessage(
+                              message: state.msg, maxLines: 5, height: 50.h);
                         } else if (state is UpdatePasswordSuccessState) {
                           showMessage(message: "success");
-                          navigateTo(
-                              page: NavBarView(),
-                              withHistory: false);
+                          navigateTo(page: NavBarView(), withHistory: false);
                         }
                       },
                       builder: (context, state) {

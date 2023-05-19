@@ -42,7 +42,7 @@ class BottomBarItem extends StatelessWidget {
               fontWeight: FontWeight.normal,
             ),
             SizedBox(
-              height: 5.h,
+              height: 10.h,
             ),
           ],
         ),

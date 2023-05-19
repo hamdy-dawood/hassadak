@@ -66,6 +66,7 @@ class BuildReviewBuilder extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: reviewCubit.reviewsResponse?.doc!.length,
               itemBuilder: (context, index) {
+                final review = reviewCubit.reviewsResponse!.doc![index];
                 return InkWell(
                   onLongPress: () {
                     showModalBottomSheet(
@@ -150,8 +151,9 @@ class BuildReviewBuilder extends StatelessWidget {
                                                 }
                                                 return CustomElevated(
                                                   press: () {
-                                                    deleteReviewCubit.deleteReview(
-                                                        id: "${reviewCubit.reviewsResponse!.doc![index].id}");
+                                                    deleteReviewCubit
+                                                        .deleteReview(
+                                                            id: "${review.id}");
                                                   },
                                                   text: "حذف",
                                                   wSize: 100.w,
@@ -212,8 +214,7 @@ class BuildReviewBuilder extends StatelessWidget {
                                     child: ClipOval(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.contain,
-                                        imageUrl:
-                                            "${reviewCubit.reviewsResponse!.doc![index].image}",
+                                        imageUrl: "${review.image}",
                                         placeholder: (context, url) =>
                                             JumpingDotsProgressIndicator(
                                           fontSize: 20.h,
@@ -234,8 +235,7 @@ class BuildReviewBuilder extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomText(
-                                        text:
-                                            "${reviewCubit.reviewsResponse!.doc![index].userName}",
+                                        text: "${review.userName}",
                                         color: ColorManager.mainColor,
                                         fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,
@@ -268,9 +268,8 @@ class BuildReviewBuilder extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: [
                                         CustomText(
-                                          text:
-                                              "${reviewCubit.reviewsResponse!.doc![index].updatedAt}"
-                                                  .split("T")[0],
+                                          text: "${review.updatedAt}"
+                                              .split("T")[0],
                                           color: ColorManager.grey,
                                           fontWeight: FontWeight.normal,
                                           fontSize: 16.sp,
@@ -278,10 +277,9 @@ class BuildReviewBuilder extends StatelessWidget {
                                         ),
                                         SizedBox(height: 5.h),
                                         CustomText(
-                                          text:
-                                              "${reviewCubit.reviewsResponse!.doc![index].updatedAt}"
-                                                  .split("T")[1]
-                                                  .split(".")[0],
+                                          text: "${review.updatedAt}"
+                                              .split("T")[1]
+                                              .split(".")[0],
                                           color: ColorManager.grey,
                                           fontWeight: FontWeight.normal,
                                           fontSize: 16.sp,
@@ -305,8 +303,7 @@ class BuildReviewBuilder extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: CustomText(
-                            text:
-                                "${reviewCubit.reviewsResponse!.doc![index].review}",
+                            text: "${review.review}",
                             color: ColorManager.brown,
                             fontWeight: FontWeight.normal,
                             fontSize: 20.sp,

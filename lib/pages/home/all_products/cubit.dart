@@ -55,4 +55,3 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
     }
   }
 }
-

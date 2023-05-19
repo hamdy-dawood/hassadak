@@ -33,7 +33,7 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
       } else {
         emit(GetSellerFailedState(msg: response.data["status"]));
       }
-    }  on DioError catch (e) {
+    } on DioError catch (e) {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';

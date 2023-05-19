@@ -45,7 +45,7 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordStates> {
           emit(UpdatePasswordFailureState(msg: response.data["message"]));
           print(response.data["message"]);
         }
-      }  on DioError catch (e) {
+      } on DioError catch (e) {
         String errorMsg;
         if (e.type == DioErrorType.cancel) {
           errorMsg = 'Request was cancelled';

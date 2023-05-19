@@ -14,6 +14,8 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
   final dio = Dio();
 
+  Map<int, FavStatus> favStatusMap = {};
+
   Future<void> addFav({required String id}) async {
     try {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
@@ -27,5 +29,16 @@ class AddFavCubit extends Cubit<AddFavStates> {
     } on DioError catch (e) {
       emit(AddFavFailedStates(msg: "$e"));
     }
+  }
+
+  void changeFavourite(int index) {
+    if (favStatusMap.containsKey(index)) {
+      favStatusMap[index] = FavStatus(
+        favStatusMap[index]!.isLoved,
+      );
+    } else {
+      favStatusMap[index] = FavStatus(true);
+    }
+    emit(ChangeFavStates(Map.from(favStatusMap)));
   }
 }

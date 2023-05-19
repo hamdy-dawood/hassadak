@@ -1,6 +1,6 @@
 part of 'cubit.dart';
 
-class AddFavStates {}
+abstract class AddFavStates {}
 
 class AddFavInitialStates extends AddFavStates {}
 
@@ -10,4 +10,16 @@ class AddFavFailedStates extends AddFavStates {
   final String msg;
 
   AddFavFailedStates({required this.msg});
+}
+
+class FavStatus {
+  final bool isLoved;
+
+  FavStatus(this.isLoved);
+}
+
+class ChangeFavStates extends AddFavStates {
+  final Map<int, FavStatus> favStatusMap;
+
+  ChangeFavStates(this.favStatusMap);
 }

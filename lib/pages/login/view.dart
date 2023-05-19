@@ -203,16 +203,17 @@ class _LoginViewState extends State<LoginView>
                                 BlocConsumer<LoginCubit, LoginStates>(
                                   listener: (context, state) {
                                     if (state is LoginFailureState) {
-                                       showMessage(message: "فشل تسجيل الدخول");
+                                      showMessage(message: "فشل تسجيل الدخول");
                                       // showMessage(
                                       //     message: state.msg,
                                       //     height: 60.h,
                                       //     maxLines: 5);
                                     } else if (state is NetworkErrorState) {
-                                      showMessage(message: "يرجي التحقق من الانترنت");
+                                      showMessage(
+                                          message: "يرجي التحقق من الانترنت");
                                     } else if (state is LoginSuccessState) {
                                       navigateTo(
-                                          page: NavBarView(),
+                                          page: const NavBarView(),
                                           withHistory: false);
                                     }
                                   },
@@ -332,13 +333,14 @@ class _LoginViewState extends State<LoginView>
                                 BlocConsumer<LoginCubit, LoginStates>(
                                   listener: (context, state) {
                                     if (state is LoginFailureState) {
-                                       showMessage(message: "فشل تسجيل الدخول");
+                                      showMessage(message: "فشل تسجيل الدخول");
                                       // showMessage(
                                       //     message: state.msg,
                                       //     height: 60.h,
                                       //     maxLines: 5);
                                     } else if (state is NetworkErrorState) {
-                                      showMessage(message: "يرجي التحقق من الانترنت");
+                                      showMessage(
+                                          message: "يرجي التحقق من الانترنت");
                                     } else if (state is LoginSuccessState) {
                                       navigateTo(
                                           page: NavBarView(),

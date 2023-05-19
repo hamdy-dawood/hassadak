@@ -57,7 +57,7 @@ class CustomListTile extends StatelessWidget {
             children: [
               CustomText(
                 text: "$likes +",
-                color:likes == 0 ? ColorManager.navGrey : ColorManager.green,
+                color: likes == 0 ? ColorManager.navGrey : ColorManager.green,
                 fontWeight: FontWeight.normal,
                 fontSize: 12.sp,
               ),

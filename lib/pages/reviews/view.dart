@@ -185,7 +185,7 @@ class ReviewsView extends StatelessWidget {
                 BuildReviewBuilder(
                   reviewCubit: reviewCubit,
                   deleteReviewCubit: deleteReviewCubit,
-                  pressErrorNetwork: (){
+                  pressErrorNetwork: () {
                     reviewCubit.getReviews(id: id);
                   },
                 ),

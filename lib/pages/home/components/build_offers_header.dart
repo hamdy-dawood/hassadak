@@ -57,6 +57,7 @@ class BuildOfferHeader extends StatelessWidget {
               ),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
+                final offers = offersCubit.allOffers!.data.doc[index];
                 return Container(
                   height: 150.h,
                   width: 0.85.sw,
@@ -89,7 +90,7 @@ class BuildOfferHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             CustomText(
-                              text: offersCubit.allOffers!.data.doc[index].name,
+                              text: offers.name,
                               color: ColorManager.white,
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class BuildOfferHeader extends StatelessWidget {
                               height: 5.h,
                             ),
                             CustomText(
-                              text: offersCubit.allOffers!.data.doc[index].desc,
+                              text: offers.desc,
                               color: ColorManager.white,
                               fontSize: 15.sp,
                               fontWeight: FontWeight.normal,

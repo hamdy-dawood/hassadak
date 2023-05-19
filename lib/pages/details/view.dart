@@ -274,7 +274,6 @@ class _DetailsViewState extends State<DetailsView> {
                                 press: () {
                                   if (myBool == widget.favStatus) {
                                     addFavCubit.addFav(id: widget.id);
-
                                     myBool = true;
                                     setState(() {});
                                   }
