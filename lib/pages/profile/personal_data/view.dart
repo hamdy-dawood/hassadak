@@ -61,7 +61,6 @@ class PersonalDataView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: BlocBuilder<PersonalDataCubit, PersonalDataStates>(
               builder: (context, state) {
-                final personalData = cubit.profileResponse!.data!.doc!;
                 if (state is PersonalDataLoadingState) {
                   return SizedBox(
                     height: 1.sh,
@@ -162,7 +161,7 @@ class PersonalDataView extends StatelessWidget {
                       ),
                       CustomText(
                         textAlign: TextAlign.center,
-                        text: "${personalData.username}",
+                        text: "${cubit.profileResponse!.data!.doc!.username}",
                         color: ColorManager.secMainColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 25.sp,
@@ -172,23 +171,23 @@ class PersonalDataView extends StatelessWidget {
                       ),
                       TextFieldWithText(
                         title: "الاسم الاول",
-                        hint: "${personalData.firstName}",
+                        hint: "${cubit.profileResponse!.data!.doc!.firstName}",
                       ),
                       TextFieldWithText(
                         title: "الاسم الاخير",
-                        hint: "${personalData.lastName}",
+                        hint: "${cubit.profileResponse!.data!.doc!.lastName}",
                       ),
                       TextFieldWithText(
                         title: "اسم المستخدم",
-                        hint: "${personalData.username}",
+                        hint: "${cubit.profileResponse!.data!.doc!.username}",
                       ),
                       TextFieldWithText(
                         title: "رقم الهاتف",
-                        hint: "${personalData.telephone}",
+                        hint: "${cubit.profileResponse!.data!.doc!.telephone}",
                       ),
                       TextFieldWithText(
                         title: "البريد الالكترونى",
-                        hint: "${personalData.email}",
+                        hint: "${cubit.profileResponse!.data!.doc!.email}",
                       ),
                     ],
                   );

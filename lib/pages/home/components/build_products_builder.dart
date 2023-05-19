@@ -27,7 +27,6 @@ class BuildProductsBuilder extends StatelessWidget {
       builder: (context, state) {
         if (state is AllProductsLoadingState) {
           return ListView.builder(
-
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: 3,
