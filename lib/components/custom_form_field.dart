@@ -42,6 +42,12 @@ class CustomTextFormField extends StatelessWidget {
           isLastInput ? TextInputAction.done : TextInputAction.next,
       validator: validator,
       onChanged: onChanged,
+      style: GoogleFonts.almarai(
+        textStyle: TextStyle(
+          color: ColorManager.black,
+          fontSize: 18.sp,
+        ),
+      ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: GoogleFonts.almarai(

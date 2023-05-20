@@ -4,6 +4,7 @@ class UrlsStrings {
   static String phoneLoginUrl = "${baseUrl}users/loginPhone";
   static String registerUrl = "${baseUrl}users/signup";
   static String getUserUrl = "${baseUrl}users";
+  static String updateUserUrl = "${baseUrl}users/updateMe";
   static String forgetPassUrl = "${baseUrl}users/forgotPassword";
   static String updatePassUrl = "${baseUrl}users/updateMyPassword";
   static String otpUrl = "${baseUrl}users/resetPassword";

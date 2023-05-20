@@ -243,7 +243,8 @@ class RegisterView extends StatelessWidget {
                             showMessage(
                                 message: state.msg, height: 60.h, maxLines: 5);
                           } else if (state is RegisterSuccessState) {
-                            navigateTo(page: NavBarView(), withHistory: false);
+                            navigateTo(
+                                page: const NavBarView(), withHistory: false);
                           }
                         },
                         builder: (context, state) {

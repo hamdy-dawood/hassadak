@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -14,18 +13,13 @@ class PersonalDataCubit extends Cubit<PersonalDataStates> {
 
   static PersonalDataCubit get(context) => BlocProvider.of(context);
   final dio = Dio();
-  final dioCacheManager = DioCacheManager(CacheConfig());
-  final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
   PersonalDataResp? profileResponse;
 
   Future<void> getPersonalData({required String id}) async {
     emit(PersonalDataLoadingState());
     try {
-      dio.interceptors.add(dioCacheManager.interceptor);
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response =
-          await dio.get("${UrlsStrings.getUserUrl}/$id", options: myOptions);
+      final response = await dio.get("${UrlsStrings.getUserUrl}/$id");
       if (response.data["status"] == "success" && response.statusCode == 200) {
         profileResponse = PersonalDataResp.fromJson(response.data);
         emit(PersonalDataSuccessState());
@@ -45,11 +39,11 @@ class PersonalDataCubit extends Cubit<PersonalDataStates> {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
         emit(NetworkErrorState());
       } else {
-        errorMsg = 'An unexpected error occurred: ${e.error}';
-        emit(NetworkErrorState());
+        errorMsg = 'An unexpected error : ${e.error}';
+        emit(PersonalDataFailureState(msg: errorMsg));
       }
     } catch (e) {
-      emit(PersonalDataFailureState(msg: 'An unknown error occurred: $e'));
+      emit(PersonalDataFailureState(msg: 'An unknown error : $e'));
     }
   }
 }

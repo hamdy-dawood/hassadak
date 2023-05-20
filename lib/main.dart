@@ -9,6 +9,7 @@ import 'pages/favourite/add_fav/cubit.dart';
 import 'pages/home/all_products/cubit.dart';
 import 'pages/home/categories/cubit.dart';
 import 'pages/home/offers/cubit.dart';
+import 'pages/profile/edit_data/cubit.dart';
 import 'pages/profile/personal_data/cubit.dart';
 import 'pages/reviews/add_review/cubit.dart';
 import 'pages/reviews/cubit.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => DeleteReviewsCubit()),
             BlocProvider(create: (context) => EditReviewsCubit()),
             BlocProvider(create: (context) => PersonalDataCubit()),
+            BlocProvider(create: (context) => EditDataCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

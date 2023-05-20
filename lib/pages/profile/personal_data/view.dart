@@ -7,7 +7,9 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/cache_helper.dart';
+import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/profile/components/build_text_field_with_text.dart';
+import 'package:hassadak/pages/profile/edit_data/view.dart';
 import 'package:hassadak/pages/profile/personal_data/states.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shimmer/shimmer.dart';
@@ -39,7 +41,9 @@ class PersonalDataView extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                navigateTo(page: const EditDataView());
+              },
               icon: SvgIcon(
                 icon: "assets/icons/edit.svg",
                 height: 20.h,
@@ -172,22 +176,27 @@ class PersonalDataView extends StatelessWidget {
                       TextFieldWithText(
                         title: "الاسم الاول",
                         hint: "${cubit.profileResponse!.data!.doc!.firstName}",
+                        titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "الاسم الاخير",
                         hint: "${cubit.profileResponse!.data!.doc!.lastName}",
+                        titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "اسم المستخدم",
                         hint: "${cubit.profileResponse!.data!.doc!.username}",
+                        titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "رقم الهاتف",
                         hint: "${cubit.profileResponse!.data!.doc!.telephone}",
+                        titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "البريد الالكترونى",
                         hint: "${cubit.profileResponse!.data!.doc!.email}",
+                        titleColor: ColorManager.grey,
                       ),
                     ],
                   );

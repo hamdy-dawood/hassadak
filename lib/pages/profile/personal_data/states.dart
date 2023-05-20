@@ -13,5 +13,3 @@ class PersonalDataFailureState extends PersonalDataStates {
 }
 
 class NetworkErrorState extends PersonalDataStates {}
-
-class ChanceVisibilityState extends PersonalDataStates {}

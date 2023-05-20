@@ -9,8 +9,18 @@ class TextFieldWithText extends StatelessWidget {
     Key? key,
     required this.title,
     required this.hint,
+    this.controller,
+    this.titleColor = Colors.black,
+    this.validator,
+    this.autoValidate = AutovalidateMode.onUserInteraction,
+    this.isLastInput = false,
   }) : super(key: key);
   final String title, hint;
+  final Color titleColor;
+  final TextEditingController? controller;
+  final FormFieldValidator? validator;
+  final AutovalidateMode autoValidate;
+  final bool isLastInput;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +31,26 @@ class TextFieldWithText extends StatelessWidget {
         children: [
           CustomText(
             text: title,
-            color: ColorManager.grey,
+            color: titleColor,
             fontWeight: FontWeight.normal,
-            fontSize: 20.sp,
+            fontSize: 18.sp,
           ),
           SizedBox(
             height: 5.h,
           ),
           TextFormField(
-            readOnly: true,
+            controller: controller,
+            validator: validator,
+            autovalidateMode: autoValidate,
+            textInputAction:
+                isLastInput ? TextInputAction.done : TextInputAction.next,
             keyboardType: TextInputType.text,
+            style: GoogleFonts.almarai(
+              textStyle: TextStyle(
+                color: ColorManager.black,
+                fontSize: 18.sp,
+              ),
+            ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: GoogleFonts.almarai(
@@ -54,6 +74,16 @@ class TextFieldWithText extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(20.r),
               ),
+              errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorManager.red,
+                  ),
+                  borderRadius: BorderRadius.circular(20.r)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorManager.red,
+                  ),
+                  borderRadius: BorderRadius.circular(20.r)),
             ),
           ),
         ],
