@@ -48,7 +48,7 @@ class AllFavouritesCubit extends Cubit<AllFavouritesStates> {
         emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        emit(NetworkErrorState());
+        emit(AllFavouritesFailedStates(msg: errorMsg));
       }
     } catch (e) {
       emit(AllFavouritesFailedStates(msg: 'An unknown error occurred: $e'));
