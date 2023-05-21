@@ -47,6 +47,8 @@ class Doc {
     this.updatedAt,
     this.V,
     this.passwordChangedAt,
+    this.cloudinaryId,
+    this.userPhoto,
   });
 
   String? id;
@@ -63,6 +65,8 @@ class Doc {
   String? updatedAt;
   int? V;
   String? passwordChangedAt;
+  String? cloudinaryId;
+  String? userPhoto;
 
   Doc.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -82,6 +86,8 @@ class Doc {
       updatedAt = json['updatedAt'] ?? "";
       V = json['__v'] ?? 0;
       passwordChangedAt = json['passwordChangedAt'] ?? "";
+      cloudinaryId = json['cloudinaryId'] ?? "";
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
     }
   }
 }

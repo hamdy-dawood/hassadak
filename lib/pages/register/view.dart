@@ -8,9 +8,9 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/input_validator.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
-import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 import 'package:hassadak/pages/login/view.dart';
 import 'package:hassadak/pages/register/states.dart';
+import 'package:hassadak/pages/upload_photo/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import 'cubit.dart';
@@ -107,23 +107,6 @@ class RegisterView extends StatelessWidget {
                           ),
                         ),
                         validator: emailValidator,
-                      ),
-                      SizedBox(
-                        height: 0.02.sh,
-                      ),
-                      CustomTextFormField(
-                        controller: cubit.controllers.imageController,
-                        keyboardType: TextInputType.text,
-                        hint: 'لينك الصورة',
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(10.0.w),
-                          child: SvgIcon(
-                            icon: "assets/icons/email.svg",
-                            color: ColorManager.grey,
-                            height: 10.h,
-                          ),
-                        ),
-                        validator: imageValidator,
                       ),
                       SizedBox(
                         height: 0.02.sh,
@@ -243,8 +226,7 @@ class RegisterView extends StatelessWidget {
                             showMessage(
                                 message: state.msg, height: 60.h, maxLines: 5);
                           } else if (state is RegisterSuccessState) {
-                            navigateTo(
-                                page: const NavBarView(), withHistory: false);
+                            navigateTo(page: const UploadUserPhotoView());
                           }
                         },
                         builder: (context, state) {

@@ -28,7 +28,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
           "firstName": controllers.firstNameController.text,
           "lastName": controllers.lastNameController.text,
           "email": controllers.emailController.text,
-          "image": controllers.imageController.text,
           "username": controllers.userNameController.text,
           "telephone": controllers.phoneController.text,
           "password": controllers.passwordController.text,

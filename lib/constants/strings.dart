@@ -3,6 +3,7 @@ class UrlsStrings {
   static String emailLoginUrl = "${baseUrl}users/login";
   static String phoneLoginUrl = "${baseUrl}users/loginPhone";
   static String registerUrl = "${baseUrl}users/signup";
+  static String uploadUerPhotoUrl = "${baseUrl}users/uploadPersonalPhoto";
   static String getUserUrl = "${baseUrl}users";
   static String updateUserUrl = "${baseUrl}users/updateMe";
   static String forgetPassUrl = "${baseUrl}users/forgotPassword";

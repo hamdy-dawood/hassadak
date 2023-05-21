@@ -18,11 +18,8 @@ class FavouriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AllFavouritesCubit()),
-        BlocProvider(create: (context) => DeleteFavCubit()),
-      ],
+    return BlocProvider(
+      create: (context) => AllFavouritesCubit(),
       child: Builder(builder: (context) {
         final favCubit = AllFavouritesCubit.get(context);
         final deleteFavCubit = DeleteFavCubit.get(context);
@@ -31,7 +28,7 @@ class FavouriteView extends StatelessWidget {
           backgroundColor: ColorManager.secMainColor,
           color: Colors.white,
           onRefresh: () async {
-            await Future.delayed(const Duration(seconds: 1));
+            await Future.delayed(const Duration(milliseconds: 500));
             favCubit.getAllFavourites();
           },
           child: Scaffold(

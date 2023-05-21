@@ -17,7 +17,7 @@ class AllSellersCubit extends Cubit<AllSellersStates> {
   final dio = Dio();
   final dioCacheManager = DioCacheManager(CacheConfig());
   final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
+      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
   AllSellersResponse? allSellers;
 
   Future<void> getAllSellers() async {

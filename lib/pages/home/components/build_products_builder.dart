@@ -9,6 +9,7 @@ import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
+import 'package:hassadak/pages/favourite/delete_fav/cubit.dart';
 import 'package:hassadak/pages/home/all_products/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 
@@ -17,9 +18,11 @@ class BuildProductsBuilder extends StatelessWidget {
     Key? key,
     required this.allProductsCubit,
     required this.addFavCubit,
+    required this.deleteFavCubit,
   }) : super(key: key);
   final AllProductsCubit allProductsCubit;
   final AddFavCubit addFavCubit;
+  final DeleteFavCubit deleteFavCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +89,13 @@ class BuildProductsBuilder extends StatelessWidget {
                         height: 18.h,
                       ),
                       favTap: () {
-                        addFavCubit.addFav(id: product.id!);
-                        addFavCubit.changeFavourite(index);
+                        if (product.status! == false) {
+                           addFavCubit.addFav(id: product.id!);
+                          addFavCubit.changeFavourite(index, product.status!);
+                        } else {
+                           deleteFavCubit.deleteFav(id: product.id!);
+                          addFavCubit.changeFavourite(index, product.status!);
+                        }
                       },
                       isOffer: product.discountPerc == 0 ? false : true,
                       offer: "خصم ${product.discountPerc}%",

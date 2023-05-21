@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/cache_helper.dart';
 import 'core/snack_and_navigate.dart';
 import 'pages/favourite/add_fav/cubit.dart';
+import 'pages/favourite/delete_fav/cubit.dart';
 import 'pages/home/all_products/cubit.dart';
 import 'pages/home/categories/cubit.dart';
 import 'pages/home/offers/cubit.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => EditReviewsCubit()),
             BlocProvider(create: (context) => PersonalDataCubit()),
             BlocProvider(create: (context) => EditDataCubit()),
+            BlocProvider(create: (context) => DeleteFavCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

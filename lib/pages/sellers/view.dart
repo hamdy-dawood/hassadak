@@ -21,54 +21,63 @@ class SellersView extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = AllSellersCubit.get(context);
         cubit.getAllSellers();
-        return Scaffold(
-          backgroundColor: ColorManager.white,
-          appBar: customAppBar(text: "الشركات"),
-          body: SizedBox(
-            height: 1.sh,
-            width: 1.sw,
-            child: BlocBuilder<AllSellersCubit, AllSellersStates>(
-              builder: (context, state) {
-                if (state is AllSellersLoadingState) {
-                  return ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: 7,
-                      separatorBuilder: (context, index) => SizedBox(
-                            height: 10.h,
-                          ),
-                      itemBuilder: (context, index) {
-                        return const ListTileShimmer();
-                      });
-                } else if (state is AllSellersFailedState) {
-                  return Center(child: Text(state.msg));
-                } else if (state is NetworkErrorState) {
-                  return ErrorNetwork(
-                    press: () {
-                      cubit.getAllSellers();
-                    },
-                  );
-                } else {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: cubit.allSellers!.results,
-                    itemBuilder: (context, index) {
-                      return CustomListTile(
-                        onTap: () {
-                          navigateTo(
-                            page: GetSellerView(
-                              id: "${cubit.allSellers!.data!.doc![index].id}",
+
+        return RefreshIndicator(
+          backgroundColor: ColorManager.secMainColor,
+          color: Colors.white,
+          onRefresh: () async {
+            await Future.delayed(const Duration(milliseconds: 500));
+            cubit.getAllSellers();
+          },
+          child: Scaffold(
+            backgroundColor: ColorManager.white,
+            appBar: customAppBar(text: "الشركات"),
+            body: SizedBox(
+              height: 1.sh,
+              width: 1.sw,
+              child: BlocBuilder<AllSellersCubit, AllSellersStates>(
+                builder: (context, state) {
+                  if (state is AllSellersLoadingState) {
+                    return ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: 7,
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: 10.h,
                             ),
-                          );
-                        },
-                        name: "${cubit.allSellers!.data!.doc![index].username}",
-                        image: "${cubit.allSellers!.data!.doc![index].image}",
-                        likes:
-                            cubit.allSellers!.data!.doc![index].likes!.length,
-                      );
-                    },
-                  );
-                }
-              },
+                        itemBuilder: (context, index) {
+                          return const ListTileShimmer();
+                        });
+                  } else if (state is AllSellersFailedState) {
+                    return Center(child: Text(state.msg));
+                  } else if (state is NetworkErrorState) {
+                    return ErrorNetwork(
+                      press: () {
+                        cubit.getAllSellers();
+                      },
+                    );
+                  } else {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: cubit.allSellers!.results,
+                      itemBuilder: (context, index) {
+                        return CustomListTile(
+                          onTap: () {
+                            navigateTo(
+                              page: GetSellerView(
+                                id: "${cubit.allSellers!.data!.doc![index].id}",
+                              ),
+                            );
+                          },
+                          name: "${cubit.allSellers!.data!.doc![index].username}",
+                          image: "${cubit.allSellers!.data!.doc![index].image}",
+                          likes:
+                              cubit.allSellers!.data!.doc![index].likes!.length,
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
           ),
         );
