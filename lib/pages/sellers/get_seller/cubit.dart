@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -15,18 +14,14 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
 
   static GetSellerCubit get(context) => BlocProvider.of(context);
   final dio = Dio();
-  final dioCacheManager = DioCacheManager(CacheConfig());
-  final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
+
   GetSellerResponse? sellerResponse;
 
   Future<void> getSeller({required String id}) async {
     emit(GetSellerLoadingState());
     try {
-      dio.interceptors.add(dioCacheManager.interceptor);
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response =
-          await dio.get("${UrlsStrings.getSellerUrl}/$id", options: myOptions);
+      final response = await dio.get("${UrlsStrings.getSellerUrl}/$id");
       if (response.data["status"] == "success" && response.statusCode == 201) {
         sellerResponse = GetSellerResponse.fromJson(response.data);
         emit(GetSellerSuccessState());
@@ -47,7 +42,6 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
         emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
         emit(NetworkErrorState());
       }
     } catch (e) {

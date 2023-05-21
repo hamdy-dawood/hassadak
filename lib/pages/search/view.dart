@@ -43,7 +43,7 @@ class SearchView extends StatelessWidget {
             backgroundColor: ColorManager.secMainColor,
             color: Colors.white,
             onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 1));
+              await Future.delayed(const Duration(milliseconds: 300));
               searchCubit.getSearch();
             },
             child: SizedBox(
@@ -267,7 +267,7 @@ class SearchView extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10.w,
-                                crossAxisSpacing: 8.w,
+                                crossAxisSpacing: 10.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount: 20,
@@ -296,68 +296,58 @@ class SearchView extends StatelessWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 5.w,
-                                mainAxisSpacing: 8.w,
+                                mainAxisSpacing: 10.w,
+                                crossAxisSpacing: 0.w,
                                 childAspectRatio: (itemWidth / itemHeight),
                               ),
                               itemCount:
                                   searchCubit.searchResponse!.data!.doc!.length,
                               itemBuilder: (context, index) {
+                                final search = searchCubit
+                                    .searchResponse!.data!.doc![index];
                                 return InkWell(
                                   onTap: () {
                                     navigateTo(
                                       page: DetailsView(
-                                        id: "${searchCubit.searchResponse!.data!.doc![index].id}",
-                                        image:
-                                            "${searchCubit.searchResponse!.data!.doc![index].productUrl}",
+                                        id: "${search.id}",
+                                        image: "${search.productUrl}",
                                         userImage: UrlsStrings.userImageUrl,
-                                        productName:
-                                            "${searchCubit.searchResponse!.data!.doc![index].name}",
-                                        userName:
-                                            "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
-                                        desc:
-                                            "${searchCubit.searchResponse!.data!.doc![index].desc}",
-                                        phone:
-                                            "${searchCubit.searchResponse!.data!.doc![index].sellerPhone}",
-                                        price:
-                                            "${searchCubit.searchResponse!.data!.doc![index].price}",
+                                        productName: "${search.name}",
+                                        userName: "${search.uploaderName}",
+                                        desc: "${search.desc}",
+                                        phone: "${search.sellerPhone}",
+                                        isOffer: search.discountPerc == 0
+                                            ? false
+                                            : true,
+                                        price: "${search.price}",
                                         oldPrice:
-                                            "${searchCubit.searchResponse!.data!.doc![index].price! - (searchCubit.searchResponse!.data!.doc![index].price! * 0.2)}",
-                                        ratingsAverage: (searchCubit
-                                                .searchResponse!
-                                                .data!
-                                                .doc![index]
-                                                .ratingsAverage)!
-                                            .toInt(),
-                                        ratingsQuantity: (searchCubit
-                                            .searchResponse!
-                                            .data!
-                                            .doc![index]
-                                            .ratingsQuantity!),
-                                        favStatus: searchCubit.searchResponse!
-                                            .data!.doc![index].status!,
+                                            "${search.price! - (search.price! * (search.discountPerc! / 100))}",
+                                        ratingsAverage:
+                                            (search.ratingsAverage)!.toInt(),
+                                        ratingsQuantity:
+                                            (search.ratingsQuantity!),
+                                        favStatus: search.status!,
                                       ),
                                     );
                                   },
                                   child: ProductItem(
+                                    width: 0.41,
                                     favIcon: SvgIcon(
                                       icon: 'assets/icons/heart.svg',
                                       color: ColorManager.white,
                                       height: 18.h,
                                     ),
                                     favTap: () {},
-                                    offer: 'خصم 20%',
-                                    image:
-                                        "${searchCubit.searchResponse!.data!.doc![index].productUrl}",
-                                    title:
-                                        "${searchCubit.searchResponse!.data!.doc![index].name}",
-                                    userName:
-                                        "${searchCubit.searchResponse!.data!.doc![index].uploaderName}",
+                                    isOffer:
+                                        search.discountPerc == 0 ? false : true,
+                                    offer: "خصم ${search.discountPerc}%",
+                                    image: "${search.productUrl}",
+                                    title: "${search.name}",
+                                    userName: "${search.uploaderName}",
                                     userImage: UrlsStrings.userImageUrl,
-                                    price:
-                                        "${searchCubit.searchResponse!.data!.doc![index].price}",
+                                    price: "${search.price}",
                                     oldPrice:
-                                        "${searchCubit.searchResponse!.data!.doc![index].price! - (searchCubit.searchResponse!.data!.doc![index].price! * 0.2)}",
+                                        "${search.price! - (search.price! * (search.discountPerc! / 100))}",
                                   ),
                                 );
                               },

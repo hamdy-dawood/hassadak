@@ -280,27 +280,31 @@ class GetSellerView extends StatelessWidget {
                             itemCount:
                                 cubit.sellerResponse!.getUserProduct!.length,
                             itemBuilder: (context, index) {
+                              final uerProduct =
+                                  cubit.sellerResponse!.getUserProduct![index];
                               return InkWell(
                                 onTap: () {
                                   navigateTo(
                                     page: DetailsView(
-                                      id: "${cubit.sellerResponse!.getUserProduct![index].id}",
-                                      image:
-                                          "${cubit.sellerResponse!.getUserProduct![index].productUrl}",
+                                      id: "${uerProduct.id}",
+                                      image: "${uerProduct.productUrl}",
                                       userImage:
                                           "${cubit.sellerResponse!.user!.image}",
-                                      productName:
-                                          "${cubit.sellerResponse!.getUserProduct![index].name}",
+                                      productName: "${uerProduct.name}",
                                       userName:
                                           "${cubit.sellerResponse!.user!.username}",
-                                      desc:
-                                          "${cubit.sellerResponse!.getUserProduct![index].desc}",
-                                      phone:
-                                          "${cubit.sellerResponse!.getUserProduct![index].sellerPhone}",
-                                      price:
-                                          "${cubit.sellerResponse!.getUserProduct![index].price}",
+                                      desc: "${uerProduct.desc}",
+                                      phone: "${uerProduct.sellerPhone}",
+                                      isOffer: cubit
+                                                  .sellerResponse!
+                                                  .getUserProduct![index]
+                                                  .discountPerc ==
+                                              0
+                                          ? false
+                                          : true,
+                                      price: "${uerProduct.price}",
                                       oldPrice:
-                                          "${cubit.sellerResponse!.getUserProduct![index].price! - (cubit.sellerResponse!.getUserProduct![index].price! * (cubit.sellerResponse!.getUserProduct![index].discountPerc! / 100))}",
+                                          "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}",
                                       ratingsAverage: cubit
                                           .sellerResponse!
                                           .getUserProduct![index]
@@ -343,20 +347,23 @@ class GetSellerView extends StatelessWidget {
                                           height: 18.h,
                                         ),
                                         favTap: () {},
+                                        isOffer: cubit
+                                                    .sellerResponse!
+                                                    .getUserProduct![index]
+                                                    .discountPerc ==
+                                                0
+                                            ? false
+                                            : true,
                                         offer:
-                                            'خصم ${cubit.sellerResponse!.getUserProduct![index].discountPerc}%',
-                                        image:
-                                            "${cubit.sellerResponse!.getUserProduct![index].productUrl}",
-                                        title:
-                                            "${cubit.sellerResponse!.getUserProduct![index].name}",
-                                        userName:
-                                            "${cubit.sellerResponse!.getUserProduct![index].uploaderName}",
+                                            "خصم ${uerProduct.discountPerc}%",
+                                        image: "${uerProduct.productUrl}",
+                                        title: "${uerProduct.name}",
+                                        userName: "${uerProduct.uploaderName}",
                                         userImage:
                                             "${cubit.sellerResponse!.user!.image}",
-                                        price:
-                                            "${cubit.sellerResponse!.getUserProduct![index].price}",
+                                        price: "${uerProduct.price}",
                                         oldPrice:
-                                            "${cubit.sellerResponse!.getUserProduct![index].price! - (cubit.sellerResponse!.getUserProduct![index].price! * (cubit.sellerResponse!.getUserProduct![index].discountPerc! / 100))}",
+                                            "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}",
                                       );
                                     }
                                   },

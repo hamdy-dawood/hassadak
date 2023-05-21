@@ -85,9 +85,11 @@ class FavouriteView extends StatelessWidget {
                                 userName: "${favItem.uploaderName}",
                                 desc: "${favItem.desc}",
                                 phone: "${favItem.sellerPhone}",
+                                isOffer:
+                                    favItem.discountPerc == 0 ? false : true,
                                 price: "${favItem.price}",
                                 oldPrice:
-                                    "${favItem.price! - (favItem.price! * 0.2)}",
+                                    "${favItem.price! - (favItem.price! * (favItem.discountPerc! / 100))}",
                                 ratingsAverage:
                                     (favItem.ratingsAverage)!.toInt(),
                                 ratingsQuantity: favItem.ratingsQuantity!,
@@ -96,7 +98,8 @@ class FavouriteView extends StatelessWidget {
                             );
                           },
                           child: FavouriteItem(
-                            offer: 'خصم 20%',
+                            isOffer: favItem.discountPerc == 0 ? false : true,
+                            offer: "خصم ${favItem.discountPerc}%",
                             title: "${favItem.name}",
                             image: "${favItem.productUrl}",
                             userName: "${favItem.uploaderName}",

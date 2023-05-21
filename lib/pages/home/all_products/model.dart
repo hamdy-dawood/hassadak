@@ -83,7 +83,7 @@ class Doc {
       ratingsAverage = json['ratingsAverage'] ?? 0;
       ratingsQuantity = json['ratingsQuantity'] ?? 0;
       price = json['price'] ?? 0;
-      discountPerc = json['price'] ?? 0;
+      discountPerc = json['discountPerc'] ?? 0;
       discount = json['discount'] ?? "";
       uploaderId = json['uploaderId'] ?? "";
       uploaderName = json['uploaderName'] ?? "لا يوجد اسم";

@@ -28,6 +28,7 @@ class DetailsView extends StatefulWidget {
     required this.userName,
     required this.phone,
     required this.favStatus,
+    required this.isOffer,
   }) : super(key: key);
 
   final String id,
@@ -40,7 +41,7 @@ class DetailsView extends StatefulWidget {
       userName,
       phone;
   final num ratingsAverage, ratingsQuantity;
-  final bool favStatus;
+  final bool favStatus, isOffer;
 
   @override
   State<DetailsView> createState() => _DetailsViewState();
@@ -129,13 +130,15 @@ class _DetailsViewState extends State<DetailsView> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20.sp,
                             ),
-                            CustomText(
-                              text: "${widget.oldPrice} دينار",
-                              color: ColorManager.navGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp,
-                              textDecoration: TextDecoration.lineThrough,
-                            ),
+                            widget.isOffer
+                                ? CustomText(
+                                    text: "${widget.oldPrice} دينار",
+                                    color: ColorManager.navGrey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    textDecoration: TextDecoration.lineThrough,
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ],

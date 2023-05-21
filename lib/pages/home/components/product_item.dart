@@ -19,10 +19,14 @@ class ProductItem extends StatelessWidget {
     required this.oldPrice,
     required this.favTap,
     required this.favIcon,
+    required this.isOffer,
+    this.width = 0.47,
   }) : super(key: key);
   final String offer, image, title, userName, userImage, price, oldPrice;
   final VoidCallback favTap;
   final Widget favIcon;
+  final bool isOffer;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class ProductItem extends StatelessWidget {
       child: Banner(
         color: ColorManager.green,
         location: BannerLocation.topEnd,
-        message: offer,
+        message: isOffer ? offer : "",
         textStyle: GoogleFonts.almarai(
           textStyle: TextStyle(
             color: ColorManager.white,
@@ -56,7 +60,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 child: SizedBox(
                   height: 150.h,
-                  width: 0.47.sw,
+                  width: width.sw,
                   child: Padding(
                     padding: EdgeInsets.all(8.w),
                     child: CachedNetworkImage(
@@ -94,7 +98,7 @@ class ProductItem extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 child: Container(
-                  width: 0.47.sw,
+                  width: width.sw,
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(12.r),
@@ -161,15 +165,18 @@ class ProductItem extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            Expanded(
-                              child: CustomText(
-                                text: "$oldPrice دينار",
-                                color: ColorManager.navGrey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                                textDecoration: TextDecoration.lineThrough,
-                              ),
-                            ),
+                            isOffer
+                                ? Expanded(
+                                    child: CustomText(
+                                      text: "$oldPrice دينار",
+                                      color: ColorManager.navGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp,
+                                      textDecoration:
+                                          TextDecoration.lineThrough,
+                                    ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ],

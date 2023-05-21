@@ -61,8 +61,10 @@ class BuildProductsBuilder extends StatelessWidget {
                       userName: "${product.uploaderName}",
                       desc: "${product.desc}",
                       phone: "${product.sellerPhone}",
+                      isOffer: product.discountPerc == 0 ? false : true,
                       price: "${product.price}",
-                      oldPrice: "${product.price! - (product.price! * 0.2)}",
+                      oldPrice:
+                          "${product.price! - (product.price! * (product.discountPerc! / 100))}",
                       ratingsAverage: (product.ratingsAverage)!.toInt(),
                       ratingsQuantity: (product.ratingsQuantity!),
                       favStatus: product.status!,
@@ -87,13 +89,15 @@ class BuildProductsBuilder extends StatelessWidget {
                         addFavCubit.addFav(id: product.id!);
                         addFavCubit.changeFavourite(index);
                       },
-                      offer: 'خصم 20%',
+                      isOffer: product.discountPerc == 0 ? false : true,
+                      offer: "خصم ${product.discountPerc}%",
                       image: "${product.productUrl}",
                       title: "${product.name}",
                       userName: "${product.uploaderName}",
                       userImage: 'assets/images/user.png',
                       price: "${product.price}",
-                      oldPrice: "${product.price! - (product.price! * 0.2)}",
+                      oldPrice:
+                          "${product.price! - (product.price! * (product.discountPerc! / 100))}",
                     );
                   },
                 ),
