@@ -42,7 +42,7 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
         emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        emit(NetworkErrorState());
+        emit(GetSellerFailedState(msg: errorMsg));
       }
     } catch (e) {
       emit(GetSellerFailedState(msg: 'An unknown error occurred: $e'));

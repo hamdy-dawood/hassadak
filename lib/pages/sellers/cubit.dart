@@ -49,11 +49,11 @@ class AllSellersCubit extends Cubit<AllSellersStates> {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
         emit(NetworkErrorState());
       } else {
-        errorMsg = 'An unexpected error occurred: ${e.error}';
-        emit(NetworkErrorState());
+        errorMsg = 'An unexpected error: ${e.error}';
+        emit(AllSellersFailedState(msg: errorMsg));
       }
     } catch (e) {
-      emit(AllSellersFailedState(msg: 'An unknown error occurred: $e'));
+      emit(AllSellersFailedState(msg: 'An unknown error: $e'));
     }
   }
 }
