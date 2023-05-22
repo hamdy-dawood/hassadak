@@ -146,6 +146,7 @@ class EditDataView extends StatelessWidget {
                   } else if (state is PersonalDataFailureState) {
                     return Center(child: Text(state.msg));
                   } else {
+                    final data = myDataCubit.profileResponse!.data!.doc!;
                     return ListView(
                       children: [
                         Padding(
@@ -156,8 +157,8 @@ class EditDataView extends StatelessWidget {
                                 children: [
                                   Container(
                                     margin: EdgeInsets.symmetric(vertical: 8.h),
-                                    height: 120.h,
-                                    width: 120.h,
+                                    height: 100.h,
+                                    width: 100.h,
                                     clipBehavior: Clip.antiAlias,
                                     decoration: BoxDecoration(
                                       color: ColorManager.secMainColor,
@@ -165,8 +166,7 @@ class EditDataView extends StatelessWidget {
                                     ),
                                     child: CachedNetworkImage(
                                       fit: BoxFit.contain,
-                                      imageUrl:
-                                          "${myDataCubit.profileResponse!.data!.doc!.userPhoto}",
+                                      imageUrl: "${data.userPhoto}",
                                       placeholder: (context, url) =>
                                           JumpingDotsProgressIndicator(
                                         fontSize: 20.h,
@@ -174,32 +174,37 @@ class EditDataView extends StatelessWidget {
                                       ),
                                       errorWidget: (context, url, error) =>
                                           Center(
-                                        child: Image.asset(
-                                            "assets/images/user.png"),
-                                      ),
+                                              child: Image.asset(
+                                                  "assets/images/user.png")),
                                     ),
                                   ),
                                   CustomText(
                                     textAlign: TextAlign.center,
-                                    text:
-                                        "${myDataCubit.profileResponse!.data!.doc!.username}",
+                                    text: "${data.firstName} ${data.lastName}",
                                     color: ColorManager.secMainColor,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 25.sp,
+                                    fontSize: 18.sp,
                                   ),
                                 ],
                               ),
                               SizedBox(width: 20.w),
-                              CustomElevated(
-                                text: "تعديل الصورة",
-                                press: () {
-                                  navigateTo(page: const UploadUserPhotoView());
-                                },
-                                wSize: 120.w,
-                                hSize: 30.h,
-                                btnColor: ColorManager.secMainColor,
-                                borderRadius: 10.r,
-                                fontSize: 12.sp,
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: CustomElevated(
+                                    text: "تعديل الصورة",
+                                    press: () {
+                                      navigateTo(
+                                          page: const UploadUserPhotoView());
+                                    },
+                                    wSize: 120.w,
+                                    hSize: 30.h,
+                                    btnColor: ColorManager.secMainColor,
+                                    borderRadius: 10.r,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
                               )
                             ],
                           ),
@@ -210,29 +215,25 @@ class EditDataView extends StatelessWidget {
                         TextFieldWithText(
                           controller: editCubit.controllers.firstNameController,
                           title: "الاسم الاول",
-                          hint:
-                              "${myDataCubit.profileResponse!.data!.doc!.firstName}",
+                          hint: "${data.firstName}",
                           validator: firstNameValidator,
                         ),
                         TextFieldWithText(
                           controller: editCubit.controllers.lastNameController,
                           title: "الاسم الاخير",
-                          hint:
-                              "${myDataCubit.profileResponse!.data!.doc!.lastName}",
+                          hint: "${data.lastName}",
                           validator: lastNameValidator,
                         ),
                         TextFieldWithText(
                           controller: editCubit.controllers.userNameController,
                           title: "اسم المستخدم",
-                          hint:
-                              "${myDataCubit.profileResponse!.data!.doc!.username}",
+                          hint: "${data.username}",
                           validator: userNameValidator,
                         ),
                         TextFieldWithText(
                           controller: editCubit.controllers.phoneController,
                           title: "رقم الهاتف",
-                          hint:
-                              "${myDataCubit.profileResponse!.data!.doc!.telephone}",
+                          hint: "${data.telephone}",
                           validator: phoneValidator,
                         ),
                         SizedBox(

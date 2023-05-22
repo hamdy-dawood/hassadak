@@ -67,7 +67,6 @@ class PersonalDataView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: BlocBuilder<PersonalDataCubit, PersonalDataStates>(
               builder: (context, state) {
-                final cubitData = cubit.profileResponse!.data!.doc;
                 if (state is PersonalDataLoadingState) {
                   return SizedBox(
                     height: 1.sh,
@@ -142,6 +141,7 @@ class PersonalDataView extends StatelessWidget {
                 } else if (state is PersonalDataFailureState) {
                   return Center(child: Text(state.msg));
                 } else {
+                  final cubitData = cubit.profileResponse!.data!.doc;
                   return ListView(
                     children: [
                       Padding(
