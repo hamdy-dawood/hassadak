@@ -327,6 +327,7 @@ class SearchView extends StatelessWidget {
                                         ratingsQuantity:
                                             (search.ratingsQuantity!),
                                         favStatus: search.status!,
+                                        uploaderId: "${search.uploaderId}",
                                       ),
                                     );
                                   },

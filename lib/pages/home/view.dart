@@ -11,12 +11,12 @@ import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/bottom_nav_bar/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/favourite/delete_fav/cubit.dart';
-import 'package:hassadak/pages/home/offers/cubit.dart';
 
+import '../offers/view.dart';
 import 'all_products/cubit.dart';
 import 'categories/cubit.dart';
-import 'components/build_offers_header.dart';
 import 'components/build_products_builder.dart';
+import 'offer_header/cubit.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -83,9 +83,58 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   ),
                 ),
                 const TapToSearch(),
-                BuildOfferHeader(
-                  offersCubit: offersCubit,
-                  context: context,
+                GestureDetector(
+                  onTap: () {
+                    navigateTo(page: const AllOffersView());
+                  },
+                  child: Container(
+                    height: 130.h,
+                    width: 0.90.sw,
+                    margin: EdgeInsets.all(16.h),
+                    padding: EdgeInsets.all(12.h),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          ColorManager.secMainColor,
+                          ColorManager.lightMainColor,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            "assets/images/offer.png",
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.h),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              CustomText(
+                                text: "BLACK FRIDAY",
+                                color: ColorManager.white,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              CustomText(
+                                text: "30% off for all items",
+                                color: ColorManager.white,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 BlocBuilder<AllCategoriesCubit, AllCategoriesStates>(
                   builder: (context, state) {

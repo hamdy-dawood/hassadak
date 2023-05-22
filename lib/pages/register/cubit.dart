@@ -52,7 +52,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           errorMsg = 'Connection timed out';
           emit(RegisterFailureState(msg: errorMsg));
         } else if (e.type == DioErrorType.other) {
-          errorMsg = 'Invalid status code: ${e.response?.data}';
+          errorMsg = 'Invalid status code: ${e.response!.statusMessage}';
           emit(RegisterFailureState(msg: errorMsg));
         } else {
           errorMsg = 'An unexpected error : ${e.error}';

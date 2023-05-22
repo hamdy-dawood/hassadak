@@ -31,13 +31,13 @@ class AddFavCubit extends Cubit<AddFavStates> {
     }
   }
 
-  void changeFavourite(int index, bool islove) {
+  void changeFavourite(int index, bool isLove) {
     if (favStatusMap.containsKey(index)) {
       favStatusMap[index] = FavStatus(
-        islove ,
+        isLove,
       );
     } else {
-      favStatusMap[index] = FavStatus(!islove);
+      favStatusMap[index] = FavStatus(!isLove);
     }
     emit(ChangeFavStates(Map.from(favStatusMap)));
   }

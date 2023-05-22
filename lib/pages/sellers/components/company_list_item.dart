@@ -13,10 +13,11 @@ class CustomListTile extends StatelessWidget {
       required this.image,
       required this.name,
       required this.onTap,
+      required this.tapLikeSeller,
       this.likes = 0})
       : super(key: key);
   final String image, name;
-  final VoidCallback onTap;
+  final VoidCallback onTap, tapLikeSeller;
   final int likes;
 
   @override
@@ -51,25 +52,33 @@ class CustomListTile extends StatelessWidget {
             fontSize: 18.sp,
             maxLines: 1,
           ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomText(
-                text: "$likes +",
-                color: likes == 0 ? ColorManager.navGrey : ColorManager.green,
-                fontWeight: FontWeight.normal,
-                fontSize: 12.sp,
+          trailing: InkWell(
+            onTap: tapLikeSeller,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomText(
+                    text: "$likes +",
+                    color:
+                        likes == 0 ? ColorManager.navGrey : ColorManager.green,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 12.sp,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  SvgIcon(
+                    icon: 'assets/icons/fill_heart.svg',
+                    color:
+                        likes == 0 ? ColorManager.navGrey : ColorManager.green,
+                    height: 18.h,
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 5.w,
-              ),
-              SvgIcon(
-                icon: 'assets/icons/fill_heart.svg',
-                color: likes == 0 ? ColorManager.navGrey : ColorManager.green,
-                height: 18.h,
-              ),
-            ],
+            ),
           ),
         ),
       ),

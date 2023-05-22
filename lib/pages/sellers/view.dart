@@ -6,6 +6,8 @@ import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
+import 'package:hassadak/pages/like_seller/cubit.dart';
+import 'package:hassadak/pages/like_seller/states.dart';
 
 import 'components/company_list_item.dart';
 import 'cubit.dart';
@@ -20,6 +22,7 @@ class SellersView extends StatelessWidget {
       create: (context) => AllSellersCubit(),
       child: Builder(builder: (context) {
         final cubit = AllSellersCubit.get(context);
+        final likeSellerCubit = LikeSellerCubit.get(context);
         cubit.getAllSellers();
 
         return RefreshIndicator(
@@ -60,18 +63,31 @@ class SellersView extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: cubit.allSellers!.results,
                       itemBuilder: (context, index) {
-                        return CustomListTile(
-                          onTap: () {
-                            navigateTo(
-                              page: GetSellerView(
-                                id: "${cubit.allSellers!.data!.doc![index].id}",
-                              ),
+                        return BlocBuilder<LikeSellerCubit, LikeSellerStates>(
+                          builder: (context, state) {
+                            return CustomListTile(
+                              onTap: () {
+                                navigateTo(
+                                  page: GetSellerView(
+                                    id: "${cubit.allSellers!.data!.doc![index].id}",
+                                  ),
+                                );
+                              },
+                              name:
+                                  "${cubit.allSellers!.data!.doc![index].firstName} ${cubit.allSellers!.data!.doc![index].lastName}",
+                              image:
+                                  "${cubit.allSellers!.data!.doc![index].image}",
+                              likes: cubit
+                                  .allSellers!.data!.doc![index].likes!.length,
+                              tapLikeSeller: () {
+                                likeSellerCubit.likeSeller(
+                                    id: "${cubit.allSellers!.data!.doc![index].id}");
+                                Future.delayed(
+                                    const Duration(milliseconds: 500));
+                                cubit.getAllSellers();
+                              },
                             );
                           },
-                          name: "${cubit.allSellers!.data!.doc![index].username}",
-                          image: "${cubit.allSellers!.data!.doc![index].image}",
-                          likes:
-                              cubit.allSellers!.data!.doc![index].likes!.length,
                         );
                       },
                     );

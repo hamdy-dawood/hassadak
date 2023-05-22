@@ -177,7 +177,7 @@ class UploadUserPhotoView extends StatelessWidget {
                       return CustomElevated(
                         text: "التالي",
                         press: () {
-                          print( cubit.myImage!);
+                          print(cubit.myImage!);
                           cubit.uploadPhoto();
                         },
                         hSize: 50.h,

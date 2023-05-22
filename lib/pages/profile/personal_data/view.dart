@@ -67,6 +67,7 @@ class PersonalDataView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: BlocBuilder<PersonalDataCubit, PersonalDataStates>(
               builder: (context, state) {
+                final cubitData = cubit.profileResponse!.data!.doc;
                 if (state is PersonalDataLoadingState) {
                   return SizedBox(
                     height: 1.sh,
@@ -151,48 +152,54 @@ class PersonalDataView extends StatelessWidget {
                               children: [
                                 Container(
                                   margin: EdgeInsets.symmetric(vertical: 8.h),
-                                  height: 120.h,
-                                  width: 120.h,
+                                  height: 100.h,
+                                  width: 100.h,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
                                     color: ColorManager.secMainColor,
                                     shape: BoxShape.circle,
                                   ),
-                                  child:  CachedNetworkImage(
+                                  child: CachedNetworkImage(
                                     fit: BoxFit.contain,
-                                    imageUrl:
-                                    "${cubit.profileResponse!.data!.doc!.userPhoto}",
+                                    imageUrl: "${cubitData!.userPhoto}",
                                     placeholder: (context, url) =>
                                         JumpingDotsProgressIndicator(
-                                          fontSize: 20.h,
-                                          color: ColorManager.white,
-                                        ),
-                                    errorWidget: (context, url, error) => Center(
-                                      child: Image.asset("assets/images/user.png"),
+                                      fontSize: 20.h,
+                                      color: ColorManager.white,
                                     ),
+                                    errorWidget: (context, url, error) =>
+                                        Center(
+                                            child: Image.asset(
+                                                "assets/images/user.png")),
                                   ),
                                 ),
                                 CustomText(
                                   textAlign: TextAlign.center,
                                   text:
-                                  "${cubit.profileResponse!.data!.doc!.username}",
+                                      "${cubitData.firstName} ${cubitData.lastName}",
                                   color: ColorManager.secMainColor,
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 25.sp,
+                                  fontSize: 18.sp,
                                 ),
                               ],
                             ),
                             SizedBox(width: 20.w),
-                            CustomElevated(
-                              text: "تعديل الصورة",
-                              press: () {
-                                navigateTo(page: const UploadUserPhotoView());
-                              },
-                              wSize: 120.w,
-                              hSize: 30.h,
-                              btnColor: ColorManager.secMainColor,
-                              borderRadius: 10.r,
-                              fontSize: 12.sp,
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: CustomElevated(
+                                  text: "تعديل الصورة",
+                                  press: () {
+                                    navigateTo(
+                                        page: const UploadUserPhotoView());
+                                  },
+                                  wSize: 120.w,
+                                  hSize: 30.h,
+                                  btnColor: ColorManager.secMainColor,
+                                  borderRadius: 10.r,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -202,27 +209,27 @@ class PersonalDataView extends StatelessWidget {
                       ),
                       TextFieldWithText(
                         title: "الاسم الاول",
-                        hint: "${cubit.profileResponse!.data!.doc!.firstName}",
+                        hint: "${cubitData.firstName}",
                         titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "الاسم الاخير",
-                        hint: "${cubit.profileResponse!.data!.doc!.lastName}",
+                        hint: "${cubitData.lastName}",
                         titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "اسم المستخدم",
-                        hint: "${cubit.profileResponse!.data!.doc!.username}",
+                        hint: "${cubitData.username}",
                         titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "رقم الهاتف",
-                        hint: "${cubit.profileResponse!.data!.doc!.telephone}",
+                        hint: "${cubitData.telephone}",
                         titleColor: ColorManager.grey,
                       ),
                       TextFieldWithText(
                         title: "البريد الالكترونى",
-                        hint: "${cubit.profileResponse!.data!.doc!.email}",
+                        hint: "${cubitData.email}",
                         titleColor: ColorManager.grey,
                       ),
                     ],

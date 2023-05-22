@@ -91,6 +91,7 @@ class FavouriteView extends StatelessWidget {
                                     (favItem.ratingsAverage)!.toInt(),
                                 ratingsQuantity: favItem.ratingsQuantity!,
                                 favStatus: true,
+                                uploaderId: "${favItem.uploaderId}",
                               ),
                             );
                           },

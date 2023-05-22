@@ -1,53 +1,57 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
-import 'package:hassadak/pages/home/offers/model.dart';
+import 'package:hassadak/pages/home/all_products/model.dart';
 
 part 'states.dart';
 
-class AllOffersCubit extends Cubit<AllOffersStates> {
-  AllOffersCubit() : super(AllOffersInitialStates());
+class OfferProductsCubit extends Cubit<OfferProductsStates> {
+  OfferProductsCubit() : super(OfferProductsInitialState());
 
-  static AllOffersCubit get(context) => BlocProvider.of(context);
-
+  static OfferProductsCubit get(context) => BlocProvider.of(context);
   final dio = Dio();
   final dioCacheManager = DioCacheManager(CacheConfig());
   final myOptions =
-      buildCacheOptions(const Duration(days: 2), forceRefresh: false);
-  OfferResponse? allOffers;
+      buildCacheOptions(const Duration(days: 2), forceRefresh: true);
+  AllProductsResponse? allProducts;
 
-  Future<void> getAllOffers() async {
-    emit(AllOffersLoadingStates());
+  Future<void> getOfferProducts() async {
+    emit(OfferProductsLoadingState());
     try {
       dio.interceptors.add(dioCacheManager.interceptor);
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
-      final response =
-          await dio.get(UrlsStrings.allOffersUrl, options: myOptions);
+
+      final response = await dio.get(
+          "${UrlsStrings.allProductsUrl}?discount=Success",
+          options: myOptions);
       if (response.data["status"] == "success" && response.statusCode == 200) {
-        allOffers = OfferResponse.fromJson(response.data);
-        // print(response.data);
-        emit(AllOffersSuccessStates());
+        allProducts = AllProductsResponse.fromJson(response.data);
+        emit(OfferProductsSuccessState());
       } else {
-        emit(AllOffersFailedStates(msg: response.data["status"]));
+        emit(OfferProductsFailedState(msg: response.data["status"]));
       }
     } on DioError catch (e) {
       String errorMsg;
       if (e.type == DioErrorType.cancel) {
         errorMsg = 'Request was cancelled';
+        emit(OfferProductsFailedState(msg: errorMsg));
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
+        emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        print(errorMsg);
+        emit(OfferProductsFailedState(msg: errorMsg));
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        print(errorMsg);
+        emit(NetworkErrorState());
       }
     } catch (e) {
-      emit(AllOffersFailedStates(msg: 'An unknown error occurred: $e'));
+      emit(OfferProductsFailedState(msg: 'An unknown error occurred: $e'));
     }
   }
 }

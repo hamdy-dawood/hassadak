@@ -11,6 +11,5 @@ class UploadUserChangeImageStates extends UploadUserPhotoStates {}
 class UploadUserPhotoFailureState extends UploadUserPhotoStates {
   final String msg;
 
- UploadUserPhotoFailureState({required this.msg});
+  UploadUserPhotoFailureState({required this.msg});
 }
-

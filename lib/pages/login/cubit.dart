@@ -45,10 +45,10 @@ class LoginCubit extends Cubit<LoginStates> {
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
-          emit(NetworkErrorState(msg: errorMsg));
+          emit(NetworkErrorState());
         } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.error}';
-          emit(NetworkErrorState(msg: errorMsg));
+          emit(NetworkErrorState());
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(LoginFailureState(msg: errorMsg));
@@ -85,10 +85,10 @@ class LoginCubit extends Cubit<LoginStates> {
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
-          emit(NetworkErrorState(msg: errorMsg));
+          emit(NetworkErrorState());
         } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.error}';
-          emit(NetworkErrorState(msg: errorMsg));
+          emit(NetworkErrorState());
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(LoginFailureState(msg: errorMsg));

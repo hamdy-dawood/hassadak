@@ -71,6 +71,7 @@ class BuildProductsBuilder extends StatelessWidget {
                       ratingsAverage: (product.ratingsAverage)!.toInt(),
                       ratingsQuantity: (product.ratingsQuantity!),
                       favStatus: product.status!,
+                      uploaderId: "${product.uploaderId}",
                     ),
                   );
                 },
@@ -90,10 +91,10 @@ class BuildProductsBuilder extends StatelessWidget {
                       ),
                       favTap: () {
                         if (product.status! == false) {
-                           addFavCubit.addFav(id: product.id!);
+                          addFavCubit.addFav(id: product.id!);
                           addFavCubit.changeFavourite(index, product.status!);
                         } else {
-                           deleteFavCubit.deleteFav(id: product.id!);
+                          deleteFavCubit.deleteFav(id: product.id!);
                           addFavCubit.changeFavourite(index, product.status!);
                         }
                       },

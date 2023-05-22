@@ -5,6 +5,7 @@ class UrlsStrings {
   static String registerUrl = "${baseUrl}users/signup";
   static String uploadUerPhotoUrl = "${baseUrl}users/uploadPersonalPhoto";
   static String getUserUrl = "${baseUrl}users";
+  static String likeSellerUrl = "${baseUrl}users/seller";
   static String updateUserUrl = "${baseUrl}users/updateMe";
   static String forgetPassUrl = "${baseUrl}users/forgotPassword";
   static String updatePassUrl = "${baseUrl}users/updateMyPassword";

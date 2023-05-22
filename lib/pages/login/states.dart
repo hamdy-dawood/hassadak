@@ -12,10 +12,6 @@ class LoginFailureState extends LoginStates {
   LoginFailureState({required this.msg});
 }
 
-class NetworkErrorState extends LoginStates {
-  final String msg;
-
-  NetworkErrorState({required this.msg});
-}
+class NetworkErrorState extends LoginStates {}
 
 class ChanceVisibilityState extends LoginStates {}

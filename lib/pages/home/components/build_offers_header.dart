@@ -4,8 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-
-import '../offers/cubit.dart';
+import 'package:hassadak/pages/home/offer_header/cubit.dart';
 
 class BuildOfferHeader extends StatelessWidget {
   final AllOffersCubit offersCubit;

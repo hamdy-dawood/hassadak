@@ -28,7 +28,6 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
           "review": reviewController.text,
           "rating": rate,
           "product": productID,
-          "user": CacheHelper.getId()
         });
         if (response.data["status"] == "success" &&
             response.statusCode == 201) {
@@ -36,15 +35,27 @@ class AddReviewsCubit extends Cubit<AddReviewsStates> {
           reviewController.clear();
         } else {
           emit(AddReviewsFailureState(msg: response.data["status"]));
+          print(response.data["status"]);
         }
       } on DioError catch (e) {
-        String errorMessage = e.type.toString();
-        if (e.response != null) {
-          errorMessage = e.response!.data.toString();
+        String errorMsg;
+        if (e.type == DioErrorType.cancel) {
+          errorMsg = 'Request was cancelled';
+          emit(AddReviewsFailureState(msg: errorMsg));
+        } else if (e.type == DioErrorType.receiveTimeout ||
+            e.type == DioErrorType.sendTimeout) {
+          errorMsg = 'Connection timed out';
+          emit(NetworkErrorState());
+        } else if (e.type == DioErrorType.other) {
+          errorMsg = 'Invalid status code: ${e.error}';
+          emit(NetworkErrorState());
+          print(errorMsg);
+        } else {
+          errorMsg = 'An unexpected error : ${e.error}';
+          emit(AddReviewsFailureState(msg: errorMsg));
         }
-        emit(AddReviewsFailureState(msg: errorMessage));
       } catch (e) {
-        emit(AddReviewsFailureState(msg: "$e"));
+        emit(AddReviewsFailureState(msg: 'An unknown error: $e'));
       }
     }
   }

@@ -91,7 +91,7 @@ class Doc {
       twitterUrl = json['twitterUrl'] ?? "";
       description = json['description'] ?? "";
       role = json['role'] ?? "";
-      image = json['image'] ?? UrlsStrings.noImageUrl;
+      image = json['image'] ?? UrlsStrings.userImageUrl;
       likes = List<dynamic>.from(json["likes"] ?? [].map((x) => x));
       favouriteProduct =
           List<dynamic>.from(json["favouriteProduct"] ?? [].map((x) => x));

@@ -90,7 +90,6 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                                 ),
                                 onRatingUpdate: (rating) {
                                   addReviewsCubit.rate = rating;
-                                  print(rating);
                                 },
                               ),
                             ),
@@ -138,8 +137,14 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                             listener: (context, state) {
                               if (state is AddReviewsFailureState) {
                                 Navigator.pop(context);
-                                showMessage(message: "فشل الارسال");
+                                showMessage(
+                                    message: state.msg,
+                                    height: 80.h,
+                                    maxLines: 10);
                                 addReviewsCubit.reviewController.clear();
+                              } else if (state is NetworkErrorState) {
+                                Navigator.pop(context);
+                                showMessage(message: "يرجي التحقق من الانترنت");
                               } else if (state is AddReviewsSuccessState) {
                                 Navigator.pop(context);
                                 addReviewsCubit.reviewController.clear();

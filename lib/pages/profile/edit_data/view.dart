@@ -163,17 +163,19 @@ class EditDataView extends StatelessWidget {
                                       color: ColorManager.secMainColor,
                                       shape: BoxShape.circle,
                                     ),
-                                    child:  CachedNetworkImage(
+                                    child: CachedNetworkImage(
                                       fit: BoxFit.contain,
                                       imageUrl:
-                                      "${myDataCubit.profileResponse!.data!.doc!.userPhoto}",
+                                          "${myDataCubit.profileResponse!.data!.doc!.userPhoto}",
                                       placeholder: (context, url) =>
                                           JumpingDotsProgressIndicator(
-                                            fontSize: 20.h,
-                                            color: ColorManager.white,
-                                          ),
-                                      errorWidget: (context, url, error) => Center(
-                                        child: Image.asset("assets/images/user.png"),
+                                        fontSize: 20.h,
+                                        color: ColorManager.white,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                        child: Image.asset(
+                                            "assets/images/user.png"),
                                       ),
                                     ),
                                   ),

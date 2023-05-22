@@ -10,6 +10,7 @@ import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/reviews/view.dart';
+import 'package:hassadak/pages/sellers/get_seller/view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,6 +30,7 @@ class DetailsView extends StatefulWidget {
     required this.phone,
     required this.favStatus,
     required this.isOffer,
+    required this.uploaderId,
   }) : super(key: key);
 
   final String id,
@@ -39,7 +41,8 @@ class DetailsView extends StatefulWidget {
       image,
       userImage,
       userName,
-      phone;
+      phone,
+      uploaderId;
   final num ratingsAverage, ratingsQuantity;
   final bool favStatus, isOffer;
 
@@ -92,59 +95,72 @@ class _DetailsViewState extends State<DetailsView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        ClipOval(
-                          child: CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: ColorManager.mainColor,
-                            child: CachedNetworkImage(
-                              fit: BoxFit.contain,
-                              imageUrl: widget.userImage,
-                              placeholder: (context, url) =>
-                                  JumpingDotsProgressIndicator(
-                                fontSize: 20.h,
-                                color: ColorManager.secMainColor,
-                              ),
-                              errorWidget: (context, url, error) => Center(
-                                child: Image.asset("assets/images/user.png"),
+                    InkWell(
+                      onTap: () {
+                        navigateTo(
+                          page: GetSellerView(
+                            id: widget.uploaderId,
+                          ),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          ClipOval(
+                            child: CircleAvatar(
+                              radius: 20.r,
+                              backgroundColor: ColorManager.mainColor,
+                              child: CachedNetworkImage(
+                                fit: BoxFit.contain,
+                                imageUrl: widget.userImage,
+                                placeholder: (context, url) =>
+                                    JumpingDotsProgressIndicator(
+                                  fontSize: 20.h,
+                                  color: ColorManager.secMainColor,
+                                ),
+                                errorWidget: (context, url, error) => Center(
+                                  child: Image.asset("assets/images/user.png"),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        CustomText(
-                          text: widget.userName,
-                          color: ColorManager.mainColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 20.sp,
-                        ),
-                        const Spacer(),
-                        Column(
-                          children: [
-                            CustomText(
-                              text: "${widget.price} دينار",
-                              color: ColorManager.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          CustomText(
+                            text: widget.userName,
+                            color: ColorManager.mainColor,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 20.sp,
+                          ),
+                          const Spacer(),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                CustomText(
+                                  text: "${widget.price} دينار",
+                                  color: ColorManager.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.sp,
+                                ),
+                                widget.isOffer
+                                    ? CustomText(
+                                        text: "${widget.oldPrice} دينار",
+                                        color: ColorManager.navGrey,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                        textDecoration:
+                                            TextDecoration.lineThrough,
+                                        maxLines: 1,
+                                      )
+                                    : const SizedBox(),
+                              ],
                             ),
-                            widget.isOffer
-                                ? CustomText(
-                                    text: "${widget.oldPrice} دينار",
-                                    color: ColorManager.navGrey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.sp,
-                                    textDecoration: TextDecoration.lineThrough,
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
                     CustomText(
                       text: widget.productName,

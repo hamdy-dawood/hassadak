@@ -11,3 +11,5 @@ class AddReviewsFailureState extends AddReviewsStates {
 
   AddReviewsFailureState({required this.msg});
 }
+
+class NetworkErrorState extends AddReviewsStates {}
