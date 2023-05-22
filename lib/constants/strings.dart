@@ -17,9 +17,9 @@ class UrlsStrings {
   static String allSellersUrl = "${baseUrl}users";
   static String getSellerUrl = "${baseUrl}users/seller";
   static String networkErrorUrl =
-      "https://img.freepik.com/premium-vector/system-connection-error-repairing-network-problem_126608-1489.jpg?w=2000";
+      "https://telegra.ph/file/5fd32c81aeea0385e2418.png";
   static String noImageUrl =
-      "https://github.com/hamdy-dawood/images/assets/77101158/81a2d3cd-81a5-48f4-ab6b-e9eb338eb93e";
+      "https://telegra.ph/file/71de56d0641458ae1c65d.png";
   static String userImageUrl =
-      "https://github.com/hamdy-dawood/images/assets/77101158/081f4267-b8c9-443a-9c68-637bcd4025f6";
+      "https://telegra.ph/file/c8e961ef22fcb1c4546f1.png";
 }
