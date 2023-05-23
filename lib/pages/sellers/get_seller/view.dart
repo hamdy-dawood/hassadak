@@ -307,7 +307,7 @@ class GetSellerView extends StatelessWidget {
                                     navigateTo(
                                       page: DetailsView(
                                         id: "${uerProduct.id}",
-                                        image: "${uerProduct.photoPhoto}",
+                                        image: "${uerProduct.productUrl}",
                                         userImage:
                                             "${cubit.sellerResponse!.user!.userPhoto}",
                                         productName: "${uerProduct.name}",
@@ -383,7 +383,7 @@ class GetSellerView extends StatelessWidget {
                                                       : true,
                                               offer:
                                                   "خصم ${uerProduct.discountPerc}%",
-                                              image: "${uerProduct.photoPhoto}",
+                                              image: "${uerProduct.productUrl}",
                                               title: "${uerProduct.name}",
                                               userName:
                                                   "${uerProduct.uploaderName}",

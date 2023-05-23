@@ -55,7 +55,6 @@ class Doc {
     this.sellerPhone,
     this.sellerWhatsapp,
     this.id,
-    this.photoPhoto,
   });
 
   String? name;
@@ -77,7 +76,6 @@ class Doc {
   String? sellerPhone;
   String? sellerWhatsapp;
   String? id;
-  String? photoPhoto;
 
   Doc.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -100,7 +98,6 @@ class Doc {
       sellerPhone = json['sellerPhone'] ?? "010";
       sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
       id = json['id'] ?? "";
-      photoPhoto = json['photoPhoto'] ?? UrlsStrings.noImageUrl;
     }
   }
 }

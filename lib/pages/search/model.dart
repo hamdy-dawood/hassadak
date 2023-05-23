@@ -49,7 +49,6 @@ class Doc {
     this.uploaderId,
     this.uploaderName,
     this.userPhoto,
-    this.photoPhoto,
     this.createdAt,
     this.updatedAt,
     this.status,
@@ -71,7 +70,6 @@ class Doc {
   String? uploaderId;
   String? uploaderName;
   String? userPhoto;
-  String? photoPhoto;
   String? createdAt;
   String? updatedAt;
   bool? status;
@@ -94,7 +92,6 @@ class Doc {
       uploaderId = json['uploaderId'] ?? "";
       uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
       userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
-      photoPhoto = json['photoPhoto'] ?? UrlsStrings.noImageUrl;
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       status = json['status'] ?? false;

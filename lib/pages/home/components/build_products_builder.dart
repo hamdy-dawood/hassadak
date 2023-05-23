@@ -60,7 +60,7 @@ class BuildProductsBuilder extends StatelessWidget {
                   navigateTo(
                     page: DetailsView(
                       id: "${product.id}",
-                      image: "${product.photoPhoto}",
+                      image: "${product.productUrl}",
                       productName: "${product.name}",
                       desc: "${product.desc}",
                       phone: "${product.sellerPhone}",
@@ -101,7 +101,7 @@ class BuildProductsBuilder extends StatelessWidget {
                       },
                       isOffer: product.discountPerc == 0 ? false : true,
                       offer: "خصم ${product.discountPerc}%",
-                      image: "${product.photoPhoto}",
+                      image: "${product.productUrl}",
                       title: "${product.name}",
                       userName: "${product.uploaderName}",
                       userImage: "${product.userPhoto}",

@@ -309,7 +309,7 @@ class SearchView extends StatelessWidget {
                                     navigateTo(
                                       page: DetailsView(
                                         id: "${search.id}",
-                                        image: "${search.photoPhoto}",
+                                        image: "${search.productUrl}",
                                         userImage: "${search.userPhoto}",
                                         productName: "${search.name}",
                                         userName: "${search.uploaderName}",
@@ -342,7 +342,7 @@ class SearchView extends StatelessWidget {
                                         search.discountPerc == 0 ? false : true,
                                     offer: "خصم ${search.discountPerc}%",
                                     title: "${search.name}",
-                                    image: "${search.photoPhoto}",
+                                    image: "${search.productUrl}",
                                     userName: "${search.uploaderName}",
                                     userImage: "${search.userPhoto}",
                                     price: "${search.price}",
