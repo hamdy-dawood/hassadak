@@ -1,3 +1,5 @@
+import 'package:hassadak/constants/strings.dart';
+
 class AllProductsResponse {
   AllProductsResponse({
     this.status,
@@ -46,12 +48,14 @@ class Doc {
     this.discount,
     this.uploaderId,
     this.uploaderName,
+    this.userPhoto,
     this.createdAt,
     this.updatedAt,
     this.status,
     this.sellerPhone,
     this.sellerWhatsapp,
     this.id,
+    this.photoPhoto,
   });
 
   String? name;
@@ -66,12 +70,14 @@ class Doc {
   String? discount;
   String? uploaderId;
   String? uploaderName;
+  String? userPhoto;
   String? createdAt;
   String? updatedAt;
   bool? status;
   String? sellerPhone;
   String? sellerWhatsapp;
   String? id;
+  String? photoPhoto;
 
   Doc.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -79,7 +85,7 @@ class Doc {
       desc = json['desc'] ?? "";
       typeId = json['typeId'] ?? "";
       categoryId = json['categoryId'] ?? "";
-      productUrl = json['productUrl'] ?? "";
+      productUrl = json['productUrl'] ?? UrlsStrings.noImageUrl;
       ratingsAverage = json['ratingsAverage'] ?? 0;
       ratingsQuantity = json['ratingsQuantity'] ?? 0;
       price = json['price'] ?? 0;
@@ -87,12 +93,14 @@ class Doc {
       discount = json['discount'] ?? "";
       uploaderId = json['uploaderId'] ?? "";
       uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       status = json['status'] ?? false;
       sellerPhone = json['sellerPhone'] ?? "010";
       sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
       id = json['id'] ?? "";
+      photoPhoto = json['photoPhoto'] ?? UrlsStrings.noImageUrl;
     }
   }
 }

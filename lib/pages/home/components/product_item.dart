@@ -75,7 +75,7 @@ class ProductItem extends StatelessWidget {
                         color: ColorManager.secMainColor,
                       ),
                       errorWidget: (context, url, error) => Center(
-                        child: Image.asset("assets/images/no_image.png"),
+                        child: Image.network(UrlsStrings.noImageUrl),
                       ),
                     ),
                   ),

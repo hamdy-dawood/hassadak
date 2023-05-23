@@ -8,7 +8,6 @@ import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
@@ -310,8 +309,8 @@ class SearchView extends StatelessWidget {
                                     navigateTo(
                                       page: DetailsView(
                                         id: "${search.id}",
-                                        image: "${search.productUrl}",
-                                        userImage: UrlsStrings.userImageUrl,
+                                        image: "${search.photoPhoto}",
+                                        userImage: "${search.userPhoto}",
                                         productName: "${search.name}",
                                         userName: "${search.uploaderName}",
                                         desc: "${search.desc}",
@@ -342,10 +341,10 @@ class SearchView extends StatelessWidget {
                                     isOffer:
                                         search.discountPerc == 0 ? false : true,
                                     offer: "خصم ${search.discountPerc}%",
-                                    image: "${search.productUrl}",
                                     title: "${search.name}",
+                                    image: "${search.photoPhoto}",
                                     userName: "${search.uploaderName}",
-                                    userImage: UrlsStrings.userImageUrl,
+                                    userImage: "${search.userPhoto}",
                                     price: "${search.price}",
                                     oldPrice:
                                         "${search.price! - (search.price! * (search.discountPerc! / 100))}",

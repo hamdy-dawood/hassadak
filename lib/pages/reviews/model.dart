@@ -1,3 +1,5 @@
+import 'package:hassadak/constants/strings.dart';
+
 class ReviewsResponse {
   String? status;
   int? results;
@@ -26,7 +28,7 @@ class Doc {
   String? updatedAt;
   String? userName;
   String? id;
-  String? image;
+  String? userPhoto;
 
   Doc(
       {this.review,
@@ -37,7 +39,7 @@ class Doc {
       this.updatedAt,
       this.userName,
       this.id,
-      this.image});
+      this.userPhoto});
 
   Doc.fromJson(Map<String, dynamic> json) {
     review = json['review'];
@@ -48,7 +50,7 @@ class Doc {
     updatedAt = json['updatedAt'];
     userName = json['userName'];
     id = json['id'];
-    image = json['image'];
+    userPhoto = json['userPhoto'] ?? UrlsStrings.noImageUrl;
   }
 }
 

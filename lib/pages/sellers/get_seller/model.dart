@@ -115,6 +115,7 @@ class GetUserProduct {
     this.id,
     this.sellerPhone,
     this.sellerWhatsapp,
+    this.photoPhoto,
   });
 
   String? name;
@@ -135,6 +136,7 @@ class GetUserProduct {
   String? id;
   String? sellerPhone;
   String? sellerWhatsapp;
+  String? photoPhoto;
 
   GetUserProduct.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -142,7 +144,7 @@ class GetUserProduct {
       desc = json['desc'] ?? "";
       typeId = json['typeId'] ?? "";
       categoryId = json['categoryId'] ?? "";
-      productUrl = json['productUrl'] ?? "";
+      productUrl = json['productUrl'] ?? UrlsStrings.noImageUrl;
       ratingsAverage = json['ratingsAverage'] ?? 0;
       ratingsQuantity = json['ratingsQuantity'] ?? 0;
       price = json['price'] ?? 0;
@@ -156,6 +158,7 @@ class GetUserProduct {
       id = json['id'] ?? "";
       sellerPhone = json['sellerPhone'] ?? "010";
       sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
+      photoPhoto = json['photoPhoto'] ?? UrlsStrings.noImageUrl;
     }
   }
 }

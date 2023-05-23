@@ -127,9 +127,8 @@ class BuildReviewBuilder extends StatelessWidget {
                                                   Navigator.pop(context);
                                                   Navigator.pop(context);
                                                   showMessage(
-                                                      message: state.msg,
-                                                      height: 50.h,
-                                                      maxLines: 5);
+                                                      message:
+                                                          "دا مش بتاع ميتينك");
                                                 } else if (state
                                                     is DeleteReviewsSuccessState) {
                                                   Navigator.pop(context);
@@ -208,7 +207,7 @@ class BuildReviewBuilder extends StatelessWidget {
                               return Row(
                                 children: [
                                   BuildCacheImage(
-                                    imageUrl: "${review.image}",
+                                    imageUrl: "${review.userPhoto}",
                                     height: 40.h,
                                     loadingHeight: 20.h,
                                   ),
