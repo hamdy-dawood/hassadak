@@ -1,22 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../../components/svg_icons.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile(
       {Key? key,
-      required this.image,
+      required this.userImage,
       required this.name,
       required this.onTap,
       required this.tapLikeSeller,
       this.likes = 0})
       : super(key: key);
-  final String image, name;
+  final String userImage, name;
   final VoidCallback onTap, tapLikeSeller;
   final int likes;
 
@@ -28,22 +27,10 @@ class CustomListTile extends StatelessWidget {
         height: 50.h,
         child: ListTile(
           onTap: onTap,
-          leading: CircleAvatar(
-            radius: 35.r,
-            backgroundColor: ColorManager.secMainColor,
-            child: ClipOval(
-              child: CachedNetworkImage(
-                fit: BoxFit.contain,
-                imageUrl: image,
-                placeholder: (context, url) => JumpingDotsProgressIndicator(
-                  fontSize: 20.h,
-                  color: ColorManager.secMainColor,
-                ),
-                errorWidget: (context, url, error) => Center(
-                  child: Image.asset("assets/images/no_image.png"),
-                ),
-              ),
-            ),
+          leading: BuildCacheImage(
+            imageUrl: userImage,
+            height: 45.h,
+            loadingHeight: 20.h,
           ),
           title: CustomText(
             text: name,

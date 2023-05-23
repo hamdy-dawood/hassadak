@@ -51,6 +51,7 @@ class Doc {
     this.description,
     this.role,
     this.image,
+    this.userPhoto,
     this.likes,
     this.favouriteProduct,
     this.favouriteCompany,
@@ -71,6 +72,7 @@ class Doc {
   String? description;
   String? role;
   String? image;
+  String? userPhoto;
   List<dynamic>? likes;
   List<dynamic>? favouriteProduct;
   List<dynamic>? favouriteCompany;
@@ -92,6 +94,7 @@ class Doc {
       description = json['description'] ?? "";
       role = json['role'] ?? "";
       image = json['image'] ?? UrlsStrings.userImageUrl;
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
       likes = List<dynamic>.from(json["likes"] ?? [].map((x) => x));
       favouriteProduct =
           List<dynamic>.from(json["favouriteProduct"] ?? [].map((x) => x));

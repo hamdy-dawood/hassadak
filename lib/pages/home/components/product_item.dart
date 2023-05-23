@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/strings.dart';
@@ -122,23 +123,10 @@ class ProductItem extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: Row(
                             children: [
-                              ClipOval(
-                                child: CircleAvatar(
-                                  radius: 15.r,
-                                  backgroundColor: ColorManager.secMainColor,
-                                  child: CachedNetworkImage(
-                                      fit: BoxFit.contain,
-                                      imageUrl: userImage,
-                                      placeholder: (context, url) =>
-                                          JumpingDotsProgressIndicator(
-                                            fontSize: 20.h,
-                                            color: ColorManager.secMainColor,
-                                          ),
-                                      errorWidget: (context, url, error) =>
-                                          Center(
-                                              child: Image.asset(
-                                                  "assets/images/user.png"))),
-                                ),
+                              BuildCacheImage(
+                                imageUrl: userImage,
+                                height: 28.h,
+                                loadingHeight: 20.h,
                               ),
                               SizedBox(
                                 width: 5.w,
@@ -164,7 +152,6 @@ class ProductItem extends StatelessWidget {
                                 fontSize: 20.sp,
                               ),
                             ),
-                            const Spacer(),
                             isOffer
                                 ? Expanded(
                                     child: CustomText(

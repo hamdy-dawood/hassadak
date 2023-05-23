@@ -33,9 +33,7 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
   void changeFavourite(int index, bool isLove) {
     if (favStatusMap.containsKey(index)) {
-      favStatusMap[index] = FavStatus(
-        isLove,
-      );
+      favStatusMap[index]!.isLoved = !isLove;
     } else {
       favStatusMap[index] = FavStatus(!isLove);
     }

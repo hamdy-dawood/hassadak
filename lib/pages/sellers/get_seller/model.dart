@@ -37,6 +37,7 @@ class User {
     this.description,
     this.role,
     this.image,
+    this.userPhoto,
     this.likes,
     this.favouriteProduct,
     this.favouriteCompany,
@@ -58,6 +59,7 @@ class User {
   String? description;
   String? role;
   String? image;
+  String? userPhoto;
   List<dynamic>? likes;
   List<dynamic>? favouriteProduct;
   List<dynamic>? favouriteCompany;
@@ -79,7 +81,8 @@ class User {
       twitterUrl = json['twitterUrl'] ?? "https://twitter.com/";
       description = json['description'] ?? "no description";
       role = json['role'] ?? "";
-      image = json['image'] ?? UrlsStrings.noImageUrl;
+      image = json['image'] ?? UrlsStrings.userImageUrl;
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
       likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? []);
       favouriteProduct =
           List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? []);

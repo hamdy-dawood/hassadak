@@ -13,7 +13,7 @@ class AddFavFailedStates extends AddFavStates {
 }
 
 class FavStatus {
-  final bool isLoved;
+  late final bool isLoved;
 
   FavStatus(this.isLoved);
 }

@@ -1,14 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/profile/personal_data/cubit.dart';
 import 'package:hassadak/pages/profile/personal_data/states.dart';
@@ -208,24 +207,10 @@ class BuildReviewBuilder extends StatelessWidget {
                             } else {
                               return Row(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 30.r,
-                                    backgroundColor: ColorManager.secMainColor,
-                                    child: ClipOval(
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.contain,
-                                        imageUrl: "${review.image}",
-                                        placeholder: (context, url) =>
-                                            JumpingDotsProgressIndicator(
-                                          fontSize: 20.h,
-                                          color: ColorManager.secMainColor,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Center(
-                                                child: Image.network(
-                                                    UrlsStrings.userImageUrl)),
-                                      ),
-                                    ),
+                                  BuildCacheImage(
+                                    imageUrl: "${review.image}",
+                                    height: 40.h,
+                                    loadingHeight: 20.h,
                                   ),
                                   SizedBox(
                                     width: 5.w,

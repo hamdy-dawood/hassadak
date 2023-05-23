@@ -75,8 +75,8 @@ class SellersView extends StatelessWidget {
                               },
                               name:
                                   "${cubit.allSellers!.data!.doc![index].firstName} ${cubit.allSellers!.data!.doc![index].lastName}",
-                              image:
-                                  "${cubit.allSellers!.data!.doc![index].image}",
+                              userImage:
+                                  "${cubit.allSellers!.data!.doc![index].userPhoto}",
                               likes: cubit
                                   .allSellers!.data!.doc![index].likes!.length,
                               tapLikeSeller: () {

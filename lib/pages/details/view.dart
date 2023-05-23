@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/back_with_search.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
+import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/reviews/view.dart';
@@ -64,6 +66,8 @@ class _DetailsViewState extends State<DetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    double number = double.parse(widget.oldPrice);
+    String formatOldPrice = number.toStringAsFixed(2);
     return Builder(builder: (context) {
       final addFavCubit = AddFavCubit.get(context);
       return Scaffold(
@@ -81,9 +85,8 @@ class _DetailsViewState extends State<DetailsView> {
                     fontSize: 100.h,
                     color: ColorManager.secMainColor,
                   ),
-                  errorWidget: (context, url, error) => Center(
-                    child: Image.asset("assets/images/no_image.png"),
-                  ),
+                  errorWidget: (context, url, error) =>
+                      Center(child: Image.network(UrlsStrings.noImageUrl)),
                 ),
               ),
             ),
@@ -105,23 +108,10 @@ class _DetailsViewState extends State<DetailsView> {
                       },
                       child: Row(
                         children: [
-                          ClipOval(
-                            child: CircleAvatar(
-                              radius: 20.r,
-                              backgroundColor: ColorManager.mainColor,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.contain,
-                                imageUrl: widget.userImage,
-                                placeholder: (context, url) =>
-                                    JumpingDotsProgressIndicator(
-                                  fontSize: 20.h,
-                                  color: ColorManager.secMainColor,
-                                ),
-                                errorWidget: (context, url, error) => Center(
-                                  child: Image.asset("assets/images/user.png"),
-                                ),
-                              ),
-                            ),
+                          BuildCacheImage(
+                            imageUrl: widget.userImage,
+                            height: 40.h,
+                            loadingHeight: 20.h,
                           ),
                           SizedBox(
                             width: 5.w,
@@ -132,7 +122,6 @@ class _DetailsViewState extends State<DetailsView> {
                             fontWeight: FontWeight.normal,
                             fontSize: 20.sp,
                           ),
-                          const Spacer(),
                           Expanded(
                             child: Column(
                               children: [
@@ -144,7 +133,7 @@ class _DetailsViewState extends State<DetailsView> {
                                 ),
                                 widget.isOffer
                                     ? CustomText(
-                                        text: "${widget.oldPrice} دينار",
+                                        text: "$formatOldPrice دينار",
                                         color: ColorManager.navGrey,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16.sp,

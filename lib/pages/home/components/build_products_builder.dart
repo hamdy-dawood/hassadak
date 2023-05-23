@@ -53,6 +53,9 @@ class BuildProductsBuilder extends StatelessWidget {
             itemCount: allProductsCubit.allProducts!.data!.doc!.length,
             itemBuilder: (context, index) {
               final product = allProductsCubit.allProducts!.data!.doc![index];
+              double number = double.parse(
+                  "${product.price! - (product.price! * (product.discountPerc! / 100))}");
+              String formatOldPrice = number.toStringAsFixed(2);
               return InkWell(
                 onTap: () {
                   navigateTo(
@@ -61,17 +64,16 @@ class BuildProductsBuilder extends StatelessWidget {
                       image: "${product.productUrl}",
                       userImage: UrlsStrings.userImageUrl,
                       productName: "${product.name}",
-                      userName: "${product.uploaderName}",
                       desc: "${product.desc}",
                       phone: "${product.sellerPhone}",
                       isOffer: product.discountPerc == 0 ? false : true,
                       price: "${product.price}",
-                      oldPrice:
-                          "${product.price! - (product.price! * (product.discountPerc! / 100))}",
+                      oldPrice: formatOldPrice,
                       ratingsAverage: (product.ratingsAverage)!.toInt(),
                       ratingsQuantity: (product.ratingsQuantity!),
                       favStatus: product.status!,
                       uploaderId: "${product.uploaderId}",
+                      userName: "${product.uploaderName}",
                     ),
                   );
                 },
@@ -94,7 +96,7 @@ class BuildProductsBuilder extends StatelessWidget {
                           addFavCubit.addFav(id: product.id!);
                           addFavCubit.changeFavourite(index, product.status!);
                         } else {
-                          deleteFavCubit.deleteFav(id: product.id!);
+                          // deleteFavCubit.deleteFav(id: product.id!);
                           addFavCubit.changeFavourite(index, product.status!);
                         }
                       },
@@ -103,10 +105,10 @@ class BuildProductsBuilder extends StatelessWidget {
                       image: "${product.productUrl}",
                       title: "${product.name}",
                       userName: "${product.uploaderName}",
-                      userImage: 'assets/images/user.png',
+                      //todo
+                      userImage: UrlsStrings.userImageUrl,
                       price: "${product.price}",
-                      oldPrice:
-                          "${product.price! - (product.price! * (product.discountPerc! / 100))}",
+                      oldPrice: formatOldPrice,
                     );
                   },
                 ),

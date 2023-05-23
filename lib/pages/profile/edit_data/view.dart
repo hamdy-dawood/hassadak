@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
@@ -155,27 +155,13 @@ class EditDataView extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 8.h),
-                                    height: 100.h,
-                                    width: 100.h,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.secMainColor,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.contain,
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    child: BuildCacheImage(
                                       imageUrl: "${data.userPhoto}",
-                                      placeholder: (context, url) =>
-                                          JumpingDotsProgressIndicator(
-                                        fontSize: 20.h,
-                                        color: ColorManager.white,
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Center(
-                                              child: Image.asset(
-                                                  "assets/images/user.png")),
+                                      height: 100.h,
+                                      loadingHeight: 40.h,
                                     ),
                                   ),
                                   CustomText(

@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
@@ -13,7 +13,6 @@ import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -142,24 +141,10 @@ class GetSellerView extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 20.h),
-                            child: CircleAvatar(
-                              radius: 60.r,
-                              backgroundColor: ColorManager.secMainColor,
-                              child: ClipOval(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.contain,
-                                  imageUrl: UrlsStrings.userImageUrl,
-                                  placeholder: (context, url) =>
-                                      JumpingDotsProgressIndicator(
-                                    fontSize: 20.h,
-                                    color: ColorManager.secMainColor,
-                                  ),
-                                  errorWidget: (context, url, error) => Center(
-                                    child: Image.asset(
-                                        "assets/images/no_image.png"),
-                                  ),
-                                ),
-                              ),
+                            child: BuildCacheImage(
+                              imageUrl: UrlsStrings.userImageUrl,
+                              height: 100.h,
+                              loadingHeight: 50.h,
                             ),
                           ),
                           CustomText(
@@ -182,30 +167,17 @@ class GetSellerView extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
-                            child: CircleAvatar(
-                              radius: 60.r,
-                              backgroundColor: ColorManager.secMainColor,
-                              child: ClipOval(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.contain,
-                                  imageUrl:
-                                      "${cubit.sellerResponse!.user!.image}",
-                                  placeholder: (context, url) =>
-                                      JumpingDotsProgressIndicator(
-                                    fontSize: 20.h,
-                                    color: ColorManager.secMainColor,
-                                  ),
-                                  errorWidget: (context, url, error) => Center(
-                                    child: Image.asset(
-                                        "assets/images/no_image.png"),
-                                  ),
-                                ),
-                              ),
+                            child: BuildCacheImage(
+                              imageUrl:
+                                  "${cubit.sellerResponse!.user!.userPhoto}",
+                              height: 100.h,
+                              loadingHeight: 50.h,
                             ),
                           ),
                           CustomText(
                             textAlign: TextAlign.center,
-                            text: "${cubit.sellerResponse!.user!.username}",
+                            text:
+                                "${cubit.sellerResponse!.user!.firstName} ${cubit.sellerResponse!.user!.lastName}",
                             color: ColorManager.secMainColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 25.sp,
@@ -326,6 +298,10 @@ class GetSellerView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final uerProduct = cubit
                                     .sellerResponse!.getUserProduct![index];
+                                double number = double.parse(
+                                    "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}");
+                                String formatOldPrice =
+                                    number.toStringAsFixed(2);
                                 return InkWell(
                                   onTap: () {
                                     navigateTo(
@@ -333,7 +309,7 @@ class GetSellerView extends StatelessWidget {
                                         id: "${uerProduct.id}",
                                         image: "${uerProduct.productUrl}",
                                         userImage:
-                                            "${cubit.sellerResponse!.user!.image}",
+                                            "${cubit.sellerResponse!.user!.userPhoto}",
                                         productName: "${uerProduct.name}",
                                         userName:
                                             "${cubit.sellerResponse!.user!.username}",
@@ -347,8 +323,7 @@ class GetSellerView extends StatelessWidget {
                                             ? false
                                             : true,
                                         price: "${uerProduct.price}",
-                                        oldPrice:
-                                            "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}",
+                                        oldPrice: formatOldPrice,
                                         ratingsAverage:
                                             uerProduct.ratingsAverage!.toInt(),
                                         ratingsQuantity:
@@ -413,10 +388,9 @@ class GetSellerView extends StatelessWidget {
                                               userName:
                                                   "${uerProduct.uploaderName}",
                                               userImage:
-                                                  "${cubit.sellerResponse!.user!.image}",
+                                                  "${cubit.sellerResponse!.user!.userPhoto}",
                                               price: "${uerProduct.price}",
-                                              oldPrice:
-                                                  "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}",
+                                              oldPrice: formatOldPrice,
                                             );
                                           },
                                         );
