@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class FavouriteItem extends StatelessWidget {
@@ -67,20 +67,10 @@ class FavouriteItem extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            radius: 15.r,
-                            child: CachedNetworkImage(
-                              fit: BoxFit.contain,
-                              imageUrl: userImage,
-                              placeholder: (context, url) =>
-                                  JumpingDotsProgressIndicator(
-                                fontSize: 20.h,
-                                color: ColorManager.secMainColor,
-                              ),
-                              errorWidget: (context, url, error) => Center(
-                                child: Image.asset("assets/images/user.png"),
-                              ),
-                            ),
+                          BuildCacheImage(
+                            imageUrl: userImage,
+                            height: 30.h,
+                            loadingHeight: 20.h,
                           ),
                           SizedBox(
                             width: 5.w,
@@ -141,19 +131,21 @@ class FavouriteItem extends StatelessWidget {
                   width: 70.h,
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
-                    imageUrl: image.replaceAll(
-                        "https://mobizil.com/oppo-f3-specs/",
-                        UrlsStrings.noImageUrl),
+                    imageUrl: image,
                     placeholder: (context, url) => JumpingDotsProgressIndicator(
                       fontSize: 50.h,
                       color: ColorManager.secMainColor,
                     ),
                     errorWidget: (context, url, error) => Center(
-                      child: Image.asset("assets/images/no_image.png"),
+                      child: Icon(
+                        Icons.error,
+                        size: 30.sp,
+                        color: ColorManager.secMainColor,
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

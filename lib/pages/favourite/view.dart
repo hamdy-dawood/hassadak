@@ -5,7 +5,6 @@ import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 
@@ -71,13 +70,16 @@ class FavouriteView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final favItem =
                             favCubit.allFavourites!.products![index];
+                        double number = double.parse(
+                            "${favItem.price! - (favItem.price! * (favItem.discountPerc! / 100))}");
+                        String formatOldPrice = number.toStringAsFixed(2);
                         return InkWell(
                           onTap: () {
                             navigateTo(
                               page: DetailsView(
                                 id: "${favItem.id}",
                                 image: "${favItem.productUrl}",
-                                userImage: UrlsStrings.userImageUrl,
+                                userImage: "${favItem.userPhoto}",
                                 productName: "${favItem.name}",
                                 userName: "${favItem.uploaderName}",
                                 desc: "${favItem.desc}",
@@ -85,8 +87,7 @@ class FavouriteView extends StatelessWidget {
                                 isOffer:
                                     favItem.discountPerc == 0 ? false : true,
                                 price: "${favItem.price}",
-                                oldPrice:
-                                    "${favItem.price! - (favItem.price! * (favItem.discountPerc! / 100))}",
+                                oldPrice: formatOldPrice,
                                 ratingsAverage:
                                     (favItem.ratingsAverage)!.toInt(),
                                 ratingsQuantity: favItem.ratingsQuantity!,
@@ -101,10 +102,9 @@ class FavouriteView extends StatelessWidget {
                             title: "${favItem.name}",
                             image: "${favItem.productUrl}",
                             userName: "${favItem.uploaderName}",
-                            userImage: UrlsStrings.userImageUrl,
+                            userImage: "${favItem.userPhoto}",
                             price: "${favItem.price}",
-                            oldPrice:
-                                "${favItem.price! - (favItem.price! * 0.2)}",
+                            oldPrice: formatOldPrice,
                             deleteTap: (context) async {
                               deleteFavCubit.deleteFav(id: "${favItem.id}");
                               await Future.delayed(const Duration(seconds: 1));

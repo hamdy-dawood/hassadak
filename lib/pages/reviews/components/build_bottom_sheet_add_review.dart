@@ -137,7 +137,7 @@ class BuildBottomSheetAddReview extends StatelessWidget {
                             listener: (context, state) {
                               if (state is AddReviewsFailureState) {
                                 Navigator.pop(context);
-                                showMessage(message: "مينفعش مرتين ي روح امك");
+                                showMessage(message: "تم عمل ريفيو من قبل");
                                 addReviewsCubit.reviewController.clear();
                               } else if (state is NetworkErrorState) {
                                 Navigator.pop(context);

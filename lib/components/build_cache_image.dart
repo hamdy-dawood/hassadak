@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class BuildCacheImage extends StatelessWidget {
@@ -33,8 +32,13 @@ class BuildCacheImage extends StatelessWidget {
           fontSize: loadingHeight.h,
           color: ColorManager.white,
         ),
-        errorWidget: (context, url, error) =>
-            Center(child: Image.network(UrlsStrings.noImageUrl)),
+        errorWidget: (context, url, error) => Center(
+          child: Icon(
+            Icons.error,
+            size: 30.sp,
+            color: ColorManager.secMainColor,
+          ),
+        ),
       ),
     );
   }

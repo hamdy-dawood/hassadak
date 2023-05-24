@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class ProductItem extends StatelessWidget {
@@ -66,16 +65,18 @@ class ProductItem extends StatelessWidget {
                     padding: EdgeInsets.all(8.w),
                     child: CachedNetworkImage(
                       fit: BoxFit.fill,
-                      imageUrl: image.replaceAll(
-                          "https://mobizil.com/oppo-f3-specs/",
-                          UrlsStrings.noImageUrl),
+                      imageUrl: image,
                       placeholder: (context, url) =>
                           JumpingDotsProgressIndicator(
                         fontSize: 50.h,
                         color: ColorManager.secMainColor,
                       ),
                       errorWidget: (context, url, error) => Center(
-                        child: Image.network(UrlsStrings.noImageUrl),
+                        child: Icon(
+                          Icons.error,
+                          size: 30.sp,
+                          color: ColorManager.secMainColor,
+                        ),
                       ),
                     ),
                   ),

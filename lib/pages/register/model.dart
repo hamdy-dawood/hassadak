@@ -1,5 +1,3 @@
-import 'package:hassadak/constants/strings.dart';
-
 class RegisterResponse {
   RegisterResponse({
     this.status,
@@ -73,7 +71,7 @@ class User {
     telephone = json['telephone'] ?? "";
     role = json['role'] ?? "";
     likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? []);
-    image = json['image'] ?? UrlsStrings.noImageUrl;
+    image = json['image'] ?? "";
     favouriteProduct =
         List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? []);
     favouriteCompany =

@@ -83,7 +83,7 @@ class Doc {
       desc = json['desc'] ?? "";
       typeId = json['typeId'] ?? "";
       categoryId = json['categoryId'] ?? "";
-      productUrl = json['productUrl'] ?? UrlsStrings.noImageUrl;
+      productUrl = json['productUrl'] ?? "";
       ratingsAverage = json['ratingsAverage'] ?? 0;
       ratingsQuantity = json['ratingsQuantity'] ?? 0;
       price = json['price'] ?? 0;

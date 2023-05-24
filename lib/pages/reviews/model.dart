@@ -50,7 +50,7 @@ class Doc {
     updatedAt = json['updatedAt'];
     userName = json['userName'];
     id = json['id'];
-    userPhoto = json['userPhoto'] ?? UrlsStrings.noImageUrl;
+    userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
   }
 }
 

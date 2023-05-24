@@ -7,7 +7,6 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/pages/reviews/add_review/cubit.dart';
 import 'package:hassadak/pages/reviews/delete_review/cubit.dart';
 import 'package:hassadak/pages/reviews/states.dart';
@@ -67,7 +66,11 @@ class ReviewsView extends StatelessWidget {
                             color: ColorManager.secMainColor,
                           ),
                           errorWidget: (context, url, error) => Center(
-                            child: Image.asset("assets/images/no_image.png"),
+                            child: Icon(
+                              Icons.error,
+                              size: 30.sp,
+                              color: ColorManager.secMainColor,
+                            ),
                           ),
                         ),
                       ),
@@ -122,30 +125,11 @@ class ReviewsView extends StatelessWidget {
                               } else if (state is ReviewsFailureState) {
                                 return Text(state.msg);
                               } else if (state is ReviewsNetworkErrorState) {
-                                return SizedBox(
-                                  height: 0.04.sh,
-                                  child: Row(
-                                    children: [
-                                      CustomText(
-                                        text: "يرجي التحقق من الانترنت",
-                                        color: ColorManager.mainColor,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      CachedNetworkImage(
-                                        imageUrl: UrlsStrings.networkErrorUrl,
-                                        placeholder: (context, url) =>
-                                            JumpingDotsProgressIndicator(
-                                          fontSize: 20.h,
-                                          color: ColorManager.secMainColor,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Center(
-                                                child: Image.asset(
-                                                    "assets/images/no_network.png")),
-                                      ),
-                                    ],
-                                  ),
+                                return CustomText(
+                                  text: "يرجي التحقق من الانترنت",
+                                  color: ColorManager.mainColor,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.normal,
                                 );
                               } else {
                                 return Row(

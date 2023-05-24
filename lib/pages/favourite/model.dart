@@ -1,3 +1,5 @@
+import 'package:hassadak/constants/strings.dart';
+
 class FavouriteResponse {
   FavouriteResponse({
     this.status,
@@ -37,6 +39,7 @@ class Products {
     this.V,
     this.sellerPhone,
     this.sellerWhatsapp,
+    this.userPhoto,
   });
 
   String? id;
@@ -57,6 +60,7 @@ class Products {
   num? V;
   String? sellerPhone;
   String? sellerWhatsapp;
+  String? userPhoto;
 
   Products.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -76,8 +80,9 @@ class Products {
       createdAt = json['createdAt'] ?? "";
       updatedAt = json['updatedAt'] ?? "";
       V = json['__v'] ?? "";
-      sellerPhone = json['sellerPhone'] ?? "010";
-      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
+      sellerPhone = json['sellerPhone'] ?? "";
+      sellerWhatsapp = json['sellerWhatsapp'] ?? "";
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
     }
   }
 }

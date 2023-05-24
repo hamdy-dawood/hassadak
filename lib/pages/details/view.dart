@@ -8,7 +8,6 @@ import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/reviews/view.dart';
@@ -85,8 +84,13 @@ class _DetailsViewState extends State<DetailsView> {
                     fontSize: 100.h,
                     color: ColorManager.secMainColor,
                   ),
-                  errorWidget: (context, url, error) =>
-                      Center(child: Image.network(UrlsStrings.noImageUrl)),
+                  errorWidget: (context, url, error) => Center(
+                    child: Icon(
+                      Icons.error,
+                      size: 50.sp,
+                      color: ColorManager.secMainColor,
+                    ),
+                  ),
                 ),
               ),
             ),

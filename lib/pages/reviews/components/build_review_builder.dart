@@ -128,7 +128,7 @@ class BuildReviewBuilder extends StatelessWidget {
                                                   Navigator.pop(context);
                                                   showMessage(
                                                       message:
-                                                          "دا مش بتاع ميتينك");
+                                                          "هذا الريفيو ليس خاص بك");
                                                 } else if (state
                                                     is DeleteReviewsSuccessState) {
                                                   Navigator.pop(context);
