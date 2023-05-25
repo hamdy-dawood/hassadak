@@ -18,7 +18,7 @@ class UrlsStrings {
   static String allSellersUrl = "${baseUrl}users";
   static String getSellerUrl = "${baseUrl}users/seller";
   static String networkErrorUrl =
-      "https://telegra.ph/file/5fd32c81aeea0385e2418.pn";
+      "https://telegra.ph/file/5fd32c81aeea0385e2418.png";
   static String noImageUrl =
       "https://telegra.ph/file/71de56d0641458ae1c65d.png";
   static String userImageUrl =
