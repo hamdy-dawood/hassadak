@@ -71,14 +71,14 @@ class SpecialOfferItem extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                          text: "${666} دينار",
+                          text: "${666} ج.م",
                           color: ColorManager.green,
                           fontWeight: FontWeight.bold,
                           fontSize: 20.sp,
                         ),
                         const Spacer(),
                         CustomText(
-                          text: "${599} دينار",
+                          text: "${599} ج.م",
                           color: ColorManager.navGrey,
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,

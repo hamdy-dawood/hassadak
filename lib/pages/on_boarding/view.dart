@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/cache_helper.dart';
@@ -77,9 +77,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgIcon(
-                        icon: "assets/icons/logo.svg",
-                        color: ColorManager.green,
+                      SvgPicture.asset(
+                        "assets/icons/logo.svg",
                         height: 60.h,
                       ),
                       SizedBox(

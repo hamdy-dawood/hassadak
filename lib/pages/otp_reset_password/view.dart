@@ -190,7 +190,7 @@ class OtpScreen extends StatelessWidget {
                         showMessage(
                             message: state.msg, height: 50.h, maxLines: 5);
                       } else if (state is OtpSuccessState) {
-                        navigateTo(page: NavBarView());
+                        navigateTo(page: const NavBarView());
                       }
                     },
                     builder: (context, state) {

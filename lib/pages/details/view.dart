@@ -130,14 +130,14 @@ class _DetailsViewState extends State<DetailsView> {
                             child: Column(
                               children: [
                                 CustomText(
-                                  text: "${widget.price} دينار",
+                                  text: "${widget.price} ج.م",
                                   color: ColorManager.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20.sp,
                                 ),
                                 widget.isOffer
                                     ? CustomText(
-                                        text: "$formatOldPrice دينار",
+                                        text: "$formatOldPrice ج.م",
                                         color: ColorManager.navGrey,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16.sp,

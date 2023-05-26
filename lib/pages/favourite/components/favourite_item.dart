@@ -101,7 +101,7 @@ class FavouriteItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomText(
-                            text: "$price دينار",
+                            text: "$price ج.م",
                             color: ColorManager.green,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.sp,
@@ -111,7 +111,7 @@ class FavouriteItem extends StatelessWidget {
                         isOffer
                             ? Expanded(
                                 child: CustomText(
-                                  text: "$oldPrice دينار",
+                                  text: "$oldPrice ج.م",
                                   color: ColorManager.navGrey,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.sp,

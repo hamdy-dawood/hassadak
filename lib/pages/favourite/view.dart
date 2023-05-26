@@ -86,8 +86,8 @@ class FavouriteView extends StatelessWidget {
                                 phone: "${favItem.sellerPhone}",
                                 isOffer:
                                     favItem.discountPerc == 0 ? false : true,
-                                price: "${favItem.price}",
-                                oldPrice: formatOldPrice,
+                                price: formatOldPrice,
+                                oldPrice: "${favItem.price}",
                                 ratingsAverage:
                                     (favItem.ratingsAverage)!.toInt(),
                                 ratingsQuantity: favItem.ratingsQuantity!,
@@ -103,8 +103,8 @@ class FavouriteView extends StatelessWidget {
                             image: "${favItem.productUrl}",
                             userName: "${favItem.uploaderName}",
                             userImage: "${favItem.userPhoto}",
-                            price: "${favItem.price}",
-                            oldPrice: formatOldPrice,
+                            price: formatOldPrice,
+                            oldPrice: "${favItem.price}",
                             deleteTap: (context) async {
                               deleteFavCubit.deleteFav(id: "${favItem.id}");
                               await Future.delayed(const Duration(seconds: 1));

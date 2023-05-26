@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/custom_form_field.dart';
 import 'package:hassadak/components/svg_icons.dart';
@@ -40,9 +41,8 @@ class RegisterView extends StatelessWidget {
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      SvgIcon(
-                        icon: "assets/icons/logo.svg",
-                        color: ColorManager.green,
+                      SvgPicture.asset(
+                        "assets/icons/logo.svg",
                         height: 60.h,
                       ),
                       SizedBox(
@@ -223,8 +223,7 @@ class RegisterView extends StatelessWidget {
                       BlocConsumer<RegisterCubit, RegisterStates>(
                         listener: (context, state) {
                           if (state is RegisterFailureState) {
-                            showMessage(
-                                message: state.msg, height: 60.h, maxLines: 5);
+                            showMessage(message: "من فضلك تأكد من البيانات ..");
                           } else if (state is RegisterSuccessState) {
                             navigateTo(page: const UploadUserPhotoView());
                           }

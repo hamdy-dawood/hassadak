@@ -333,8 +333,8 @@ class GetSellerView extends StatelessWidget {
                                               0
                                           ? false
                                           : true,
-                                      price: "${uerProduct.price}",
-                                      oldPrice: formatOldPrice,
+                                      price: formatOldPrice,
+                                      oldPrice: "${uerProduct.price}",
                                       ratingsAverage:
                                           uerProduct.ratingsAverage!.toInt(),
                                       ratingsQuantity:
@@ -399,8 +399,8 @@ class GetSellerView extends StatelessWidget {
                                                 "${uerProduct.uploaderName}",
                                             userImage:
                                                 "${cubit.sellerResponse!.user!.userPhoto}",
-                                            price: "${uerProduct.price}",
-                                            oldPrice: formatOldPrice,
+                                            price: formatOldPrice,
+                                            oldPrice: "${uerProduct.price}",
                                           );
                                         },
                                       );

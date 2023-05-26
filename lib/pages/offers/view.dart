@@ -6,7 +6,6 @@ import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
-import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
@@ -92,22 +91,24 @@ class AllOffersView extends StatelessWidget {
                       itemCount: cubit.allProducts!.data!.doc!.length,
                       itemBuilder: (context, index) {
                         final product = cubit.allProducts!.data!.doc![index];
+                        double number = double.parse(
+                            "${product.price! - (product.price! * (product.discountPerc! / 100))}");
+                        String formatOldPrice = number.toStringAsFixed(2);
                         return InkWell(
                           onTap: () {
                             navigateTo(
                               page: DetailsView(
                                 id: "${product.id}",
                                 image: "${product.productUrl}",
-                                userImage: UrlsStrings.userImageUrl,
+                                userImage: "${product.userPhoto}",
                                 productName: "${product.name}",
                                 userName: "${product.uploaderName}",
                                 desc: "${product.desc}",
                                 phone: "${product.sellerPhone}",
                                 isOffer:
                                     product.discountPerc == 0 ? false : true,
-                                price: "${product.price}",
-                                oldPrice:
-                                    "${product.price! - (product.price! * (product.discountPerc! / 100))}",
+                                price: formatOldPrice,
+                                oldPrice: "${product.price}",
                                 ratingsAverage:
                                     (product.ratingsAverage)!.toInt(),
                                 ratingsQuantity: (product.ratingsQuantity!),
@@ -129,10 +130,9 @@ class AllOffersView extends StatelessWidget {
                             image: "${product.productUrl}",
                             title: "${product.name}",
                             userName: "${product.uploaderName}",
-                            userImage: UrlsStrings.userImageUrl,
-                            price: "${product.price}",
-                            oldPrice:
-                                "${product.price! - (product.price! * (product.discountPerc! / 100))}",
+                            userImage: "${product.userPhoto}",
+                            price: formatOldPrice,
+                            oldPrice: "${product.price}",
                           ),
                         );
                       },

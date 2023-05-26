@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/constants/color_manager.dart';
 
 import 'svg_icons.dart';
@@ -14,9 +15,8 @@ class BackWithLogo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SvgIcon(
-            icon: "assets/icons/logo.svg",
-            color: ColorManager.green,
+          SvgPicture.asset(
+            "assets/icons/logo.svg",
             height: 50.h,
           ),
           SizedBox(

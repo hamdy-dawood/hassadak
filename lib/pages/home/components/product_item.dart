@@ -147,7 +147,7 @@ class ProductItem extends StatelessWidget {
                           children: [
                             Expanded(
                               child: CustomText(
-                                text: "$price دينار",
+                                text: "$price ج.م",
                                 color: ColorManager.green,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -156,7 +156,7 @@ class ProductItem extends StatelessWidget {
                             isOffer
                                 ? Expanded(
                                     child: CustomText(
-                                      text: "$oldPrice دينار",
+                                      text: "$oldPrice ج.م",
                                       color: ColorManager.navGrey,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15.sp,

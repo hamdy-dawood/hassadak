@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/components/custom_elevated.dart';
-import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
@@ -33,9 +33,8 @@ class UploadUserPhotoView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
-                    child: SvgIcon(
-                      icon: "assets/icons/logo.svg",
-                      color: ColorManager.green,
+                    child: SvgPicture.asset(
+                      "assets/icons/logo.svg",
                       height: 50.h,
                     ),
                   ),
@@ -45,7 +44,7 @@ class UploadUserPhotoView extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: CustomText(
-                      text: "اصف الصورة الخاصة بك",
+                      text: "اضف الصورة الخاصة بك",
                       color: ColorManager.secMainColor,
                       fontSize: 22.sp,
                       fontWeight: FontWeight.bold,
@@ -160,8 +159,7 @@ class UploadUserPhotoView extends StatelessWidget {
                   BlocConsumer<UploadUserPhotoCubit, UploadUserPhotoStates>(
                     listener: (context, state) {
                       if (state is UploadUserPhotoFailureState) {
-                        showMessage(
-                            message: state.msg, height: 60.h, maxLines: 5);
+                        showMessage(message: "اخنر صورة اخري ..");
                       } else if (state is UploadUserPhotoSuccessState) {
                         navigateTo(
                             page: const NavBarView(), withHistory: false);
@@ -186,6 +184,24 @@ class UploadUserPhotoView extends StatelessWidget {
                         fontSize: 18.sp,
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: 60.sp,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {
+                        navigateTo(
+                            page: const NavBarView(), withHistory: false);
+                      },
+                      child: CustomText(
+                        text: "تخطي",
+                        color: ColorManager.secMainColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.sp,
+                      ),
+                    ),
                   ),
                 ],
               ),

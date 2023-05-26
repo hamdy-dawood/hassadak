@@ -54,22 +54,25 @@ class ReviewsView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SizedBox(
-                      height: 0.20.sh,
-                      width: 0.20.sh,
-                      child: Center(
-                        child: CachedNetworkImage(
-                          imageUrl: image,
-                          placeholder: (context, url) =>
-                              JumpingDotsProgressIndicator(
-                            fontSize: 50.h,
-                            color: ColorManager.secMainColor,
-                          ),
-                          errorWidget: (context, url, error) => Center(
-                            child: Icon(
-                              Icons.error,
-                              size: 30.sp,
+                    Padding(
+                      padding: EdgeInsets.all(12.h),
+                      child: SizedBox(
+                        height: 0.18.sh,
+                        width: 0.18.sh,
+                        child: Center(
+                          child: CachedNetworkImage(
+                            imageUrl: image,
+                            placeholder: (context, url) =>
+                                JumpingDotsProgressIndicator(
+                              fontSize: 50.h,
                               color: ColorManager.secMainColor,
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: Icon(
+                                Icons.error,
+                                size: 30.sp,
+                                color: ColorManager.secMainColor,
+                              ),
                             ),
                           ),
                         ),

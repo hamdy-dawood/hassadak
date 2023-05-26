@@ -304,6 +304,10 @@ class SearchView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final search = searchCubit
                                     .searchResponse!.data!.doc![index];
+                                double number = double.parse(
+                                    "${search.price! - (search.price! * (search.discountPerc! / 100))}");
+                                String formatOldPrice =
+                                    number.toStringAsFixed(2);
                                 return InkWell(
                                   onTap: () {
                                     navigateTo(
@@ -318,9 +322,8 @@ class SearchView extends StatelessWidget {
                                         isOffer: search.discountPerc == 0
                                             ? false
                                             : true,
-                                        price: "${search.price}",
-                                        oldPrice:
-                                            "${search.price! - (search.price! * (search.discountPerc! / 100))}",
+                                        price: formatOldPrice,
+                                        oldPrice: "${search.price}",
                                         ratingsAverage:
                                             (search.ratingsAverage)!.toInt(),
                                         ratingsQuantity:
@@ -345,9 +348,8 @@ class SearchView extends StatelessWidget {
                                     image: "${search.productUrl}",
                                     userName: "${search.uploaderName}",
                                     userImage: "${search.userPhoto}",
-                                    price: "${search.price}",
-                                    oldPrice:
-                                        "${search.price! - (search.price! * (search.discountPerc! / 100))}",
+                                    price: formatOldPrice,
+                                    oldPrice: "${search.price}",
                                   ),
                                 );
                               },
