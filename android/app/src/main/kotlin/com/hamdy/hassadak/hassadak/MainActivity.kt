@@ -1,4 +1,4 @@
-package com.hamdy.hassadak.hassadak
+package com.hassadak.hassadakstartup
 
 import io.flutter.embedding.android.FlutterActivity
 
