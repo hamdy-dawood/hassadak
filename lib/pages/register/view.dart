@@ -251,7 +251,7 @@ class RegisterView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomText(
-                            text: "ليس لديك حساب يالفعل ؟",
+                            text: " لديك حساب يالفعل ؟",
                             color: ColorManager.black,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.normal,

@@ -26,7 +26,7 @@ class OfferProductsCubit extends Cubit<OfferProductsStates> {
       dio.options.headers['Authorization'] = 'Bearer ${CacheHelper.getToken()}';
 
       final response = await dio.get(
-          "${UrlsStrings.allProductsUrl}?discount=Success",
+          "${UrlsStrings.allProductsUrl}?discount=Success&discountPerc[gt]=0",
           options: myOptions);
       if (response.data["status"] == "success" && response.statusCode == 200) {
         allProducts = AllProductsResponse.fromJson(response.data);
