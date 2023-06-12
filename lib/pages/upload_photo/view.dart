@@ -175,8 +175,11 @@ class UploadUserPhotoView extends StatelessWidget {
                       return CustomElevated(
                         text: "التالي",
                         press: () {
-                          print(cubit.myImage!);
-                          cubit.uploadPhoto();
+                          if (cubit.myImage == null) {
+                            showMessage(message: "من فضلك ادخل الصورة !");
+                          } else {
+                            cubit.uploadPhoto();
+                          }
                         },
                         hSize: 50.h,
                         btnColor: ColorManager.secMainColor,
