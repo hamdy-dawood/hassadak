@@ -228,7 +228,7 @@ class EditDataView extends StatelessWidget {
                           } else if (state is EditNetworkErrorState) {
                             showMessage(message: "يرجي التحقق من الانترنت");
                           } else if (state is EditDataSuccessState) {
-                            showMessage(message: "تم التعدبل");
+                            showMessage(message: "تم التعديل");
                             navigateTo(
                                 page: const NavBarView(), withHistory: false);
                           }
