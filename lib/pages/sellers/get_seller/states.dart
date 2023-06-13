@@ -10,6 +10,8 @@ class GetSellerSuccessState extends GetSellerStates {}
 
 class NetworkErrorState extends GetSellerStates {}
 
+class LaunchUrlState extends GetSellerStates {}
+
 class GetSellerFailedState extends GetSellerStates {
   final String msg;
 

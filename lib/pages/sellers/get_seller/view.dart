@@ -14,22 +14,12 @@ import 'package:hassadak/pages/details/view.dart';
 import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'cubit.dart';
 
 class GetSellerView extends StatelessWidget {
   const GetSellerView({Key? key, required this.id}) : super(key: key);
   final String id;
-
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +226,7 @@ class GetSellerView extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      _launchInBrowser(Uri.parse(
+                                      cubit.pressLaunch(Uri.parse(
                                           "https://api.whatsapp.com/send/?phone=%2B2${cubit.sellerResponse!.user!.telephone}"));
                                     },
                                     child: SvgPicture.asset(
@@ -249,8 +239,8 @@ class GetSellerView extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _launchInBrowser(Uri.parse(
-                                          "${cubit.sellerResponse!.user!.twitterUrl}"));
+                                      cubit.pressLaunch(Uri.parse(
+                                          "https://${cubit.sellerResponse!.user!.twitterUrl}"));
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/twitter.svg",
@@ -262,8 +252,8 @@ class GetSellerView extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _launchInBrowser(Uri.parse(
-                                          "${cubit.sellerResponse!.user!.instaUrl}"));
+                                      cubit.pressLaunch(Uri.parse(
+                                          "https://${cubit.sellerResponse!.user!.instaUrl}"));
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/instagram.svg",
@@ -275,8 +265,8 @@ class GetSellerView extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _launchInBrowser(Uri.parse(
-                                          "${cubit.sellerResponse!.user!.facebookUrl}"));
+                                      cubit.pressLaunch(Uri.parse(
+                                          "https://${cubit.sellerResponse!.user!.facebookUrl}"));
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/facebook.svg",

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hassadak/constants/strings.dart';
 import 'package:hassadak/core/cache_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'model.dart';
 
@@ -16,6 +17,7 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
   final dio = Dio();
 
   GetSellerResponse? sellerResponse;
+  Future<void>? launched;
 
   Future<void> getSeller({required String id}) async {
     emit(GetSellerLoadingState());
@@ -47,5 +49,19 @@ class GetSellerCubit extends Cubit<GetSellerStates> {
     } catch (e) {
       emit(GetSellerFailedState(msg: 'An unknown error occurred: $e'));
     }
+  }
+
+  Future<void> launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  void pressLaunch(Uri url) {
+    launched = launchInBrowser(url);
+    emit(LaunchUrlState());
   }
 }
