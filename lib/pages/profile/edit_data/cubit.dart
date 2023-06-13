@@ -18,18 +18,22 @@ class EditDataCubit extends Cubit<EditDataStates> {
   final dio = Dio();
   final controllers = EditDataControllers();
 
-  Future<void> getEditData() async {
+  Future<void> getEditData({
+    Map<String, dynamic> firstName = const {},
+    Map<String, dynamic> lastName = const {},
+    Map<String, dynamic> username = const {},
+    Map<String, dynamic> telephone = const {},
+  }) async {
     if (formKey.currentState!.validate()) {
       emit(EditDataLoadingState());
       try {
         dio.options.headers['Authorization'] =
             'Bearer ${CacheHelper.getToken()}';
         final response = await dio.patch(UrlsStrings.updateUserUrl, data: {
-          "firstName": controllers.firstNameController.text,
-          "lastName": controllers.lastNameController.text,
-          "username": controllers.userNameController.text,
-          "telephone": controllers.phoneController.text,
-          "image": controllers.imageController.text,
+          ...firstName,
+          ...lastName,
+          ...username,
+          ...telephone,
         });
         if (response.data["status"] == "success" &&
             response.statusCode == 200) {

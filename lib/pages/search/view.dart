@@ -318,7 +318,7 @@ class SearchView extends StatelessWidget {
                                         productName: "${search.name}",
                                         userName: "${search.uploaderName}",
                                         desc: "${search.desc}",
-                                        phone: "${search.sellerPhone}",
+                                        phone: "${search.sellerWhatsapp}",
                                         isOffer: search.discountPerc == 0
                                             ? false
                                             : true,

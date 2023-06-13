@@ -104,7 +104,7 @@ class AllOffersView extends StatelessWidget {
                                 productName: "${product.name}",
                                 userName: "${product.uploaderName}",
                                 desc: "${product.desc}",
-                                phone: "${product.sellerPhone}",
+                                phone: "${product.sellerWhatsapp}",
                                 isOffer:
                                     product.discountPerc == 0 ? false : true,
                                 price: formatOldPrice,

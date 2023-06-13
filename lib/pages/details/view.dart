@@ -67,6 +67,7 @@ class _DetailsViewState extends State<DetailsView> {
   Widget build(BuildContext context) {
     double number = double.parse(widget.oldPrice);
     String formatOldPrice = number.toStringAsFixed(2);
+    print(widget.phone);
     return Builder(builder: (context) {
       final addFavCubit = AddFavCubit.get(context);
       return Scaffold(

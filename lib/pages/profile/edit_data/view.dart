@@ -250,7 +250,43 @@ class EditDataView extends StatelessWidget {
                             return CustomElevated(
                               text: "تعديل",
                               press: () {
-                                editCubit.getEditData();
+                                if (editCubit
+                                        .controllers.firstNameController.text !=
+                                    "") {
+                                  editCubit.getEditData(
+                                    firstName: {
+                                      "firstName": editCubit
+                                          .controllers.firstNameController.text,
+                                    },
+                                  );
+                                } else if (editCubit
+                                        .controllers.lastNameController.text !=
+                                    "") {
+                                  editCubit.getEditData(
+                                    firstName: {
+                                      "lastName": editCubit
+                                          .controllers.lastNameController.text,
+                                    },
+                                  );
+                                } else if (editCubit
+                                        .controllers.userNameController.text !=
+                                    "") {
+                                  editCubit.getEditData(
+                                    firstName: {
+                                      "username": editCubit
+                                          .controllers.userNameController.text,
+                                    },
+                                  );
+                                } else if (editCubit
+                                        .controllers.phoneController.text !=
+                                    "") {
+                                  editCubit.getEditData(
+                                    firstName: {
+                                      "telephone": editCubit
+                                          .controllers.phoneController.text,
+                                    },
+                                  );
+                                }
                               },
                               hSize: 50.h,
                               btnColor: ColorManager.secMainColor,
