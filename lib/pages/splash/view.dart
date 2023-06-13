@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/core/cache_helper.dart';
 import 'package:hassadak/pages/bottom_nav_bar/view.dart';
@@ -27,18 +27,20 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() async {
-    await Future.delayed(const Duration(milliseconds: 3000), () {});
-    // navigateTo(page: const OnBoardingView(), withHistory: false);
-    if (!mounted) return;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => isFirstTime
-            ? const OnBoardingView()
-            : token.isEmpty
-                ? const LoginView()
-                : const NavBarView(),
-      ),
+    await Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => isFirstTime
+                ? const OnBoardingView()
+                : token.isEmpty
+                    ? const LoginView()
+                    : const NavBarView(),
+          ),
+        );
+      },
     );
   }
 
@@ -52,9 +54,10 @@ class _SplashViewState extends State<SplashView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              "assets/icons/logo.svg",
+            SvgIcon(
+              icon: "assets/icons/logo.svg",
               height: 100.h,
+              color: ColorManager.green,
             ),
           ],
         ),

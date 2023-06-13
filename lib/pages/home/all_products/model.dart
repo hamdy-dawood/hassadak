@@ -1,15 +1,11 @@
 import 'package:hassadak/constants/strings.dart';
 
 class AllProductsResponse {
-  AllProductsResponse({
-    this.status,
-    this.results,
-    this.data,
-  });
-
   String? status;
   int? results;
   Data? data;
+
+  AllProductsResponse({this.status, this.results, this.data});
 
   AllProductsResponse.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -21,11 +17,9 @@ class AllProductsResponse {
 }
 
 class Data {
-  Data({
-    this.doc,
-  });
-
   List<Doc>? doc;
+
+  Data({this.doc});
 
   Data.fromJson(Map<String, dynamic> json) {
     doc = List.from(json['doc'] ?? [])
@@ -35,6 +29,25 @@ class Data {
 }
 
 class Doc {
+  String? name;
+  String? desc;
+  String? typeId;
+  String? categoryId;
+  String? productUrl;
+  num? ratingsAverage;
+  num? ratingsQuantity;
+  num? price;
+  String? discount;
+  num? discountPerc;
+  String? uploaderId;
+  String? uploaderName;
+  String? createdAt;
+  String? updatedAt;
+  String? userPhoto;
+  User? user;
+  String? id;
+  bool? status;
+
   Doc({
     this.name,
     this.desc,
@@ -44,60 +57,119 @@ class Doc {
     this.ratingsAverage,
     this.ratingsQuantity,
     this.price,
-    this.discountPerc,
     this.discount,
+    this.discountPerc,
     this.uploaderId,
     this.uploaderName,
-    this.userPhoto,
     this.createdAt,
     this.updatedAt,
-    this.status,
-    this.sellerPhone,
-    this.sellerWhatsapp,
+    this.userPhoto,
+    this.user,
     this.id,
+    this.status,
   });
-
-  String? name;
-  String? desc;
-  String? typeId;
-  String? categoryId;
-  String? productUrl;
-  num? ratingsAverage;
-  num? ratingsQuantity;
-  num? price;
-  num? discountPerc;
-  String? discount;
-  String? uploaderId;
-  String? uploaderName;
-  String? userPhoto;
-  String? createdAt;
-  String? updatedAt;
-  bool? status;
-  String? sellerPhone;
-  String? sellerWhatsapp;
-  String? id;
 
   Doc.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
-      name = json['name'] ?? "لا يوجد";
-      desc = json['desc'] ?? "";
-      typeId = json['typeId'] ?? "";
-      categoryId = json['categoryId'] ?? "";
-      productUrl = json['productUrl'] ?? "";
-      ratingsAverage = json['ratingsAverage'] ?? 0;
-      ratingsQuantity = json['ratingsQuantity'] ?? 0;
-      price = json['price'] ?? 0;
+      name = json['name'];
+      desc = json['desc'];
+      typeId = json['typeId'];
+      categoryId = json['categoryId'];
+      productUrl = json['productUrl'];
+      ratingsAverage = json['ratingsAverage'];
+      ratingsQuantity = json['ratingsQuantity'];
+      price = json['price'];
+      discount = json['discount'];
       discountPerc = json['discountPerc'] ?? 0;
-      discount = json['discount'] ?? "";
-      uploaderId = json['uploaderId'] ?? "";
+      uploaderId = json['uploaderId'];
+      createdAt = json['createdAt'];
+      updatedAt = json['updatedAt'];
       uploaderName = json['uploaderName'] ?? "لا يوجد اسم";
       userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
-      createdAt = json['createdAt'] ?? "";
-      updatedAt = json['updatedAt'] ?? "";
+      user = json['user'] != null ? User.fromJson(json['user']) : null;
+      id = json['id'];
       status = json['status'] ?? false;
-      sellerPhone = json['sellerPhone'] ?? "010";
-      sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
-      id = json['id'] ?? "";
+    }
+  }
+}
+
+class User {
+  String? sId;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? username;
+  String? telephone;
+  String? whatsapp;
+  String? facebookUrl;
+  String? instaUrl;
+  String? twitterUrl;
+  String? description;
+  String? role;
+  List<dynamic>? likes;
+  List<dynamic>? favouriteProduct;
+  List<dynamic>? favouriteCompany;
+  String? createdAt;
+  String? updatedAt;
+  num? iV;
+  String? cloudinaryId;
+  String? userPhoto;
+  String? image;
+  String? passwordChangedAt;
+  String? passwordResetTokenOTP;
+
+  User(
+      {this.sId,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.username,
+      this.telephone,
+      this.whatsapp,
+      this.facebookUrl,
+      this.instaUrl,
+      this.twitterUrl,
+      this.description,
+      this.role,
+      this.likes,
+      this.favouriteProduct,
+      this.favouriteCompany,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.cloudinaryId,
+      this.userPhoto,
+      this.image,
+      this.passwordChangedAt,
+      this.passwordResetTokenOTP});
+
+  User.fromJson(Map<String, dynamic>? json) {
+    if (json != null) {
+      sId = json['_id'];
+      firstName = json['firstName'];
+      lastName = json['lastName'];
+      email = json['email'];
+      username = json['username'];
+      telephone = json['telephone'];
+      whatsapp = json['whatsapp'];
+      facebookUrl = json['facebookUrl'];
+      instaUrl = json['instaUrl'];
+      twitterUrl = json['twitterUrl'];
+      description = json['description'];
+      role = json['role'];
+      likes = List.castFrom<dynamic, dynamic>(json['likes'] ?? []);
+      favouriteProduct =
+          List.castFrom<dynamic, dynamic>(json['favouriteProduct'] ?? []);
+      favouriteCompany =
+          List.castFrom<dynamic, dynamic>(json['favouriteCompany'] ?? []);
+      createdAt = json['createdAt'];
+      updatedAt = json['updatedAt'];
+      iV = json['__v'];
+      cloudinaryId = json['cloudinaryId'];
+      userPhoto = json['userPhoto'] ?? UrlsStrings.userImageUrl;
+      image = json['image'] ?? UrlsStrings.userImageUrl;
+      passwordChangedAt = json['passwordChangedAt'];
+      passwordResetTokenOTP = json['passwordResetTokenOTP'];
     }
   }
 }

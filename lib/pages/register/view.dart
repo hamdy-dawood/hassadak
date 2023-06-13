@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/custom_form_field.dart';
 import 'package:hassadak/components/svg_icons.dart';
@@ -41,9 +40,10 @@ class RegisterView extends StatelessWidget {
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      SvgPicture.asset(
-                        "assets/icons/logo.svg",
+                      SvgIcon(
+                        icon: "assets/icons/logo.svg",
                         height: 60.h,
+                        color: ColorManager.green,
                       ),
                       SizedBox(
                         height: 0.02.sh,

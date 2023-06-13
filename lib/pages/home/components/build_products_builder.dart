@@ -63,7 +63,7 @@ class BuildProductsBuilder extends StatelessWidget {
                       image: "${product.productUrl}",
                       productName: "${product.name}",
                       desc: "${product.desc}",
-                      phone: "${product.sellerWhatsapp}",
+                      phone: "${product.user!.whatsapp}",
                       isOffer: product.discountPerc == 0 ? false : true,
                       price: formatOldPrice,
                       oldPrice: "${product.price}",

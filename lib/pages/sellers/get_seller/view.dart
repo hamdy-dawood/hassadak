@@ -229,9 +229,10 @@ class GetSellerView extends StatelessWidget {
                                       cubit.pressLaunch(Uri.parse(
                                           "https://api.whatsapp.com/send/?phone=%2B2${cubit.sellerResponse!.user!.telephone}"));
                                     },
-                                    child: SvgPicture.asset(
-                                      "assets/icons/whatsapp.svg",
+                                    child: SvgIcon(
+                                      icon: "assets/icons/logo.svg",
                                       height: 50.h,
+                                      color: ColorManager.green,
                                     ),
                                   ),
                                   SizedBox(

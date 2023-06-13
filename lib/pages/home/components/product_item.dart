@@ -153,15 +153,18 @@ class ProductItem extends StatelessWidget {
                                 fontSize: 20.sp,
                               ),
                             ),
+                            SizedBox(width: 5.w),
                             isOffer
                                 ? Expanded(
-                                    child: CustomText(
-                                      text: "$oldPrice ج.م",
-                                      color: ColorManager.navGrey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.sp,
-                                      textDecoration:
-                                          TextDecoration.lineThrough,
+                                    child: FittedBox(
+                                      child: CustomText(
+                                        text: "$oldPrice ج.م",
+                                        color: ColorManager.navGrey,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.sp,
+                                        textDecoration:
+                                            TextDecoration.lineThrough,
+                                      ),
                                     ),
                                   )
                                 : const SizedBox(),

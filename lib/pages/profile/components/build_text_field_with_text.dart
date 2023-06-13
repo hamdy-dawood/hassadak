@@ -14,13 +14,14 @@ class TextFieldWithText extends StatelessWidget {
     this.validator,
     this.autoValidate = AutovalidateMode.onUserInteraction,
     this.isLastInput = false,
+    this.readOnly = false,
   }) : super(key: key);
   final String title, hint;
   final Color titleColor;
   final TextEditingController? controller;
   final FormFieldValidator? validator;
   final AutovalidateMode autoValidate;
-  final bool isLastInput;
+  final bool isLastInput, readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class TextFieldWithText extends StatelessWidget {
             height: 5.h,
           ),
           TextFormField(
+            readOnly: readOnly,
             controller: controller,
             validator: validator,
             autovalidateMode: autoValidate,

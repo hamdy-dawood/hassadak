@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hassadak/components/custom_elevated.dart';
 import 'package:hassadak/components/custom_form_field.dart';
@@ -63,9 +62,10 @@ class _LoginViewState extends State<LoginView>
                       SizedBox(
                         height: 0.03.sh,
                       ),
-                      SvgPicture.asset(
-                        "assets/icons/logo.svg",
+                      SvgIcon(
+                        icon: "assets/icons/logo.svg",
                         height: 80.h,
+                        color: ColorManager.green,
                       ),
                       SizedBox(
                         height: 0.02.sh,

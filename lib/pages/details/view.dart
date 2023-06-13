@@ -67,7 +67,6 @@ class _DetailsViewState extends State<DetailsView> {
   Widget build(BuildContext context) {
     double number = double.parse(widget.oldPrice);
     String formatOldPrice = number.toStringAsFixed(2);
-    print(widget.phone);
     return Builder(builder: (context) {
       final addFavCubit = AddFavCubit.get(context);
       return Scaffold(
@@ -129,13 +128,16 @@ class _DetailsViewState extends State<DetailsView> {
                           ),
                           Expanded(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 CustomText(
                                   text: "${widget.price} ج.م",
                                   color: ColorManager.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
+                                  fontSize: 18.sp,
+                                  textAlign: TextAlign.center,
                                 ),
+                                SizedBox(height: 5.h),
                                 widget.isOffer
                                     ? CustomText(
                                         text: "$formatOldPrice ج.م",

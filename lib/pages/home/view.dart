@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/components/tap_search.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/custom_text.dart';
@@ -75,10 +75,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             child: ListView(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 5.h, bottom: 20.h),
-                  child: SvgPicture.asset(
-                    "assets/icons/logo.svg",
-                    height: 60.h,
+                  padding: EdgeInsets.only(top: 5.h, bottom: 10.h),
+                  child: SvgIcon(
+                    icon: "assets/icons/logo.svg",
+                    height: 80.h,
+                    color: ColorManager.green,
                   ),
                 ),
                 const TapToSearch(),
