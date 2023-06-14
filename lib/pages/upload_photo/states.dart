@@ -8,6 +8,8 @@ class UploadUserPhotoSuccessState extends UploadUserPhotoStates {}
 
 class UploadUserChangeImageStates extends UploadUserPhotoStates {}
 
+class NetworkErrorState extends UploadUserPhotoStates {}
+
 class UploadUserPhotoFailureState extends UploadUserPhotoStates {
   final String msg;
 

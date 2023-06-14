@@ -160,7 +160,9 @@ class UploadUserPhotoView extends StatelessWidget {
                   BlocConsumer<UploadUserPhotoCubit, UploadUserPhotoStates>(
                     listener: (context, state) {
                       if (state is UploadUserPhotoFailureState) {
-                        showMessage(message: "اخنر صورة اخري ..");
+                        showMessage(message: "اختر صورة اخري ..");
+                      } else if (state is NetworkErrorState) {
+                        showMessage(message: "يرجي التحقق من الانترنت !");
                       } else if (state is UploadUserPhotoSuccessState) {
                         navigateTo(
                             page: const NavBarView(), withHistory: false);

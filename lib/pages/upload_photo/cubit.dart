@@ -42,13 +42,13 @@ class UploadUserPhotoCubit extends Cubit<UploadUserPhotoStates> {
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-        emit(UploadUserPhotoFailureState(msg: errorMsg));
+        emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Invalid status code: ${e.response?.data}';
         emit(UploadUserPhotoFailureState(msg: errorMsg));
       } else {
         errorMsg = 'An unexpected error : ${e.error}';
-        emit(UploadUserPhotoFailureState(msg: errorMsg));
+        emit(NetworkErrorState());
       }
     } catch (e) {
       emit(UploadUserPhotoFailureState(msg: 'An unknown error: $e'));
