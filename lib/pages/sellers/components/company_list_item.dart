@@ -27,7 +27,7 @@ class CustomListTile extends StatelessWidget {
         height: 50.h,
         child: ListTile(
           onTap: onTap,
-          leading: BuildCacheImage(
+          leading: BuildCacheCircleImage(
             imageUrl: userImage,
             height: 45.h,
             loadingHeight: 20.h,

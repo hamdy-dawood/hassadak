@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-class BuildCacheImage extends StatelessWidget {
-  const BuildCacheImage(
+class BuildCacheCircleImage extends StatelessWidget {
+  const BuildCacheCircleImage(
       {Key? key,
       required this.height,
       required this.loadingHeight,
@@ -33,11 +33,7 @@ class BuildCacheImage extends StatelessWidget {
           color: ColorManager.white,
         ),
         errorWidget: (context, url, error) => Center(
-          child: Icon(
-            Icons.error,
-            size: 30.sp,
-            color: ColorManager.secMainColor,
-          ),
+          child: Image.asset("assets/images/no_image.png"),
         ),
       ),
     );

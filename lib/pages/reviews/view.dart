@@ -68,11 +68,7 @@ class ReviewsView extends StatelessWidget {
                               color: ColorManager.secMainColor,
                             ),
                             errorWidget: (context, url, error) => Center(
-                              child: Icon(
-                                Icons.error,
-                                size: 30.sp,
-                                color: ColorManager.secMainColor,
-                              ),
+                              child: Image.asset("assets/images/no_image.png"),
                             ),
                           ),
                         ),

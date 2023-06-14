@@ -151,7 +151,7 @@ class PersonalDataView extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 8.h),
-                                  child: BuildCacheImage(
+                                  child: BuildCacheCircleImage(
                                     imageUrl: "${cubitData!.userPhoto}",
                                     height: 100.h,
                                     loadingHeight: 40.h,

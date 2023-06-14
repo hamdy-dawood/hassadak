@@ -128,7 +128,7 @@ class GetSellerView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.h),
-                          child: BuildCacheImage(
+                          child: BuildCacheCircleImage(
                             imageUrl: UrlsStrings.userImageUrl,
                             height: 100.h,
                             loadingHeight: 50.h,
@@ -160,7 +160,7 @@ class GetSellerView extends StatelessWidget {
                               Center(
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(vertical: 8.h),
-                                  child: BuildCacheImage(
+                                  child: BuildCacheCircleImage(
                                     imageUrl:
                                         "${cubit.sellerResponse!.user!.userPhoto}",
                                     height: 100.h,
@@ -229,10 +229,9 @@ class GetSellerView extends StatelessWidget {
                                       cubit.pressLaunch(Uri.parse(
                                           "https://api.whatsapp.com/send/?phone=%2B2${cubit.sellerResponse!.user!.telephone}"));
                                     },
-                                    child: SvgIcon(
-                                      icon: "assets/icons/logo.svg",
+                                    child: SvgPicture.asset(
+                                      "assets/icons/whatsapp.svg",
                                       height: 50.h,
-                                      color: ColorManager.green,
                                     ),
                                   ),
                                   SizedBox(

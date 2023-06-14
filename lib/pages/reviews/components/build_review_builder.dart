@@ -206,7 +206,7 @@ class BuildReviewBuilder extends StatelessWidget {
                             } else {
                               return Row(
                                 children: [
-                                  BuildCacheImage(
+                                  BuildCacheCircleImage(
                                     imageUrl: "${review.userPhoto}",
                                     height: 40.h,
                                     loadingHeight: 20.h,

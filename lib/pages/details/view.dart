@@ -85,11 +85,7 @@ class _DetailsViewState extends State<DetailsView> {
                     color: ColorManager.secMainColor,
                   ),
                   errorWidget: (context, url, error) => Center(
-                    child: Icon(
-                      Icons.error,
-                      size: 50.sp,
-                      color: ColorManager.secMainColor,
-                    ),
+                    child: Image.asset("assets/images/no_image.png"),
                   ),
                 ),
               ),
@@ -112,7 +108,7 @@ class _DetailsViewState extends State<DetailsView> {
                       },
                       child: Row(
                         children: [
-                          BuildCacheImage(
+                          BuildCacheCircleImage(
                             imageUrl: widget.userImage,
                             height: 40.h,
                             loadingHeight: 20.h,

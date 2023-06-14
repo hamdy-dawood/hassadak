@@ -72,11 +72,7 @@ class ProductItem extends StatelessWidget {
                         color: ColorManager.secMainColor,
                       ),
                       errorWidget: (context, url, error) => Center(
-                        child: Icon(
-                          Icons.error,
-                          size: 30.sp,
-                          color: ColorManager.secMainColor,
-                        ),
+                        child: Image.asset("assets/images/no_image.png"),
                       ),
                     ),
                   ),
@@ -124,7 +120,7 @@ class ProductItem extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: Row(
                             children: [
-                              BuildCacheImage(
+                              BuildCacheCircleImage(
                                 imageUrl: userImage,
                                 height: 28.h,
                                 loadingHeight: 20.h,
