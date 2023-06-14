@@ -2,7 +2,7 @@
     package="com.hassadak.hassadakstartup">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Hassadak"
+        android:label="حصادك"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

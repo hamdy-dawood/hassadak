@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/build_cache_image.dart';
@@ -150,24 +151,30 @@ class EditDataView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: Row(
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                                  child: BuildCacheCircleImage(
-                                    imageUrl: "${data.userPhoto}",
-                                    height: 100.h,
-                                    loadingHeight: 40.h,
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    child: BuildCacheCircleImage(
+                                      imageUrl: "${data.userPhoto}",
+                                      height: 100.h,
+                                      loadingHeight: 40.h,
+                                    ),
                                   ),
-                                ),
-                                CustomText(
-                                  textAlign: TextAlign.center,
-                                  text: "${data.firstName} ${data.lastName}",
-                                  color: ColorManager.secMainColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18.sp,
-                                ),
-                              ],
+                                  FittedBox(
+                                    child: CustomText(
+                                      textAlign: TextAlign.center,
+                                      text:
+                                          "${data.firstName} ${data.lastName}",
+                                      color: ColorManager.secMainColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(width: 20.w),
                             Expanded(
@@ -212,6 +219,10 @@ class EditDataView extends StatelessWidget {
                         validator: userNameValidator,
                       ),
                       TextFieldWithText(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.number,
                         controller: editCubit.controllers.phoneController,
                         title: "رقم الهاتف",
                         hint: "${data.telephone}",
@@ -231,6 +242,10 @@ class EditDataView extends StatelessWidget {
                             showMessage(message: "تم التعديل");
                             navigateTo(
                                 page: const NavBarView(), withHistory: false);
+                            editCubit.controllers.firstNameController.clear();
+                            editCubit.controllers.lastNameController.clear();
+                            editCubit.controllers.userNameController.clear();
+                            editCubit.controllers.phoneController.clear();
                           }
                         },
                         builder: (context, state) {
@@ -252,29 +267,31 @@ class EditDataView extends StatelessWidget {
                                         .controllers.firstNameController.text,
                                   },
                                 );
-                              } else if (editCubit
+                              }
+                              if (editCubit
                                       .controllers.lastNameController.text !=
                                   "") {
                                 editCubit.getEditData(
-                                  firstName: {
+                                  lastName: {
                                     "lastName": editCubit
                                         .controllers.lastNameController.text,
                                   },
                                 );
-                              } else if (editCubit
+                              }
+                              if (editCubit
                                       .controllers.userNameController.text !=
                                   "") {
                                 editCubit.getEditData(
-                                  firstName: {
+                                  username: {
                                     "username": editCubit
                                         .controllers.userNameController.text,
                                   },
                                 );
-                              } else if (editCubit
-                                      .controllers.phoneController.text !=
+                              }
+                              if (editCubit.controllers.phoneController.text !=
                                   "") {
                                 editCubit.getEditData(
-                                  firstName: {
+                                  telephone: {
                                     "telephone": editCubit
                                         .controllers.phoneController.text,
                                   },

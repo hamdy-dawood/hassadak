@@ -147,25 +147,30 @@ class PersonalDataView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: Row(
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                                  child: BuildCacheCircleImage(
-                                    imageUrl: "${cubitData!.userPhoto}",
-                                    height: 100.h,
-                                    loadingHeight: 40.h,
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    child: BuildCacheCircleImage(
+                                      imageUrl: "${cubitData!.userPhoto}",
+                                      height: 100.h,
+                                      loadingHeight: 40.h,
+                                    ),
                                   ),
-                                ),
-                                CustomText(
-                                  textAlign: TextAlign.center,
-                                  text:
-                                      "${cubitData.firstName} ${cubitData.lastName}",
-                                  color: ColorManager.secMainColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18.sp,
-                                ),
-                              ],
+                                  FittedBox(
+                                    child: CustomText(
+                                      textAlign: TextAlign.center,
+                                      text:
+                                          "${cubitData.firstName} ${cubitData.lastName}",
+                                      color: ColorManager.secMainColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(width: 20.w),
                             Expanded(
