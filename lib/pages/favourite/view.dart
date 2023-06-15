@@ -83,7 +83,8 @@ class FavouriteView extends StatelessWidget {
                                 productName: "${favItem.name}",
                                 userName: "${favItem.uploaderName}",
                                 desc: "${favItem.desc}",
-                                phone: "${favItem.sellerWhatsapp}",
+                                telephone: "${favItem.sellerPhone}",
+                                whatsapp: "${favItem.sellerWhatsapp}",
                                 isOffer:
                                     favItem.discountPerc == 0 ? false : true,
                                 price: formatOldPrice,

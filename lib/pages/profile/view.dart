@@ -8,12 +8,22 @@ import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/about/view.dart';
 import 'package:hassadak/pages/login/view.dart';
 import 'package:hassadak/pages/update_password/view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'components/build_container_shadow.dart';
 import 'personal_data/view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +56,12 @@ class ProfileView extends StatelessWidget {
                 color: ColorManager.secMainColor,
               ),
               ContainerWithShadow(
-                onTap: () {},
+                onTap: () {
+                  _launchInBrowser(Uri.parse(
+                      "https://www.linkedin.com/in/sec-it-developer-653a73238/"));
+                },
                 image: "assets/icons/help.svg",
-                title: "مركز المساعدة",
+                title: "عن المطورين",
                 color: ColorManager.secMainColor,
               ),
               ContainerWithShadow(

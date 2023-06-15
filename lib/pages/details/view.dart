@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hassadak/components/back_with_search.dart';
 import 'package:hassadak/components/build_cache_image.dart';
 import 'package:hassadak/components/custom_elevated.dart';
@@ -28,7 +29,8 @@ class DetailsView extends StatefulWidget {
     required this.ratingsQuantity,
     required this.userImage,
     required this.userName,
-    required this.phone,
+    required this.telephone,
+    required this.whatsapp,
     required this.favStatus,
     required this.isOffer,
     required this.uploaderId,
@@ -42,7 +44,8 @@ class DetailsView extends StatefulWidget {
       image,
       userImage,
       userName,
-      phone,
+      telephone,
+      whatsapp,
       uploaderId;
   final num ratingsAverage, ratingsQuantity;
   final bool favStatus, isOffer;
@@ -61,6 +64,14 @@ class _DetailsViewState extends State<DetailsView> {
     )) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
 
   @override
@@ -256,8 +267,79 @@ class _DetailsViewState extends State<DetailsView> {
                           child: CustomElevated(
                             text: "الذهاب إلى الشراء",
                             press: () {
-                              _launchInBrowser(Uri.parse(
-                                  "https://api.whatsapp.com/send/?phone=%2B2${widget.phone}"));
+                              showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15.r),
+                                      topLeft: Radius.circular(15.r),
+                                    ),
+                                  ),
+                                  builder: (context) {
+                                    return SizedBox(
+                                      height: 120.h,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 50.h,
+                                            width: 50.h,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: ColorManager.mainColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                10.r,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  _launchInBrowser(Uri.parse(
+                                                      "https://api.whatsapp.com/send/?phone=%2B2${widget.telephone}"));
+                                                },
+                                                child: SvgPicture.asset(
+                                                  "assets/icons/whatsapp.svg",
+                                                  height: 40.h,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 50.h,
+                                            width: 50.h,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: ColorManager.mainColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                10.r,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  _makePhoneCall(
+                                                      widget.whatsapp);
+                                                },
+                                                child: Icon(
+                                                  color: ColorManager.black,
+                                                  Icons.phone,
+                                                  size: 30.sp,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
                             },
                             hSize: 50.h,
                             btnColor: ColorManager.secMainColor,

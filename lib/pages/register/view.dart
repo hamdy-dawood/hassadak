@@ -162,11 +162,13 @@ class RegisterView extends StatelessWidget {
                               onPressed: () {
                                 cubit.passwordVisibility();
                               },
-                              icon: Icon(
-                                cubit.securePass
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                              ),
+                              icon: cubit.showVisibilityIcon
+                                  ? Icon(
+                                      cubit.securePass
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                    )
+                                  : const SizedBox(),
                               color: ColorManager.grey,
                             ),
                             obscureText: cubit.securePass,
@@ -196,11 +198,13 @@ class RegisterView extends StatelessWidget {
                               onPressed: () {
                                 cubit.confPasswordVisibility();
                               },
-                              icon: Icon(
-                                cubit.secureConfPass
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                              ),
+                              icon: cubit.showVisibilityIcon
+                                  ? Icon(
+                                      cubit.secureConfPass
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                    )
+                                  : const SizedBox(),
                               color: ColorManager.grey,
                             ),
                             obscureText: cubit.secureConfPass,

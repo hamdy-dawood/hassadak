@@ -16,11 +16,13 @@ class LoginCubit extends Cubit<LoginStates> {
   final formKey = GlobalKey<FormState>();
   bool isObscure = true;
   LoginResponse? loginResponse;
+  bool showVisibilityIcon = true;
 
   final controllers = LoginControllers();
 
   Future<void> emailLogin() async {
     if (formKey.currentState!.validate()) {
+      showVisibilityIcon = false;
       emit(LoginLoadingState());
       try {
         final emailResponse =
@@ -34,33 +36,41 @@ class LoginCubit extends Cubit<LoginStates> {
           CacheHelper.saveToken("${emailResponse.data["token"]}");
           CacheHelper.saveId("${loginResponse!.data!.user!.id}");
           emit(LoginSuccessState());
+          showVisibilityIcon = true;
         } else {
           emit(LoginFailureState(msg: emailResponse.data["status"]));
+          showVisibilityIcon = true;
         }
       } on DioError catch (e) {
         String errorMsg;
         if (e.type == DioErrorType.cancel) {
           errorMsg = 'Request was cancelled';
           emit(LoginFailureState(msg: errorMsg));
+          showVisibilityIcon = true;
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
           emit(NetworkErrorState());
+          showVisibilityIcon = true;
         } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.error}';
           emit(NetworkErrorState());
+          showVisibilityIcon = true;
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(LoginFailureState(msg: errorMsg));
+          showVisibilityIcon = true;
         }
       } catch (e) {
         emit(LoginFailureState(msg: 'An unknown error: $e'));
+        showVisibilityIcon = true;
       }
     }
   }
 
   Future<void> phoneLogin() async {
     if (formKey.currentState!.validate()) {
+      showVisibilityIcon = false;
       emit(LoginLoadingState());
       try {
         final phoneResponse =
@@ -74,27 +84,34 @@ class LoginCubit extends Cubit<LoginStates> {
           CacheHelper.saveToken("${phoneResponse.data["token"]}");
           CacheHelper.saveId("${loginResponse!.data!.user!.id}");
           emit(LoginSuccessState());
+          showVisibilityIcon = true;
         } else {
           emit(LoginFailureState(msg: phoneResponse.data["status"]));
+          showVisibilityIcon = true;
         }
       } on DioError catch (e) {
         String errorMsg;
         if (e.type == DioErrorType.cancel) {
           errorMsg = 'Request was cancelled';
           emit(LoginFailureState(msg: errorMsg));
+          showVisibilityIcon = true;
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
           emit(NetworkErrorState());
+          showVisibilityIcon = true;
         } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.error}';
           emit(NetworkErrorState());
+          showVisibilityIcon = true;
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(LoginFailureState(msg: errorMsg));
+          showVisibilityIcon = true;
         }
       } catch (e) {
         emit(LoginFailureState(msg: 'An unknown error: $e'));
+        showVisibilityIcon = true;
       }
     }
   }

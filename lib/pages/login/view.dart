@@ -170,11 +170,14 @@ class _LoginViewState extends State<LoginView>
                                         onPressed: () {
                                           cubit.changeVisibility();
                                         },
-                                        icon: Icon(
-                                          cubit.isObscure
-                                              ? Icons.visibility_off_outlined
-                                              : Icons.visibility_outlined,
-                                        ),
+                                        icon: cubit.showVisibilityIcon
+                                            ? Icon(
+                                                cubit.isObscure
+                                                    ? Icons
+                                                        .visibility_off_outlined
+                                                    : Icons.visibility_outlined,
+                                              )
+                                            : const SizedBox(),
                                         color: ColorManager.grey,
                                       ),
                                       obscureText: cubit.isObscure,
@@ -298,11 +301,14 @@ class _LoginViewState extends State<LoginView>
                                         onPressed: () {
                                           cubit.changeVisibility();
                                         },
-                                        icon: Icon(
-                                          cubit.isObscure
-                                              ? Icons.visibility_off_outlined
-                                              : Icons.visibility_outlined,
-                                        ),
+                                        icon: cubit.showVisibilityIcon
+                                            ? Icon(
+                                                cubit.isObscure
+                                                    ? Icons
+                                                        .visibility_off_outlined
+                                                    : Icons.visibility_outlined,
+                                              )
+                                            : const SizedBox(),
                                         color: ColorManager.grey,
                                       ),
                                       obscureText: cubit.isObscure,

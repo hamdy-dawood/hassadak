@@ -315,7 +315,8 @@ class GetSellerView extends StatelessWidget {
                                       userName:
                                           "${cubit.sellerResponse!.user!.username}",
                                       desc: "${uerProduct.desc}",
-                                      phone: "${uerProduct.sellerWhatsapp}",
+                                      telephone: "${uerProduct.sellerPhone}",
+                                      whatsapp: "${uerProduct.sellerWhatsapp}",
                                       isOffer: cubit
                                                   .sellerResponse!
                                                   .getUserProduct![index]
