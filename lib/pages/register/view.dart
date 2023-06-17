@@ -228,6 +228,8 @@ class RegisterView extends StatelessWidget {
                         listener: (context, state) {
                           if (state is RegisterFailureState) {
                             showMessage(message: "من فضلك تأكد من البيانات ..");
+                          } else if (state is NetworkErrorState) {
+                            showMessage(message: "يرجي التحقق من الانترنت");
                           } else if (state is RegisterSuccessState) {
                             navigateTo(page: const UploadUserPhotoView());
                           }

@@ -55,12 +55,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
         } else if (e.type == DioErrorType.receiveTimeout ||
             e.type == DioErrorType.sendTimeout) {
           errorMsg = 'Connection timed out';
-          emit(RegisterFailureState(msg: errorMsg));
+          emit(NetworkErrorState());
           showVisibilityIcon = true;
         } else if (e.type == DioErrorType.other) {
           errorMsg = 'Invalid status code: ${e.response!.statusMessage}';
           emit(RegisterFailureState(msg: errorMsg));
-          showVisibilityIcon = true;
+          emit(NetworkErrorState());
         } else {
           errorMsg = 'An unexpected error : ${e.error}';
           emit(RegisterFailureState(msg: errorMsg));

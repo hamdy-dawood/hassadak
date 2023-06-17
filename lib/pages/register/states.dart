@@ -6,6 +6,8 @@ class RegisterLoadingState extends RegisterStates {}
 
 class RegisterSuccessState extends RegisterStates {}
 
+class NetworkErrorState extends RegisterStates {}
+
 class RegisterFailureState extends RegisterStates {
   final String msg;
 

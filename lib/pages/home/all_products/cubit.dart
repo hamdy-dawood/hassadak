@@ -45,10 +45,10 @@ class AllProductsCubit extends Cubit<AllProductsStates> {
         emit(NetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Received invalid status code: ${e.response?.statusCode}';
-        emit(AllProductsFailedState(msg: errorMsg));
+        emit(NetworkErrorState());
       } else {
         errorMsg = 'An unexpected error occurred: ${e.error}';
-        emit(NetworkErrorState());
+        emit(AllProductsFailedState(msg: errorMsg));
       }
     } catch (e) {
       emit(AllProductsFailedState(msg: 'An unknown error occurred: $e'));

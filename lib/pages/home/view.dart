@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/components/tap_search.dart';
 import 'package:hassadak/constants/color_manager.dart';
@@ -131,7 +132,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -139,7 +140,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 BlocBuilder<AllCategoriesCubit, AllCategoriesStates>(
                   builder: (context, state) {
                     if (state is AllCategoriesLoadingStates &&
-                        categoriesCubit.length == null) {
+                        categoriesCubit.length == 0) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 20.w),
@@ -163,6 +164,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                             },
                           ),
                         ),
+                      );
+                    } else if (state is AllCategoriesNetworkErrorState) {
+                      return Column(
+                        children: [
+                          SizedBox(height: 50.h),
+                          ErrorNetwork(reloadButton: false, press: () {}),
+                        ],
                       );
                     }
                     return TabBar(

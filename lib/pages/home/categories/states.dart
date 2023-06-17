@@ -6,6 +6,8 @@ class AllCategoriesInitialStates extends AllCategoriesStates {}
 
 class AllCategoriesLoadingStates extends AllCategoriesStates {}
 
+class AllCategoriesNetworkErrorState extends AllCategoriesStates {}
+
 class AllCategoriesSuccessStates extends AllCategoriesStates {
   final List id;
 

@@ -20,7 +20,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
   final dioCacheManager = DioCacheManager(CacheConfig());
   final myOptions =
       buildCacheOptions(const Duration(days: 2), forceRefresh: false);
-  int? length;
+  int length = 0;
 
   Future<void> getAllCategories() async {
     emit(AllCategoriesLoadingStates());
@@ -44,10 +44,10 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       } else if (e.type == DioErrorType.receiveTimeout ||
           e.type == DioErrorType.sendTimeout) {
         errorMsg = 'Connection timed out';
-        emit(AllCategoriesFailedStates(msg: errorMsg));
+        emit(AllCategoriesNetworkErrorState());
       } else if (e.type == DioErrorType.other) {
         errorMsg = 'Invalid status code: ${e.response?.statusCode}';
-        emit(AllCategoriesFailedStates(msg: errorMsg));
+        emit(AllCategoriesNetworkErrorState());
       } else {
         errorMsg = 'An unexpected error : ${e.error}';
         emit(AllCategoriesFailedStates(msg: errorMsg));
