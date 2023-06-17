@@ -38,7 +38,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       await AllCategoriesCubit.get(context).getAllCategories();
       setState(() {
         tabController = TabController(
-            vsync: this, length: AllCategoriesCubit.get(context).length!);
+            vsync: this, length: AllCategoriesCubit.get(context).length);
       });
       tabController!.addListener(() {
         currentIndex = tabController!.index;
