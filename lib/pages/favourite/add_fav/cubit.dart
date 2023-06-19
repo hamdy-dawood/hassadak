@@ -14,8 +14,8 @@ class AddFavCubit extends Cubit<AddFavStates> {
 
   final dio = Dio();
 
-  // Map<int, FavStatus> favStatusMap = {};
-  Map<String, FavStatus> favStatusMap = {};
+  Map<int, FavStatus> favStatusMap = {};
+  Map<String, FavStatus> favStatusMapId = {};
 
   Future<void> addFav({required String id}) async {
     try {
@@ -32,21 +32,21 @@ class AddFavCubit extends Cubit<AddFavStates> {
     }
   }
 
-  //  void changeFavourite(int index, bool isLove) {
-  //   if (favStatusMap.containsKey(index)) {
-  //     favStatusMap[index]!.isLoved = !isLove;
-  //   } else {
-  //     favStatusMap[index] = FavStatus(!isLove);
-  //   }
-  //   emit(ChangeFavStates(Map.from(favStatusMap)));
-  // }
-
-  void changeFavourite(String id, bool isLove) {
-    if (favStatusMap.containsKey(id)) {
-      favStatusMap[id]!.isLoved = !isLove;
+  void changeFavourite(int index, bool isLove) {
+    if (favStatusMap.containsKey(index)) {
+      favStatusMap[index]!.isLoved = !isLove;
     } else {
-      favStatusMap[id] = FavStatus(!isLove);
+      favStatusMap[index] = FavStatus(!isLove);
     }
     emit(ChangeFavStates(Map.from(favStatusMap)));
+  }
+
+  void changeFavouriteId(String id, bool isLove) {
+    if (favStatusMapId.containsKey(id)) {
+      favStatusMapId[id]!.isLoved = !isLove;
+    } else {
+      favStatusMapId[id] = FavStatus(!isLove);
+    }
+    emit(ChangeFavStates(Map.from(favStatusMapId)));
   }
 }

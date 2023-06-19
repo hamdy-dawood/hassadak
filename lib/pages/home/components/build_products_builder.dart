@@ -58,7 +58,7 @@ class BuildProductsBuilder extends StatelessWidget {
                 builder: (context, state) {
                   // final favStatus = addFavCubit.favStatusMap[index] ??
                   //     FavStatus(product.status!);
-                  final favStatus = addFavCubit.favStatusMap[product.id!] ??
+                  final favStatus = addFavCubit.favStatusMapId[product.id!] ??
                       FavStatus(product.status!);
                   return InkWell(
                     onTap: () {
@@ -103,11 +103,11 @@ class BuildProductsBuilder extends StatelessWidget {
                       favTap: () {
                         if (product.status! == false) {
                           addFavCubit.addFav(id: product.id!);
-                          addFavCubit.changeFavourite(
+                          addFavCubit.changeFavouriteId(
                               product.id!, product.status!);
                         } else {
                           // deleteFavCubit.deleteFav(id: product.id!);
-                          addFavCubit.changeFavourite(
+                          addFavCubit.changeFavouriteId(
                               product.id!, product.status!);
                         }
                       },

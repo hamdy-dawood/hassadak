@@ -326,9 +326,13 @@ class GetSellerView extends StatelessWidget {
                                     return BlocBuilder<AddFavCubit,
                                         AddFavStates>(
                                       builder: (context, state) {
-                                        final favStatus = addFavCubit
-                                                .favStatusMap[uerProduct.id!] ??
-                                            FavStatus(uerProduct.status!);
+                                        // final favStatus =
+                                        //     addFavCubit.favStatusMap[index] ??
+                                        //         FavStatus(uerProduct.status!);
+                                        final favStatus =
+                                            addFavCubit.favStatusMapId[
+                                                    uerProduct.id!] ??
+                                                FavStatus(uerProduct.status!);
                                         return InkWell(
                                           onTap: () {
                                             navigateTo(
@@ -366,24 +370,27 @@ class GetSellerView extends StatelessWidget {
                                             );
                                           },
                                           child: ProductItem(
-                                            favIcon: Icon(
-                                              favStatus.isLoved
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_outline,
+                                            favIcon: SvgIcon(
+                                              icon: favStatus.isLoved
+                                                  ? "assets/icons/fill_heart.svg"
+                                                  : "assets/icons/heart.svg",
                                               color: favStatus.isLoved
                                                   ? ColorManager.green
                                                   : ColorManager.white,
+                                              height: 18.h,
                                             ),
                                             favTap: () {
                                               if (uerProduct.status! == false) {
                                                 addFavCubit.addFav(
                                                     id: uerProduct.id!);
-                                                addFavCubit.changeFavourite(
+                                                // addFavCubit.changeFavourite(
+                                                //     index, uerProduct.status!);
+                                                addFavCubit.changeFavouriteId(
                                                     uerProduct.id!,
                                                     uerProduct.status!);
                                               } else {
                                                 // deleteFavCubit.deleteFav(id: product.id!);
-                                                addFavCubit.changeFavourite(
+                                                addFavCubit.changeFavouriteId(
                                                     uerProduct.id!,
                                                     uerProduct.status!);
                                               }
