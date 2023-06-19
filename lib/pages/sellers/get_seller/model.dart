@@ -115,6 +115,7 @@ class GetUserProduct {
     this.id,
     this.sellerPhone,
     this.sellerWhatsapp,
+    this.status,
   });
 
   String? name;
@@ -135,6 +136,7 @@ class GetUserProduct {
   String? id;
   String? sellerPhone;
   String? sellerWhatsapp;
+  bool? status;
 
   GetUserProduct.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
@@ -156,6 +158,7 @@ class GetUserProduct {
       id = json['id'] ?? "";
       sellerPhone = json['sellerPhone'] ?? "010";
       sellerWhatsapp = json['sellerWhatsapp'] ?? "010";
+      status = json['status'] ?? false;
     }
   }
 }

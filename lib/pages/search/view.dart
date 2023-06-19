@@ -10,6 +10,7 @@ import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
+import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 
 import 'cubit.dart';
@@ -30,6 +31,7 @@ class SearchView extends StatelessWidget {
       create: (context) => SearchCubit(),
       child: Builder(builder: (context) {
         final searchCubit = SearchCubit.get(context);
+        final addFavCubit = AddFavCubit.get(context);
         searchCubit.getSearch();
 
         return Scaffold(
@@ -334,23 +336,45 @@ class SearchView extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: ProductItem(
-                                    width: 0.41,
-                                    favIcon: SvgIcon(
-                                      icon: 'assets/icons/heart.svg',
-                                      color: ColorManager.white,
-                                      height: 18.h,
-                                    ),
-                                    favTap: () {},
-                                    isOffer:
-                                        search.discountPerc == 0 ? false : true,
-                                    offer: "خصم ${search.discountPerc}%",
-                                    title: "${search.name}",
-                                    image: "${search.productUrl}",
-                                    userName: "${search.uploaderName}",
-                                    userImage: "${search.userPhoto}",
-                                    price: formatOldPrice,
-                                    oldPrice: "${search.price}",
+                                  child: BlocBuilder<AddFavCubit, AddFavStates>(
+                                    builder: (context, state) {
+                                      final favStatus =
+                                          addFavCubit.favStatusMap[index] ??
+                                              FavStatus(search.status!);
+                                      return ProductItem(
+                                        width: 0.41,
+                                        favIcon: SvgIcon(
+                                          icon: favStatus.isLoved
+                                              ? "assets/icons/fill_heart.svg"
+                                              : "assets/icons/heart.svg",
+                                          color: favStatus.isLoved
+                                              ? ColorManager.green
+                                              : ColorManager.white,
+                                          height: 18.h,
+                                        ),
+                                        favTap: () {
+                                          if (search.status! == false) {
+                                            addFavCubit.addFav(id: search.id!);
+                                            addFavCubit.changeFavourite(
+                                                index, search.status!);
+                                          } else {
+                                            // deleteFavCubit.deleteFav(id: product.id!);
+                                            addFavCubit.changeFavourite(
+                                                index, search.status!);
+                                          }
+                                        },
+                                        isOffer: search.discountPerc == 0
+                                            ? false
+                                            : true,
+                                        offer: "خصم ${search.discountPerc}%",
+                                        title: "${search.name}",
+                                        image: "${search.productUrl}",
+                                        userName: "${search.uploaderName}",
+                                        userImage: "${search.userPhoto}",
+                                        price: formatOldPrice,
+                                        oldPrice: "${search.price}",
+                                      );
+                                    },
                                   ),
                                 );
                               },

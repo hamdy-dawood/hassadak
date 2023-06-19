@@ -8,6 +8,7 @@ import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
+import 'package:hassadak/pages/favourite/add_fav/cubit.dart';
 import 'package:hassadak/pages/home/components/product_item.dart';
 
 import 'cubit.dart';
@@ -24,6 +25,8 @@ class AllOffersView extends StatelessWidget {
 
     return Builder(builder: (context) {
       final cubit = OfferProductsCubit.get(context);
+      final addFavCubit = AddFavCubit.get(context);
+
       cubit.getOfferProducts();
       return Scaffold(
         backgroundColor: ColorManager.white,
@@ -118,22 +121,44 @@ class AllOffersView extends StatelessWidget {
                               ),
                             );
                           },
-                          child: ProductItem(
-                            width: 0.44,
-                            favIcon: SvgIcon(
-                              icon: 'assets/icons/heart.svg',
-                              color: ColorManager.white,
-                              height: 18.h,
-                            ),
-                            favTap: () {},
-                            isOffer: product.discountPerc == 0 ? false : true,
-                            offer: "خصم ${product.discountPerc}%",
-                            image: "${product.productUrl}",
-                            title: "${product.name}",
-                            userName: "${product.uploaderName}",
-                            userImage: "${product.userPhoto}",
-                            price: formatOldPrice,
-                            oldPrice: "${product.price}",
+                          child: BlocBuilder<AddFavCubit, AddFavStates>(
+                            builder: (context, state) {
+                              final favStatus =
+                                  addFavCubit.favStatusMap[index] ??
+                                      FavStatus(product.status!);
+                              return ProductItem(
+                                width: 0.44,
+                                favIcon: SvgIcon(
+                                  icon: favStatus.isLoved
+                                      ? "assets/icons/fill_heart.svg"
+                                      : "assets/icons/heart.svg",
+                                  color: favStatus.isLoved
+                                      ? ColorManager.green
+                                      : ColorManager.white,
+                                  height: 18.h,
+                                ),
+                                favTap: () {
+                                  if (product.status! == false) {
+                                    addFavCubit.addFav(id: product.id!);
+                                    addFavCubit.changeFavourite(
+                                        index, product.status!);
+                                  } else {
+                                    // deleteFavCubit.deleteFav(id: product.id!);
+                                    addFavCubit.changeFavourite(
+                                        index, product.status!);
+                                  }
+                                },
+                                isOffer:
+                                    product.discountPerc == 0 ? false : true,
+                                offer: "خصم ${product.discountPerc}%",
+                                image: "${product.productUrl}",
+                                title: "${product.name}",
+                                userName: "${product.uploaderName}",
+                                userImage: "${product.userPhoto}",
+                                price: formatOldPrice,
+                                oldPrice: "${product.price}",
+                              );
+                            },
                           ),
                         );
                       },

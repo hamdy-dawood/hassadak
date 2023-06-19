@@ -361,7 +361,7 @@ class GetSellerView extends StatelessWidget {
                                         builder: (context, state) {
                                           final favStatus =
                                               addFavCubit.favStatusMap[index] ??
-                                                  FavStatus(false);
+                                                  FavStatus(uerProduct.status!);
                                           return ProductItem(
                                             favIcon: SvgIcon(
                                               icon: favStatus.isLoved
@@ -373,10 +373,16 @@ class GetSellerView extends StatelessWidget {
                                               height: 18.h,
                                             ),
                                             favTap: () {
-                                              addFavCubit.addFav(
-                                                  id: uerProduct.id!);
-                                              addFavCubit.changeFavourite(
-                                                  index, true);
+                                              if (uerProduct.status! == false) {
+                                                addFavCubit.addFav(
+                                                    id: uerProduct.id!);
+                                                addFavCubit.changeFavourite(
+                                                    index, uerProduct.status!);
+                                              } else {
+                                                // deleteFavCubit.deleteFav(id: product.id!);
+                                                addFavCubit.changeFavourite(
+                                                    index, uerProduct.status!);
+                                              }
                                             },
                                             isOffer:
                                                 uerProduct.discountPerc == 0
