@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/error_network.dart';
-import 'package:hassadak/components/svg_icons.dart';
 import 'package:hassadak/constants/color_manager.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
@@ -57,7 +56,9 @@ class BuildProductsBuilder extends StatelessWidget {
               String formatOldPrice = number.toStringAsFixed(2);
               return BlocBuilder<AddFavCubit, AddFavStates>(
                 builder: (context, state) {
-                  final favStatus = addFavCubit.favStatusMap[index] ??
+                  // final favStatus = addFavCubit.favStatusMap[index] ??
+                  //     FavStatus(product.status!);
+                  final favStatus = addFavCubit.favStatusMap[product.id!] ??
                       FavStatus(product.status!);
                   return InkWell(
                     onTap: () {
@@ -82,22 +83,32 @@ class BuildProductsBuilder extends StatelessWidget {
                       );
                     },
                     child: ProductItem(
-                      favIcon: SvgIcon(
-                        icon: favStatus.isLoved
-                            ? "assets/icons/fill_heart.svg"
-                            : "assets/icons/heart.svg",
+                      // favIcon: SvgIcon(
+                      //   icon: favStatus.isLoved
+                      //       ? "assets/icons/fill_heart.svg"
+                      //       : "assets/icons/heart.svg",
+                      //   color: favStatus.isLoved
+                      //       ? ColorManager.green
+                      //       : ColorManager.white,
+                      //   height: 18.h,
+                      // ),
+                      favIcon: Icon(
+                        favStatus.isLoved
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
                         color: favStatus.isLoved
                             ? ColorManager.green
                             : ColorManager.white,
-                        height: 18.h,
                       ),
                       favTap: () {
                         if (product.status! == false) {
                           addFavCubit.addFav(id: product.id!);
-                          addFavCubit.changeFavourite(index, product.status!);
+                          addFavCubit.changeFavourite(
+                              product.id!, product.status!);
                         } else {
                           // deleteFavCubit.deleteFav(id: product.id!);
-                          addFavCubit.changeFavourite(index, product.status!);
+                          addFavCubit.changeFavourite(
+                              product.id!, product.status!);
                         }
                       },
                       isOffer: product.discountPerc == 0 ? false : true,

@@ -313,7 +313,7 @@ class SearchView extends StatelessWidget {
                                 return BlocBuilder<AddFavCubit, AddFavStates>(
                                   builder: (context, state) {
                                     final favStatus =
-                                        addFavCubit.favStatusMap[index] ??
+                                        addFavCubit.favStatusMap[search.id!] ??
                                             FavStatus(search.status!);
                                     return InkWell(
                                       onTap: () {
@@ -345,24 +345,23 @@ class SearchView extends StatelessWidget {
                                       },
                                       child: ProductItem(
                                         width: 0.41,
-                                        favIcon: SvgIcon(
-                                          icon: favStatus.isLoved
-                                              ? "assets/icons/fill_heart.svg"
-                                              : "assets/icons/heart.svg",
+                                        favIcon: Icon(
+                                          favStatus.isLoved
+                                              ? Icons.favorite
+                                              : Icons.favorite_outline,
                                           color: favStatus.isLoved
                                               ? ColorManager.green
                                               : ColorManager.white,
-                                          height: 18.h,
                                         ),
                                         favTap: () {
                                           if (search.status! == false) {
                                             addFavCubit.addFav(id: search.id!);
                                             addFavCubit.changeFavourite(
-                                                index, search.status!);
+                                                search.id!, search.status!);
                                           } else {
                                             // deleteFavCubit.deleteFav(id: product.id!);
                                             addFavCubit.changeFavourite(
-                                                index, search.status!);
+                                                search.id!, search.status!);
                                           }
                                         },
                                         isOffer: search.discountPerc == 0

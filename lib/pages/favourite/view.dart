@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hassadak/components/error_network.dart';
 import 'package:hassadak/constants/app_bar.dart';
 import 'package:hassadak/constants/color_manager.dart';
+import 'package:hassadak/constants/custom_text.dart';
 import 'package:hassadak/constants/shimmer.dart';
 import 'package:hassadak/core/snack_and_navigate.dart';
 import 'package:hassadak/pages/details/view.dart';
@@ -58,63 +59,79 @@ class FavouriteView extends StatelessWidget {
                       favCubit.getAllFavourites();
                     });
                   } else {
-                    return ListView.separated(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      shrinkWrap: true,
-                      itemCount: favCubit.allFavourites!.products!.length,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 10.w,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        final favItem =
-                            favCubit.allFavourites!.products![index];
-                        double number = double.parse(
-                            "${favItem.price! - (favItem.price! * (favItem.discountPerc! / 100))}");
-                        String formatOldPrice = number.toStringAsFixed(2);
-                        return InkWell(
-                          onTap: () {
-                            navigateTo(
-                              page: DetailsView(
-                                id: "${favItem.id}",
-                                image: "${favItem.productUrl}",
-                                userImage: "${favItem.userPhoto}",
-                                productName: "${favItem.name}",
-                                userName: "${favItem.uploaderName}",
-                                desc: "${favItem.desc}",
-                                telephone: "${favItem.sellerPhone}",
-                                whatsapp: "${favItem.sellerWhatsapp}",
-                                isOffer:
-                                    favItem.discountPerc == 0 ? false : true,
-                                price: formatOldPrice,
-                                oldPrice: "${favItem.price}",
-                                ratingsAverage:
-                                    (favItem.ratingsAverage)!.toInt(),
-                                ratingsQuantity: favItem.ratingsQuantity!,
-                                favStatus: true,
-                                uploaderId: "${favItem.uploaderId}",
-                              ),
-                            );
-                          },
-                          child: FavouriteItem(
-                            isOffer: favItem.discountPerc == 0 ? false : true,
-                            offer: "خصم ${favItem.discountPerc}%",
-                            title: "${favItem.name}",
-                            image: "${favItem.productUrl}",
-                            userName: "${favItem.uploaderName}",
-                            userImage: "${favItem.userPhoto}",
-                            price: formatOldPrice,
-                            oldPrice: "${favItem.price}",
-                            deleteTap: (context) async {
-                              deleteFavCubit.deleteFav(id: "${favItem.id}");
-                              await Future.delayed(const Duration(seconds: 1));
-                              favCubit.getAllFavourites();
-                            },
+                    if (favCubit.allFavourites!.products!.isEmpty) {
+                      return SizedBox(
+                        height: 1.sh,
+                        width: 1.sw,
+                        child: Center(
+                          child: CustomText(
+                            text: "لا يوجد عناصر في المفضلة",
+                            color: ColorManager.mainColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.sp,
                           ),
-                        );
-                      },
-                    );
+                        ),
+                      );
+                    } else {
+                      return ListView.separated(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        shrinkWrap: true,
+                        itemCount: favCubit.allFavourites!.products!.length,
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            height: 10.w,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          final favItem =
+                              favCubit.allFavourites!.products![index];
+                          double number = double.parse(
+                              "${favItem.price! - (favItem.price! * (favItem.discountPerc! / 100))}");
+                          String formatOldPrice = number.toStringAsFixed(2);
+                          return InkWell(
+                            onTap: () {
+                              navigateTo(
+                                page: DetailsView(
+                                  id: "${favItem.id}",
+                                  image: "${favItem.productUrl}",
+                                  userImage: "${favItem.userPhoto}",
+                                  productName: "${favItem.name}",
+                                  userName: "${favItem.uploaderName}",
+                                  desc: "${favItem.desc}",
+                                  telephone: "${favItem.sellerPhone}",
+                                  whatsapp: "${favItem.sellerWhatsapp}",
+                                  isOffer:
+                                      favItem.discountPerc == 0 ? false : true,
+                                  price: formatOldPrice,
+                                  oldPrice: "${favItem.price}",
+                                  ratingsAverage:
+                                      (favItem.ratingsAverage)!.toInt(),
+                                  ratingsQuantity: favItem.ratingsQuantity!,
+                                  favStatus: true,
+                                  uploaderId: "${favItem.uploaderId}",
+                                ),
+                              );
+                            },
+                            child: FavouriteItem(
+                              isOffer: favItem.discountPerc == 0 ? false : true,
+                              offer: "خصم ${favItem.discountPerc}%",
+                              title: "${favItem.name}",
+                              image: "${favItem.productUrl}",
+                              userName: "${favItem.uploaderName}",
+                              userImage: "${favItem.userPhoto}",
+                              price: formatOldPrice,
+                              oldPrice: "${favItem.price}",
+                              deleteTap: (context) async {
+                                deleteFavCubit.deleteFav(id: "${favItem.id}");
+                                await Future.delayed(
+                                    const Duration(seconds: 1));
+                                favCubit.getAllFavourites();
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    }
                   }
                 },
               ),
