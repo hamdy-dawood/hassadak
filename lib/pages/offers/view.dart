@@ -97,36 +97,36 @@ class AllOffersView extends StatelessWidget {
                         double number = double.parse(
                             "${product.price! - (product.price! * (product.discountPerc! / 100))}");
                         String formatOldPrice = number.toStringAsFixed(2);
-                        return InkWell(
-                          onTap: () {
-                            navigateTo(
-                              page: DetailsView(
-                                id: "${product.id}",
-                                image: "${product.productUrl}",
-                                userImage: "${product.userPhoto}",
-                                productName: "${product.name}",
-                                userName: "${product.uploaderName}",
-                                desc: "${product.desc}",
-                                telephone: "${product.user!.telephone}",
-                                whatsapp: "${product.user!.whatsapp}",
-                                isOffer:
-                                    product.discountPerc == 0 ? false : true,
-                                price: formatOldPrice,
-                                oldPrice: "${product.price}",
-                                ratingsAverage:
-                                    (product.ratingsAverage)!.toInt(),
-                                ratingsQuantity: (product.ratingsQuantity!),
-                                favStatus: product.status!,
-                                uploaderId: "${product.uploaderId}",
-                              ),
-                            );
-                          },
-                          child: BlocBuilder<AddFavCubit, AddFavStates>(
-                            builder: (context, state) {
-                              final favStatus =
-                                  addFavCubit.favStatusMap[index] ??
-                                      FavStatus(product.status!);
-                              return ProductItem(
+                        return BlocBuilder<AddFavCubit, AddFavStates>(
+                          builder: (context, state) {
+                            final favStatus = addFavCubit.favStatusMap[index] ??
+                                FavStatus(product.status!);
+                            return InkWell(
+                              onTap: () {
+                                navigateTo(
+                                  page: DetailsView(
+                                    id: "${product.id}",
+                                    image: "${product.productUrl}",
+                                    userImage: "${product.userPhoto}",
+                                    productName: "${product.name}",
+                                    userName: "${product.uploaderName}",
+                                    desc: "${product.desc}",
+                                    telephone: "${product.user!.telephone}",
+                                    whatsapp: "${product.user!.whatsapp}",
+                                    isOffer: product.discountPerc == 0
+                                        ? false
+                                        : true,
+                                    price: formatOldPrice,
+                                    oldPrice: "${product.price}",
+                                    ratingsAverage:
+                                        (product.ratingsAverage)!.toInt(),
+                                    ratingsQuantity: (product.ratingsQuantity!),
+                                    favStatus: favStatus.isLoved,
+                                    uploaderId: "${product.uploaderId}",
+                                  ),
+                                );
+                              },
+                              child: ProductItem(
                                 width: 0.44,
                                 favIcon: SvgIcon(
                                   icon: favStatus.isLoved
@@ -157,9 +157,9 @@ class AllOffersView extends StatelessWidget {
                                 userImage: "${product.userPhoto}",
                                 price: formatOldPrice,
                                 oldPrice: "${product.price}",
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         );
                       },
                     );

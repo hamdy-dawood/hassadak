@@ -310,38 +310,40 @@ class SearchView extends StatelessWidget {
                                     "${search.price! - (search.price! * (search.discountPerc! / 100))}");
                                 String formatOldPrice =
                                     number.toStringAsFixed(2);
-                                return InkWell(
-                                  onTap: () {
-                                    navigateTo(
-                                      page: DetailsView(
-                                        id: "${search.id}",
-                                        image: "${search.productUrl}",
-                                        userImage: "${search.userPhoto}",
-                                        productName: "${search.name}",
-                                        userName: "${search.uploaderName}",
-                                        desc: "${search.desc}",
-                                        telephone: "${search.sellerPhone}",
-                                        whatsapp: "${search.sellerWhatsapp}",
-                                        isOffer: search.discountPerc == 0
-                                            ? false
-                                            : true,
-                                        price: formatOldPrice,
-                                        oldPrice: "${search.price}",
-                                        ratingsAverage:
-                                            (search.ratingsAverage)!.toInt(),
-                                        ratingsQuantity:
-                                            (search.ratingsQuantity!),
-                                        favStatus: search.status!,
-                                        uploaderId: "${search.uploaderId}",
-                                      ),
-                                    );
-                                  },
-                                  child: BlocBuilder<AddFavCubit, AddFavStates>(
-                                    builder: (context, state) {
-                                      final favStatus =
-                                          addFavCubit.favStatusMap[index] ??
-                                              FavStatus(search.status!);
-                                      return ProductItem(
+                                return BlocBuilder<AddFavCubit, AddFavStates>(
+                                  builder: (context, state) {
+                                    final favStatus =
+                                        addFavCubit.favStatusMap[index] ??
+                                            FavStatus(search.status!);
+                                    return InkWell(
+                                      onTap: () {
+                                        navigateTo(
+                                          page: DetailsView(
+                                            id: "${search.id}",
+                                            image: "${search.productUrl}",
+                                            userImage: "${search.userPhoto}",
+                                            productName: "${search.name}",
+                                            userName: "${search.uploaderName}",
+                                            desc: "${search.desc}",
+                                            telephone: "${search.sellerPhone}",
+                                            whatsapp:
+                                                "${search.sellerWhatsapp}",
+                                            isOffer: search.discountPerc == 0
+                                                ? false
+                                                : true,
+                                            price: formatOldPrice,
+                                            oldPrice: "${search.price}",
+                                            ratingsAverage:
+                                                (search.ratingsAverage)!
+                                                    .toInt(),
+                                            ratingsQuantity:
+                                                (search.ratingsQuantity!),
+                                            favStatus: favStatus.isLoved,
+                                            uploaderId: "${search.uploaderId}",
+                                          ),
+                                        );
+                                      },
+                                      child: ProductItem(
                                         width: 0.41,
                                         favIcon: SvgIcon(
                                           icon: favStatus.isLoved
@@ -373,9 +375,9 @@ class SearchView extends StatelessWidget {
                                         userImage: "${search.userPhoto}",
                                         price: formatOldPrice,
                                         oldPrice: "${search.price}",
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             ),

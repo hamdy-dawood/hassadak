@@ -292,77 +292,80 @@ class GetSellerView extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 270.h,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                cubit.sellerResponse!.getUserProduct!.length,
-                            itemBuilder: (context, index) {
-                              final uerProduct =
-                                  cubit.sellerResponse!.getUserProduct![index];
-                              double number = double.parse(
-                                  "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}");
-                              String formatOldPrice = number.toStringAsFixed(2);
-                              return InkWell(
-                                onTap: () {
-                                  navigateTo(
-                                    page: DetailsView(
-                                      id: "${uerProduct.id}",
-                                      image: "${uerProduct.productUrl}",
-                                      userImage:
-                                          "${cubit.sellerResponse!.user!.userPhoto}",
-                                      productName: "${uerProduct.name}",
-                                      userName:
-                                          "${cubit.sellerResponse!.user!.username}",
-                                      desc: "${uerProduct.desc}",
-                                      telephone: "${uerProduct.sellerPhone}",
-                                      whatsapp: "${uerProduct.sellerWhatsapp}",
-                                      isOffer: cubit
-                                                  .sellerResponse!
-                                                  .getUserProduct![index]
-                                                  .discountPerc ==
-                                              0
-                                          ? false
-                                          : true,
-                                      price: formatOldPrice,
-                                      oldPrice: "${uerProduct.price}",
-                                      ratingsAverage:
-                                          uerProduct.ratingsAverage!.toInt(),
-                                      ratingsQuantity:
-                                          uerProduct.ratingsQuantity!.toInt(),
-                                      favStatus: false,
-                                      uploaderId: "${uerProduct.uploaderId}",
-                                    ),
-                                  );
-                                },
-                                child: BlocBuilder<GetSellerCubit,
-                                    GetSellerStates>(
-                                  builder: (context, state) {
-                                    if (state is GetSellerLoadingState) {
-                                      return ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 3,
-                                        itemBuilder: (context, index) {
-                                          return ContainerShimmer(
-                                            height: 100.h,
-                                            width: 0.5.sw,
-                                            margin:
-                                                EdgeInsets.only(right: 10.w),
-                                            padding: EdgeInsets.all(0.h),
-                                          );
-                                        },
-                                      );
-                                    } else if (state is GetSellerFailedState) {
-                                      return Text(state.msg);
-                                    } else {
-                                      return BlocBuilder<AddFavCubit,
-                                          AddFavStates>(
-                                        builder: (context, state) {
-                                          final favStatus =
-                                              addFavCubit.favStatusMap[index] ??
-                                                  FavStatus(uerProduct.status!);
-                                          return ProductItem(
+                          child: BlocBuilder<GetSellerCubit, GetSellerStates>(
+                            builder: (context, state) {
+                              if (state is GetSellerLoadingState) {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return ContainerShimmer(
+                                      height: 100.h,
+                                      width: 0.5.sw,
+                                      margin: EdgeInsets.only(right: 10.w),
+                                      padding: EdgeInsets.all(0.h),
+                                    );
+                                  },
+                                );
+                              } else if (state is GetSellerFailedState) {
+                                return Text(state.msg);
+                              } else {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: cubit
+                                      .sellerResponse!.getUserProduct!.length,
+                                  itemBuilder: (context, index) {
+                                    final uerProduct = cubit
+                                        .sellerResponse!.getUserProduct![index];
+                                    double number = double.parse(
+                                        "${uerProduct.price! - (uerProduct.price! * (uerProduct.discountPerc! / 100))}");
+                                    String formatOldPrice =
+                                        number.toStringAsFixed(2);
+                                    return BlocBuilder<AddFavCubit,
+                                        AddFavStates>(
+                                      builder: (context, state) {
+                                        final favStatus =
+                                            addFavCubit.favStatusMap[index] ??
+                                                FavStatus(uerProduct.status!);
+                                        return InkWell(
+                                          onTap: () {
+                                            navigateTo(
+                                              page: DetailsView(
+                                                id: "${uerProduct.id}",
+                                                image:
+                                                    "${uerProduct.productUrl}",
+                                                userImage:
+                                                    "${cubit.sellerResponse!.user!.userPhoto}",
+                                                productName:
+                                                    "${uerProduct.name}",
+                                                userName:
+                                                    "${cubit.sellerResponse!.user!.username}",
+                                                desc: "${uerProduct.desc}",
+                                                telephone:
+                                                    "${uerProduct.sellerPhone}",
+                                                whatsapp:
+                                                    "${uerProduct.sellerWhatsapp}",
+                                                isOffer:
+                                                    uerProduct.discountPerc == 0
+                                                        ? false
+                                                        : true,
+                                                price: formatOldPrice,
+                                                oldPrice: "${uerProduct.price}",
+                                                ratingsAverage: uerProduct
+                                                    .ratingsAverage!
+                                                    .toInt(),
+                                                ratingsQuantity: uerProduct
+                                                    .ratingsQuantity!
+                                                    .toInt(),
+                                                favStatus: favStatus.isLoved,
+                                                uploaderId:
+                                                    "${uerProduct.uploaderId}",
+                                              ),
+                                            );
+                                          },
+                                          child: ProductItem(
                                             favIcon: SvgIcon(
                                               icon: favStatus.isLoved
                                                   ? "assets/icons/fill_heart.svg"
@@ -398,13 +401,13 @@ class GetSellerView extends StatelessWidget {
                                                 "${cubit.sellerResponse!.user!.userPhoto}",
                                             price: formatOldPrice,
                                             oldPrice: "${uerProduct.price}",
-                                          );
-                                        },
-                                      );
-                                    }
+                                          ),
+                                        );
+                                      },
+                                    );
                                   },
-                                ),
-                              );
+                                );
+                              }
                             },
                           ),
                         ),
