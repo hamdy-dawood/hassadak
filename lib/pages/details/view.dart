@@ -250,6 +250,7 @@ class _DetailsViewState extends State<DetailsView> {
                             color: ColorManager.grey,
                             fontWeight: FontWeight.normal,
                             fontSize: 18.sp,
+                            maxLines: 10,
                           ),
                         ),
                         SizedBox(
